@@ -20,7 +20,7 @@ from urllib.request import Request, urlopen
 scripts_dir = str(pathlib.Path(__file__).parent.parent / 'scripts')
 sys.path.insert(0, scripts_dir)
 from file_lock import atomic_json_read, atomic_json_write, atomic_json_update
-from utils import validate_url
+from utils import validate_url, read_json, now_iso
 
 log = logging.getLogger('server')
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(name)s] %(message)s', datefmt='%H:%M:%S')
@@ -58,13 +58,6 @@ _MIME_TYPES = {
 }
 
 
-def read_json(path, default=None):
-    try:
-        return json.loads(path.read_text())
-    except Exception:
-        return default if default is not None else {}
-
-
 def cors_headers(h):
     req_origin = h.headers.get('Origin', '')
     if ALLOWED_ORIGIN:
@@ -76,10 +69,6 @@ def cors_headers(h):
     h.send_header('Access-Control-Allow-Origin', origin)
     h.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     h.send_header('Access-Control-Allow-Headers', 'Content-Type')
-
-
-def now_iso():
-    return datetime.datetime.now(datetime.timezone.utc).isoformat().replace('+00:00', 'Z')
 
 
 def load_tasks():
@@ -315,18 +304,19 @@ def add_remote_skill(agent_id, skill_name, source_url, description=''):
     if not content.startswith('---'):
         return {'ok': False, 'error': '文件格式无效（缺少 YAML frontmatter）'}
     
-    # 尝试解析 frontmatter
+    # 验证 frontmatter 结构（先做字符串检查，再尝试 YAML 解析）
+    parts = content.split('---', 2)
+    if len(parts) < 3:
+        return {'ok': False, 'error': '文件格式无效（YAML frontmatter 结构错误）'}
+    if 'name:' not in content[:500]:
+        return {'ok': False, 'error': '文件格式无效：frontmatter 缺少 name 字段'}
     try:
         import yaml
-        parts = content.split('---', 2)
-        if len(parts) < 3:
-            return {'ok': False, 'error': '文件格式无效（YAML frontmatter 结构错误）'}
-        frontmatter_str = parts[1]
-        yaml.safe_load(frontmatter_str)  # 验证 YAML 格式
+        yaml.safe_load(parts[1])  # 严格校验 YAML 语法
+    except ImportError:
+        pass  # PyYAML 未安装，跳过严格验证，字符串检查已通过
     except Exception as e:
-        # 不要求完全的 YAML 解析，但要检查基本结构
-        if 'name:' not in content[:500]:
-            return {'ok': False, 'error': f'文件格式无效: {str(e)[:100]}'}
+        return {'ok': False, 'error': f'YAML 格式无效: {str(e)[:100]}'}
     
     # 创建本地目录
     workspace = OCLAW_HOME / f'workspace-{agent_id}' / 'skills' / skill_name

@@ -211,8 +211,6 @@ tasks = [
         ]
     }
 ]
-p = pathlib.Path(__file__).parent if '__file__' in dir() else pathlib.Path('.')
-# Write to data dir
 import os
 data_dir = pathlib.Path(os.environ.get('REPO_DIR', '.')) / 'data'
 data_dir.mkdir(exist_ok=True)
@@ -222,6 +220,47 @@ PYEOF
   fi
 
   log "数据目录初始化完成: $REPO_DIR/data"
+}
+
+# ── Step 3.5: 同步 API Key 到所有 Agent ──────────────────────────
+sync_auth() {
+  info "同步 API Key 到所有 Agent..."
+
+  # 找到 main agent 的 auth-profiles.json（OpenClaw 主密钥存储）
+  MAIN_AUTH="$OC_HOME/agents/main/agent/auth-profiles.json"
+  if [ ! -f "$MAIN_AUTH" ]; then
+    # 尝试其他可能的位置
+    MAIN_AUTH=$(find "$OC_HOME/agents" -name auth-profiles.json -maxdepth 3 2>/dev/null | head -1)
+  fi
+
+  if [ -z "$MAIN_AUTH" ] || [ ! -f "$MAIN_AUTH" ]; then
+    warn "未找到已有的 auth-profiles.json"
+    warn "请先为任意 Agent 配置 API Key:"
+    echo "    openclaw agents add taizi"
+    echo "  然后重新运行 install.sh，或手动执行:"
+    echo "    bash install.sh --sync-auth"
+    return
+  fi
+
+  # 检查文件内容是否有效（非空 JSON）
+  if ! python3 -c "import json; d=json.load(open('$MAIN_AUTH')); assert d" 2>/dev/null; then
+    warn "auth-profiles.json 为空或无效，请先配置 API Key:"
+    echo "    openclaw agents add taizi"
+    return
+  fi
+
+  AGENTS=(taizi zhongshu menxia shangshu hubu libu bingbu xingbu gongbu libu_hr zaochao)
+  SYNCED=0
+  for agent in "${AGENTS[@]}"; do
+    AGENT_DIR="$OC_HOME/agents/$agent/agent"
+    if [ -d "$AGENT_DIR" ] || mkdir -p "$AGENT_DIR" 2>/dev/null; then
+      cp "$MAIN_AUTH" "$AGENT_DIR/auth-profiles.json"
+      SYNCED=$((SYNCED + 1))
+    fi
+  done
+
+  log "API Key 已同步到 $SYNCED 个 Agent"
+  info "来源: $MAIN_AUTH"
 }
 
 # ── Step 4: 构建前端 ──────────────────────────────────────────
@@ -277,6 +316,7 @@ backup_existing
 create_workspaces
 register_agents
 init_data
+sync_auth
 build_frontend
 first_sync
 restart_gateway
@@ -287,8 +327,12 @@ echo -e "${GREEN}║  🎉  三省六部安装完成！                         
 echo -e "${GREEN}╚══════════════════════════════════════════════════╝${NC}"
 echo ""
 echo "下一步："
-echo "  1. 启动数据刷新循环:  bash scripts/run_loop.sh &"
-echo "  2. 启动看板服务器:    python3 dashboard/server.py"
-echo "  3. 打开看板:          http://127.0.0.1:7891"
+echo "  1. 配置 API Key（如尚未配置）:"
+echo "     openclaw agents add taizi     # 按提示输入 Anthropic API Key"
+echo "     ./install.sh                  # 重新运行以同步到所有 Agent"
+echo "  2. 启动数据刷新循环:  bash scripts/run_loop.sh &"
+echo "  3. 启动看板服务器:    python3 dashboard/server.py"
+echo "  4. 打开看板:          http://127.0.0.1:7891"
 echo ""
+warn "首次安装必须配置 API Key，否则 Agent 会报错"
 info "文档: docs/getting-started.md"

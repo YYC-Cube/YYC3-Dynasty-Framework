@@ -222,7 +222,72 @@ PYEOF
   log "数据目录初始化完成: $REPO_DIR/data"
 }
 
-# ── Step 3.5: 同步 API Key 到所有 Agent ──────────────────────────
+# ── Step 3.3: 创建 data 软链接确保数据一致 (Fix #88) ─────────
+link_resources() {
+  info "创建 data/scripts 软链接以确保 Agent 数据一致..."
+  
+  AGENTS=(taizi zhongshu menxia shangshu hubu libu bingbu xingbu gongbu libu_hr zaochao)
+  LINKED=0
+  for agent in "${AGENTS[@]}"; do
+    ws="$OC_HOME/workspace-$agent"
+    mkdir -p "$ws"
+
+    # 软链接 data 目录：确保各 agent 读写同一份 tasks_source.json
+    ws_data="$ws/data"
+    if [ -L "$ws_data" ]; then
+      : # 已是软链接，跳过
+    elif [ -d "$ws_data" ]; then
+      # 已有 data 目录（非符号链接），备份后替换
+      mv "$ws_data" "${ws_data}.bak.$(date +%Y%m%d-%H%M%S)"
+      ln -s "$REPO_DIR/data" "$ws_data"
+      LINKED=$((LINKED + 1))
+    else
+      ln -s "$REPO_DIR/data" "$ws_data"
+      LINKED=$((LINKED + 1))
+    fi
+
+    # 软链接 scripts 目录
+    ws_scripts="$ws/scripts"
+    if [ -L "$ws_scripts" ]; then
+      : # 已是软链接
+    elif [ -d "$ws_scripts" ]; then
+      mv "$ws_scripts" "${ws_scripts}.bak.$(date +%Y%m%d-%H%M%S)"
+      ln -s "$REPO_DIR/scripts" "$ws_scripts"
+      LINKED=$((LINKED + 1))
+    else
+      ln -s "$REPO_DIR/scripts" "$ws_scripts"
+      LINKED=$((LINKED + 1))
+    fi
+  done
+
+  # Legacy: workspace-main
+  ws_main="$OC_HOME/workspace-main"
+  if [ -d "$ws_main" ]; then
+    for target in data scripts; do
+      link_path="$ws_main/$target"
+      if [ ! -L "$link_path" ]; then
+        [ -d "$link_path" ] && mv "$link_path" "${link_path}.bak.$(date +%Y%m%d-%H%M%S)"
+        ln -s "$REPO_DIR/$target" "$link_path"
+        LINKED=$((LINKED + 1))
+      fi
+    done
+  fi
+
+  log "已创建 $LINKED 个软链接（data/scripts → 项目目录）"
+}
+
+# ── Step 3.5: 设置 Agent 间通信可见性 (Fix #83) ──────────────
+setup_visibility() {
+  info "配置 Agent 间消息可见性..."
+  if openclaw config set tools.sessions.visibility all 2>/dev/null; then
+    log "已设置 tools.sessions.visibility=all（Agent 间可互相通信）"
+  else
+    warn "设置 visibility 失败（可能 openclaw 版本不支持），请手动执行:"
+    echo "    openclaw config set tools.sessions.visibility all"
+  fi
+}
+
+# ── Step 3.5b: 同步 API Key 到所有 Agent ──────────────────────────
 sync_auth() {
   info "同步 API Key 到所有 Agent..."
 
@@ -316,6 +381,8 @@ backup_existing
 create_workspaces
 register_agents
 init_data
+link_resources
+setup_visibility
 sync_auth
 build_frontend
 first_sync

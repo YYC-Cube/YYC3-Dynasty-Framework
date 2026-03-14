@@ -287,9 +287,12 @@ chmod +x install.sh && ./install.sh
 - ✅ 创建全量 Agent Workspace（含太子/吏部/早朝，兼容历史 main）
 - ✅ 写入各省部 SOUL.md（角色人格 + 工作流规则 + 数据清洗规范）
 - ✅ 注册 Agent 及权限矩阵到 `openclaw.json`
+- ✅ **同步 API Key 到所有 Agent**（自动从已配置的 Agent 复制）
 - ✅ 构建 React 前端（需 Node.js 18+，如未安装则跳过）
 - ✅ 初始化数据目录 + 首次数据同步
 - ✅ 重启 Gateway 使配置生效
+
+> ⚠️ **首次安装**：需先配置 API Key：`openclaw agents add taizi`，然后重新运行 `./install.sh` 同步到所有 Agent。
 
 #### 启动
 

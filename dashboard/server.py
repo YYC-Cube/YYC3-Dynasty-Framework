@@ -21,6 +21,12 @@ scripts_dir = str(pathlib.Path(__file__).parent.parent / 'scripts')
 sys.path.insert(0, scripts_dir)
 from file_lock import atomic_json_read, atomic_json_write, atomic_json_update
 from utils import validate_url, read_json, now_iso
+from court_discuss import (
+    create_session as cd_create, advance_discussion as cd_advance,
+    get_session as cd_get, conclude_session as cd_conclude,
+    list_sessions as cd_list, destroy_session as cd_destroy,
+    get_fate_event as cd_fate, OFFICIAL_PROFILES as CD_PROFILES,
+)
 
 log = logging.getLogger('server')
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(name)s] %(message)s', datefmt='%H:%M:%S')
@@ -883,8 +889,8 @@ def _ensure_scheduler(task):
         sched = {}
         task['_scheduler'] = sched
     sched.setdefault('enabled', True)
-    sched.setdefault('stallThresholdSec', 180)
-    sched.setdefault('maxRetry', 1)
+    sched.setdefault('stallThresholdSec', 600)
+    sched.setdefault('maxRetry', 2)
     sched.setdefault('retryCount', 0)
     sched.setdefault('escalationLevel', 0)
     sched.setdefault('autoRollback', True)
@@ -1055,8 +1061,8 @@ def handle_scheduler_rollback(task_id, reason=''):
     return {'ok': True, 'message': f'{task_id} 已回滚到 {snap_state}'}
 
 
-def handle_scheduler_scan(threshold_sec=180):
-    threshold_sec = max(30, int(threshold_sec or 180))
+def handle_scheduler_scan(threshold_sec=600):
+    threshold_sec = max(60, int(threshold_sec or 600))
     tasks = load_tasks()
     now_dt = datetime.datetime.now(datetime.timezone.utc)
     pending_retries = []
@@ -2177,6 +2183,17 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json({'ok': False, 'error': 'invalid agent_id'}, 400)
             else:
                 self.send_json({'ok': True, 'agentId': agent_id, 'activity': get_agent_activity(agent_id)})
+        # ── 朝堂议政 ──
+        elif p == '/api/court-discuss/list':
+            self.send_json({'ok': True, 'sessions': cd_list()})
+        elif p == '/api/court-discuss/officials':
+            self.send_json({'ok': True, 'officials': CD_PROFILES})
+        elif p.startswith('/api/court-discuss/session/'):
+            sid = p.replace('/api/court-discuss/session/', '')
+            data = cd_get(sid)
+            self.send_json(data if data else {'ok': False, 'error': 'session not found'}, 200 if data else 404)
+        elif p == '/api/court-discuss/fate':
+            self.send_json({'ok': True, 'event': cd_fate()})
         elif self._serve_static(p):
             pass  # 已由 _serve_static 处理 (JS/CSS/图片等)
         else:
@@ -2448,6 +2465,48 @@ class Handler(BaseHTTPRequestHandler):
 
             threading.Thread(target=apply_async, daemon=True).start()
             self.send_json({'ok': True, 'message': f'Queued: {agent_id} → {model}'})
+
+        # ── 朝堂议政 POST ──
+        elif p == '/api/court-discuss/start':
+            topic = body.get('topic', '').strip()
+            officials = body.get('officials', [])
+            task_id = body.get('taskId', '').strip()
+            if not topic:
+                self.send_json({'ok': False, 'error': 'topic required'}, 400)
+                return
+            if not officials or not isinstance(officials, list):
+                self.send_json({'ok': False, 'error': 'officials list required'}, 400)
+                return
+            # 校验官员 ID
+            valid_ids = set(CD_PROFILES.keys())
+            officials = [o for o in officials if o in valid_ids]
+            if len(officials) < 2:
+                self.send_json({'ok': False, 'error': '至少选择2位官员'}, 400)
+                return
+            self.send_json(cd_create(topic, officials, task_id))
+
+        elif p == '/api/court-discuss/advance':
+            sid = body.get('sessionId', '').strip()
+            user_msg = body.get('userMessage', '').strip() or None
+            decree = body.get('decree', '').strip() or None
+            if not sid:
+                self.send_json({'ok': False, 'error': 'sessionId required'}, 400)
+                return
+            self.send_json(cd_advance(sid, user_msg, decree))
+
+        elif p == '/api/court-discuss/conclude':
+            sid = body.get('sessionId', '').strip()
+            if not sid:
+                self.send_json({'ok': False, 'error': 'sessionId required'}, 400)
+                return
+            self.send_json(cd_conclude(sid))
+
+        elif p == '/api/court-discuss/destroy':
+            sid = body.get('sessionId', '').strip()
+            if sid:
+                cd_destroy(sid)
+            self.send_json({'ok': True})
+
         else:
             self.send_error(404)
 

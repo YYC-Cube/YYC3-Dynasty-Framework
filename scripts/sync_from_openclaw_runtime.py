@@ -53,7 +53,7 @@ def detect_official(agent_id):
         'xingbu':  ('刑部尚书', '刑部'),
         'gongbu':  ('工部尚书', '工部'),
         'libu_hr': ('吏部尚书', '吏部'),
-        'zaochao': ('钦天监', '朝报司'),
+        'zaochao': ('钦天监', '钦天监'),
     }
     return mapping.get(agent_id, ('尚书令', '尚书省'))
 

@@ -359,6 +359,7 @@ first_sync() {
   cd "$REPO_DIR"
   
   REPO_DIR="$REPO_DIR" python3 scripts/sync_agent_config.py || warn "sync_agent_config 有警告"
+  python3 scripts/sync_officials_stats.py || warn "sync_officials_stats 有警告"
   python3 scripts/refresh_live_data.py || warn "refresh_live_data 有警告"
   
   log "首次同步完成"

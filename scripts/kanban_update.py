@@ -41,7 +41,7 @@ STATE_ORG_MAP = {
 }
 
 _STATE_AGENT_MAP = {
-    'Taizi': 'main',
+    'Taizi': 'taizi',
     'Zhongshu': 'zhongshu',
     'Menxia': 'menxia',
     'Assigned': 'shangshu',
@@ -202,15 +202,40 @@ def cmd_create(task_id, title, state, org, official, remark=None):
     log.info(f'✅ 创建 {task_id} | {title[:30]} | state={state}')
 
 
+# ── 状态流转合法性校验 ──
+# 只允许文档定义的状态路径:
+# Pending→Taizi→Zhongshu→Menxia→Assigned→Doing→Review→Done
+# 额外: Blocked 可双向切换, Cancelled 从任意非终态可达, Next→Doing
+_VALID_TRANSITIONS = {
+    'Pending':   {'Taizi', 'Cancelled'},
+    'Taizi':     {'Zhongshu', 'Cancelled'},
+    'Zhongshu':  {'Menxia', 'Cancelled'},
+    'Menxia':    {'Assigned', 'Zhongshu', 'Cancelled'},   # 封驳可回中书
+    'Assigned':  {'Doing', 'Next', 'Blocked', 'Cancelled'},
+    'Next':      {'Doing', 'Blocked', 'Cancelled'},
+    'Doing':     {'Review', 'Blocked', 'Cancelled'},
+    'Review':    {'Done', 'Menxia', 'Doing', 'Cancelled'},  # 可打回重审/重做
+    'Blocked':   {'Doing', 'Next', 'Assigned', 'Review', 'Cancelled'},  # 解除后回原位
+    'Done':      set(),       # 终态
+    'Cancelled': set(),       # 终态
+}
+
+
 def cmd_state(task_id, new_state, now_text=None):
-    """更新任务状态（原子操作）"""
+    """更新任务状态（原子操作，含流转合法性校验）"""
     old_state = [None]
+    rejected = [False]
     def modifier(tasks):
         t = find_task(tasks, task_id)
         if not t:
             log.error(f'任务 {task_id} 不存在')
             return tasks
         old_state[0] = t['state']
+        allowed = _VALID_TRANSITIONS.get(old_state[0])
+        if allowed is not None and new_state not in allowed:
+            log.warning(f'⚠️ 非法状态转换 {task_id}: {old_state[0]} → {new_state}（允许: {allowed}）')
+            rejected[0] = True
+            return tasks
         t['state'] = new_state
         if new_state in STATE_ORG_MAP:
             t['org'] = STATE_ORG_MAP[new_state]
@@ -220,7 +245,10 @@ def cmd_state(task_id, new_state, now_text=None):
         return tasks
     atomic_json_update(TASKS_FILE, modifier, [])
     _trigger_refresh()
-    log.info(f'✅ {task_id} 状态更新: {old_state[0]} → {new_state}')
+    if rejected[0]:
+        log.info(f'❌ {task_id} 状态转换被拒: {old_state[0]} → {new_state}')
+    else:
+        log.info(f'✅ {task_id} 状态更新: {old_state[0]} → {new_state}')
 
 
 def cmd_flow(task_id, from_dept, to_dept, remark):

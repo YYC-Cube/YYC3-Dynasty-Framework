@@ -165,10 +165,20 @@ def main():
             'isDefaultModel': True,
         })
 
+    # 保留已有的 dispatchChannel 配置 (Fix #139)
+    existing_cfg = {}
+    cfg_path = DATA / 'agent_config.json'
+    if cfg_path.exists():
+        try:
+            existing_cfg = json.loads(cfg_path.read_text())
+        except Exception:
+            pass
+
     payload = {
         'generatedAt': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'defaultModel': default_model,
         'knownModels': merged_models,
+        'dispatchChannel': existing_cfg.get('dispatchChannel', 'feishu'),
         'agents': result,
     }
     DATA.mkdir(exist_ok=True)

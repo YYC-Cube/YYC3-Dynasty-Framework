@@ -11,9 +11,17 @@
       --text:#dde4f8;--muted:#5a6b92;--ok:#2ecc8a;--warn:#f5c842;--danger:#ff5270;
       --acc:#6a9eff;--acc2:#a07aff;
     }
+    html.light{
+      --bg:#f4f5f7;--panel:#ffffff;--panel2:#ebedf0;--line:#d8dce6;
+      --text:#1a1d26;--muted:#6b7280;--ok:#16a34a;--warn:#d97706;--danger:#dc2626;
+      --acc:#3b82f6;--acc2:#7c3aed;
+    }
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--text);font-family:"PingFang SC",Inter,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
     ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#1e2538;border-radius:4px}
+    html.light ::-webkit-scrollbar-thumb{background:#c4c8d4}
+    .theme-toggle{background:var(--panel);border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:16px;padding:4px 10px;color:var(--text);transition:all .15s}
+    .theme-toggle:hover{background:var(--panel2)}
 
     .wrap{max-width:1400px;margin:0 auto;padding:16px}
 
@@ -661,6 +669,7 @@
       <div class="sub">皇上视角 · 实时旨意追踪</div>
     </div>
     <div class="hdr-r">
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="切换主题">🌙</button>
       <span class="chip" id="chip-sync">⟳ 同步中</span>
       <span class="chip" id="chip-tasks">— 旨意</span>
       <button class="btn-refresh" onclick="loadAll()">⟳ 立即刷新</button>
@@ -3191,6 +3200,20 @@ async function executeTemplate(e, tplId){
     closeModal();
   }
 }
+
+/* ══ THEME ══ */
+function toggleTheme(){
+  const isLight = document.documentElement.classList.toggle('light');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  document.getElementById('theme-btn').textContent = isLight ? '☀️' : '🌙';
+}
+(function initTheme(){
+  const saved = localStorage.getItem('theme');
+  if(saved === 'light'){
+    document.documentElement.classList.add('light');
+    document.getElementById('theme-btn').textContent = '☀️';
+  }
+})();
 
 /* ══ INIT ══ */
 restoreGlobalScanState();

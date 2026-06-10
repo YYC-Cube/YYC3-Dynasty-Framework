@@ -388,8 +388,6 @@ bash edict.sh stop     # Stop
 
 </details>
 
-> 💡 **Dashboard works out of the box**: `edict/backend` serves the API, `edict/frontend` serves the SPA. Docker image includes pre-built React frontend.
-
 > 💡 See the [Getting Started Guide](docs/getting-started.md) for detailed instructions
 
 ---

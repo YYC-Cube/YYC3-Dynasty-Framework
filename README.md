@@ -391,8 +391,6 @@ bash edict.sh stop     # 停止
 
 </details>
 
-> 💡 **看板即开即用**：`edict/backend` 提供 API，`edict/frontend` 提供前端 SPA。Docker 镜像包含预构建的 React 前端。
-
 > 💡 详细教程请看 [Getting Started 指南](docs/getting-started.md)
 
 ---

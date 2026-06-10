@@ -1,4 +1,12 @@
-# 远程 Skills 快速入门
+# Dynasty Framework · 远程 Skills 快速入门
+
+> ***YanYuCloudCube***
+> *言启象限 | 语枢未来*
+> ***Words Initiate Quadrants, Language Serves as Core for Future***
+> *万象归元于云枢 | 深栈智启新纪元*
+> ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
+
+---
 
 ## 5 分钟体验
 
@@ -34,7 +42,7 @@ python3 scripts/skill_manager.py list-remote
 
 # 输出:
 # 📋 共 1 个远程 skills：
-# 
+#
 # Agent       | Skill 名称           | 描述                           | 添加时间
 # ------------|----------------------|--------------------------------|----------
 # zhongshu    | code_review          | 代码审查能力                   | 2026-03-02
@@ -77,6 +85,7 @@ python3 scripts/skill_manager.py import-official-hub \
 ```
 
 这会自动为每个 agent 添加：
+
 - **zhongshu**: code_review, api_design, doc_generation
 - **menxia**: code_review, api_design, security_audit, data_analysis, doc_generation, test_framework
 - **shangshu**: 同 menxia（协调者）
@@ -115,7 +124,7 @@ python3 scripts/skill_manager.py remove-remote \
 
 ### 在看板中添加 Remote Skill
 
-1. 打开 http://localhost:7891
+1. 打开 <http://localhost:7891>
 2. 进入 🔧 **技能配置** 面板
 3. 点击 **➕ 添加远程 Skill** 按钮
 4. 填写表单：
@@ -208,6 +217,7 @@ python3 scripts/skill_manager.py add-remote \
 添加远程 skill。
 
 **请求：**
+
 ```bash
 curl -X POST http://localhost:7891/api/add-remote-skill \
   -H "Content-Type: application/json" \
@@ -220,6 +230,7 @@ curl -X POST http://localhost:7891/api/add-remote-skill \
 ```
 
 **响应 (200):**
+
 ```json
 {
   "ok": true,
@@ -242,6 +253,7 @@ curl http://localhost:7891/api/remote-skills-list
 ```
 
 **响应:**
+
 ```json
 {
   "ok": true,
@@ -328,9 +340,14 @@ ls -la ~/.openclaw/workspace-zhongshu/skills/
 
 ---
 
-## 更多信息
+**感恩您的信任与支持！携手与智同行 ❤️**
 
-- 📚 [完整指南](remote-skills-guide.md)
-- 🏛️ [架构文档](task-dispatch-architecture.md)
-- 🤝 [项目贡献](../CONTRIBUTING.md)
+<div align="center">
 
+> 「***YanYuCloudCube***」
+> 「***<admin@0379.email>***」
+> 「***Words Initiate Quadrants, Language Serves as Core for the Future***」
+> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
+
+**© 2025-2026 YYC³ Team. All Rights Reserved.**
+</div>

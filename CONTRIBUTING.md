@@ -1,4 +1,19 @@
-∏# 🤝 参与贡献
+---
+file: CONTRIBUTING.md
+description: YYC³ Dynasty 贡献指南 — 参与方式、开发环境、Commit规范与贡献者阶梯
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [contributing],[guide],[community]
+category: guide
+language: zh-CN
+audience: developers
+complexity: basic
+---
+
+# 🤝 参与贡献
 
 <p align="center">
   <strong>三省六部欢迎各路英雄好汉 ⚔️</strong><br>
@@ -12,6 +27,7 @@
 ### 🐛 报告 Bug
 
 请使用 [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md) 模板提交 Issue，包含：
+
 - OpenClaw 版本（`openclaw --version`）
 - Python 版本（`python3 --version`）
 - 操作系统
@@ -30,8 +46,8 @@
 ```bash
 # 1. Fork 本仓库
 # 2. 克隆你的 Fork
-git clone https://github.com/<your-username>/edict.git
-cd edict
+git clone https://github.com/<your-username>/YYC3-Dynasty-Framework.git
+cd YYC3-Dynasty-Framework
 
 # 3. 创建功能分支
 git checkout -b feat/my-awesome-feature
@@ -52,6 +68,7 @@ git push origin feat/my-awesome-feature
 ## 🏗️ 开发环境
 
 ### 前置条件
+
 - [OpenClaw](https://openclaw.ai) 已安装
 - Python 3.9+
 - macOS / Linux
@@ -129,6 +146,7 @@ ci:       👷 CI/CD 配置
 ```
 
 示例：
+
 ```
 feat: 添加奏折导出为 PDF 功能
 fix: 修复模型切换后 Gateway 未重启的问题
@@ -140,32 +158,38 @@ docs: 更新 README 截图
 ## 🎯 特别欢迎的贡献方向
 
 ### 🎨 看板 UI
+
 - 深色/浅色主题切换
 - 响应式布局优化
 - 动画效果增强
 - 可访问性（a11y）改进
 
 ### 🤖 新 Agent 角色
+
 - 适合特定行业/场景的专职 Agent
 - 新的 SOUL.md 人格模板
 - Agent 间协作模式创新
 
 ### 📦 Skills 生态
+
 - 各部门专用技能包
 - MCP 集成技能
 - 数据处理 / 代码分析 / 文档生成专项技能
 
 ### 🔗 第三方集成
+
 - Notion / Jira / Linear 同步
 - GitHub Issues / PR 联动
 - Slack / Discord 消息渠道
 - Webhook 扩展
 
 ### 🌐 国际化
+
 - 日文 / 韩文 / 西班牙文翻译
 - 看板 UI 多语言支持
 
 ### 📱 移动端
+
 - 响应式适配
 - PWA 支持
 - 移动端操作优化
@@ -207,6 +231,7 @@ curl -s http://localhost:7891/api/live-status | python3 -m json.tool | head -20
 本项目采用 [Contributor Covenant](CODE_OF_CONDUCT.md) 行为准则。参与本项目即表示你同意遵守其条款。
 
 简要原则：
+
 - 保持友善和建设性
 - 尊重不同的观点和经验
 - 接受建设性的批评
@@ -225,8 +250,8 @@ curl -s http://localhost:7891/api/live-status | python3 -m json.tool | head -20
 
 ## �📬 联系方式
 
-- GitHub Issues: [提交问题](https://github.com/cft0808/edict/issues)
-- GitHub Discussions: [社区讨论](https://github.com/cft0808/edict/discussions)
+- GitHub Issues: [提交问题](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/issues)
+- GitHub Discussions: [社区讨论](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/discussions)
 
 ---
 

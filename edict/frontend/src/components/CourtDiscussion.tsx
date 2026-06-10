@@ -11,9 +11,9 @@
  *   - 自动推进 / 手动推进
  */
 
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { useStore, DEPTS } from '../store';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../api';
+import { DEPTS, useStore } from '../store';
 
 // ── 常量 ──
 
@@ -283,7 +283,7 @@ export default function CourtDiscussion() {
   // ── 重置 ──
   const handleReset = () => {
     if (session) {
-      api.courtDiscussDestroy(session.session_id).catch(() => {});
+      api.courtDiscussDestroy(session.session_id).catch(() => { });
     }
     setPhase('setup');
     setSession(null);
@@ -316,19 +316,17 @@ export default function CourtDiscussion() {
 
   if (phase === 'setup') {
     return (
-      <div className="space-y-6">
+      <div className="court-setup">
         {/* Header */}
         <div className="text-center py-4">
-          <h2 className="text-xl font-bold bg-gradient-to-r from-amber-400 to-purple-400 bg-clip-text text-transparent">
-            🏛 朝堂议政
-          </h2>
-          <p className="text-xs text-[var(--muted)] mt-1">
+          <h2 className="court-setup-title">🏛 朝堂议政</h2>
+          <p className="court-section-sub">
             择臣上殿，围绕议题展开讨论 · 陛下可随时发言或降下天意改变走向
           </p>
         </div>
 
         {/* 选择官员 */}
-        <div className="bg-[var(--panel)] rounded-xl p-4 border border-[var(--line)]">
+        <div className="court-section mb-4">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-sm font-semibold">👔 选择参朝官员</span>
             <span className="text-xs text-[var(--muted)]">（{selectedIds.size}/8，至少2位）</span>
@@ -341,28 +339,21 @@ export default function CourtDiscussion() {
                 <button
                   key={d.id}
                   onClick={() => toggleOfficial(d.id)}
-                  className="p-2.5 rounded-lg border transition-all text-left"
+                  className="court-official-btn"
                   style={{
-                    borderColor: active ? color + '80' : 'var(--line)',
-                    background: active ? color + '15' : 'var(--panel2)',
-                    boxShadow: active ? `0 0 12px ${color}20` : 'none',
+                    borderColor: active ? color + '80' : undefined,
+                    background: active ? color + '15' : undefined,
+                    boxShadow: active ? `0 0 12px ${color}20` : undefined,
                   }}
                 >
                   <div className="flex items-center gap-1.5">
-                    <span className="text-lg">{d.emoji}</span>
+                    <span className="co-emoji">{d.emoji}</span>
                     <div>
-                      <div className="text-xs font-semibold" style={{ color: active ? color : 'var(--text)' }}>
-                        {d.label}
-                      </div>
-                      <div className="text-[10px] text-[var(--muted)]">{d.role}</div>
+                      <div className="co-name" style={{ color: active ? color : undefined }}>{d.label}</div>
+                      <div className="co-role">{d.role}</div>
                     </div>
                     {active && (
-                      <span
-                        className="ml-auto w-4 h-4 rounded-full flex items-center justify-center text-[10px] text-white"
-                        style={{ background: color }}
-                      >
-                        ✓
-                      </span>
+                      <span className="ml-auto w-4 h-4 rounded-full flex items-center justify-center text-[10px] text-white" style={{ background: color }}>✓</span>
                     )}
                   </div>
                 </button>
@@ -372,20 +363,15 @@ export default function CourtDiscussion() {
         </div>
 
         {/* 议题 */}
-        <div className="bg-[var(--panel)] rounded-xl p-4 border border-[var(--line)]">
-          <div className="text-sm font-semibold mb-2">📜 设定议题</div>
+        <div className="court-section mb-4">
+          <div className="court-section-title">📜 设定议题</div>
           {presetTopics.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-3">
               {presetTopics.map((p, i) => (
                 <button
                   key={i}
                   onClick={() => setTopic(p.text)}
-                  className="text-xs px-2.5 py-1.5 rounded-lg border border-[var(--line)] hover:border-[var(--acc)] hover:text-[var(--acc)] transition-colors"
-                  style={{
-                    background: topic === p.text ? 'var(--acc)' + '18' : 'transparent',
-                    borderColor: topic === p.text ? 'var(--acc)' : undefined,
-                    color: topic === p.text ? 'var(--acc)' : undefined,
-                  }}
+                  className={`court-tag${topic === p.text ? ' active' : ''}`}
                 >
                   {p.icon} {p.text}
                 </button>
@@ -393,7 +379,7 @@ export default function CourtDiscussion() {
             </div>
           )}
           <textarea
-            className="w-full bg-[var(--panel2)] rounded-lg p-3 text-sm border border-[var(--line)] focus:border-[var(--acc)] outline-none resize-none"
+            className="tpl-input"
             rows={2}
             placeholder="或自定义议题..."
             value={topic}
@@ -402,14 +388,9 @@ export default function CourtDiscussion() {
         </div>
 
         {/* 功能特性标签 */}
-        <div className="flex flex-wrap gap-1.5">
-          {[
-            '👑 皇帝发言', '⚡ 天命降临', '🎲 命运骰子',
-            '🔄 自动推进', '📜 讨论记录',
-          ].map((tag) => (
-            <span key={tag} className="text-[10px] px-2 py-1 rounded-full border border-[var(--line)] text-[var(--muted)]">
-              {tag}
-            </span>
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {['👑 皇帝发言', '⚡ 天命降临', '🎲 命运骰子', '🔄 自动推进', '📜 讨论记录'].map((tag) => (
+            <span key={tag} className="court-tag">{tag}</span>
           ))}
         </div>
 
@@ -417,16 +398,7 @@ export default function CourtDiscussion() {
         <button
           onClick={handleStart}
           disabled={selectedIds.size < 2 || !topic.trim() || loading}
-          className="w-full py-3 rounded-xl font-semibold text-sm transition-all border-0"
-          style={{
-            background:
-              selectedIds.size >= 2 && topic.trim()
-                ? 'linear-gradient(135deg, #6a9eff, #a07aff)'
-                : 'var(--panel2)',
-            color: selectedIds.size >= 2 && topic.trim() ? '#fff' : 'var(--muted)',
-            opacity: loading ? 0.6 : 1,
-            cursor: selectedIds.size >= 2 && topic.trim() && !loading ? 'pointer' : 'not-allowed',
-          }}
+          className={`court-start-btn ${selectedIds.size >= 2 && topic.trim() ? 'ready' : 'disabled'}`}
         >
           {loading ? '召集中...' : `🏛 开始朝议（${selectedIds.size}位上殿）`}
         </button>
@@ -442,132 +414,74 @@ export default function CourtDiscussion() {
   const messages = session?.messages || [];
 
   return (
-    <div className="space-y-3">
+    <div>
       {/* 顶部控制栏 */}
-      <div className="flex items-center justify-between flex-wrap gap-2 bg-[var(--panel)] rounded-xl px-4 py-2 border border-[var(--line)]">
+      <div className="court-toolbar">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-bold">🏛 朝堂议政</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--acc)]20 text-[var(--acc)] border border-[var(--acc)]30">
-            第{session?.round || 0}轮
-          </span>
+          <span className="court-toolbar-title">🏛 朝堂议政</span>
+          <span className="court-round-badge">第{session?.round || 0}轮</span>
           {session?.phase === 'concluded' && (
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-900/40 text-green-400 border border-green-800">
-              已结束
-            </span>
+            <span className="court-concluded-badge">已结束</span>
           )}
         </div>
-        <div className="flex items-center gap-1.5">
-          <button
-            onClick={() => setShowDecree(!showDecree)}
-            className="text-xs px-2.5 py-1 rounded-lg border border-amber-600/40 text-amber-400 hover:bg-amber-900/20 transition"
-            title="天命降临 — 上帝视角干预"
-          >
+        <div className="court-toolbar-actions">
+          <button onClick={() => setShowDecree(!showDecree)} className="court-tb-btn amber" title="天命降临 — 上帝视角干预">
             ⚡ 天命
           </button>
-          <button
-            onClick={handleDice}
-            disabled={diceRolling || loading}
-            className="text-xs px-2.5 py-1 rounded-lg border border-purple-600/40 text-purple-400 hover:bg-purple-900/20 transition"
-            title="命运骰子 — 随机事件"
-          >
+          <button onClick={handleDice} disabled={diceRolling || loading} className="court-tb-btn purple" title="命运骰子 — 随机事件">
             🎲 {diceRolling ? '...' : '骰子'}
           </button>
-          <button
-            onClick={() => setAutoPlay(!autoPlay)}
-            className={`text-xs px-2.5 py-1 rounded-lg border transition ${autoPlay
-              ? 'border-green-600/40 text-green-400 bg-green-900/20'
-              : 'border-[var(--line)] text-[var(--muted)] hover:text-[var(--text)]'
-              }`}
-          >
+          <button onClick={() => setAutoPlay(!autoPlay)} className={`court-tb-btn${autoPlay ? ' green' : ''}`}>
             {autoPlay ? '⏸ 暂停' : '▶ 自动'}
           </button>
           {session?.phase !== 'concluded' && (
-            <button
-              onClick={handleConclude}
-              className="text-xs px-2.5 py-1 rounded-lg border border-[var(--line)] text-[var(--muted)] hover:text-[var(--warn)] hover:border-[var(--warn)]40 transition"
-            >
+            <button onClick={handleConclude} className="court-tb-btn">
               📋 散朝
             </button>
           )}
-          <button
-            onClick={handleReset}
-            className="text-xs px-2 py-1 rounded-lg border border-red-900/40 text-red-400/70 hover:text-red-400 transition"
-          >
-            ✕
-          </button>
+          <button onClick={handleReset} className="court-tb-btn red">✕</button>
         </div>
       </div>
 
       {/* 天命降临面板 */}
       {showDecree && (
-        <div
-          className="bg-gradient-to-br from-amber-950/40 to-purple-950/30 rounded-xl p-4 border border-amber-700/30"
-          style={{ animation: 'fadeIn .3s' }}
-        >
+        <div className="court-decree-panel my-3">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-bold text-amber-400">⚡ 天命降临 — 上帝视角</span>
-            <button onClick={() => setShowDecree(false)} className="text-xs text-[var(--muted)]">
-              ✕
-            </button>
+            <span className="court-decree-title">⚡ 天命降临 — 上帝视角</span>
+            <button onClick={() => setShowDecree(false)} className="text-xs text-[var(--muted)]">✕</button>
           </div>
-          <p className="text-[10px] text-amber-300/60 mb-2">
-            降下天意改变讨论走向，所有官员将对此做出反应
-          </p>
+          <p className="court-decree-desc">降下天意改变讨论走向，所有官员将对此做出反应</p>
           <div className="flex gap-2">
             <input
               value={decreeInput}
               onChange={(e) => setDecreeInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleDecree()}
               placeholder="例如：突然发现预算多出一倍..."
-              className="flex-1 bg-black/30 rounded-lg px-3 py-1.5 text-sm border border-amber-800/40 outline-none focus:border-amber-600"
+              className="court-decree-input"
             />
-            <button
-              onClick={handleDecree}
-              disabled={!decreeInput.trim()}
-              className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-amber-600 to-purple-600 text-white text-xs font-semibold disabled:opacity-40"
-            >
-              降旨
-            </button>
+            <button onClick={handleDecree} disabled={!decreeInput.trim()} className="court-decree-btn">降旨</button>
           </div>
         </div>
       )}
 
       {/* 命运骰子结果 */}
-      {diceResult && (
-        <div
-          className="bg-purple-950/40 rounded-lg px-3 py-2 border border-purple-700/30 text-xs text-purple-300 flex items-center gap-2"
-          style={{ animation: 'fadeIn .3s' }}
-        >
-          <span className="text-lg">🎲</span>
-          {diceResult}
-        </div>
-      )}
+      {diceResult && <div className="court-dice-result my-2"><span className="court-dice-icon">🎲</span>{diceResult}</div>}
 
       {/* 天命降临闪光效果 */}
-      {decreeFlash && (
-        <div
-          className="fixed inset-0 pointer-events-none z-50"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,200,50,0.3), transparent 70%)',
-            animation: 'fadeOut .8s forwards',
-          }}
-        />
-      )}
+      {decreeFlash && <div className="court-flash-overlay" />}
 
       {/* 议题 */}
-      <div className="text-xs text-center text-[var(--muted)] py-1">
-        📜 {session?.topic || ''}
-      </div>
+      <div className="court-topic-line">📜 {session?.topic || ''}</div>
 
       {/* 主内容：朝堂布局 + 聊天记录 */}
-      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-3">
+      <div className="court-main-layout">
         {/* 左侧：朝堂可视化 */}
-        <div className="bg-[var(--panel)] rounded-xl p-3 border border-[var(--line)] relative overflow-hidden min-h-[320px]">
+        <div className="court-courtroom">
           {/* 龙椅 */}
-          <div className="text-center mb-2">
-            <div className="inline-block px-3 py-1 rounded-lg bg-gradient-to-b from-amber-800/40 to-amber-950/40 border border-amber-700/30">
-              <span className="text-lg">👑</span>
-              <div className="text-[10px] text-amber-400/80">龙 椅</div>
+          <div className="court-throne">
+            <div className="court-throne-inner">
+              <div className="court-throne-icon">👑</div>
+              <div className="court-throne-label">龙 椅</div>
             </div>
           </div>
 
@@ -586,51 +500,26 @@ export default function CourtDiscussion() {
               return (
                 <div
                   key={o.id}
-                  className="absolute transition-all duration-500"
-                  style={{
-                    left: `${pos.x}%`,
-                    top: `${pos.y}%`,
-                    transform: 'translate(-50%, -50%)',
-                  }}
+                  className="court-official-dot"
+                  style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: 'translate(-50%, -50%)' }}
                 >
-                  {/* 说话光圈 */}
                   {isSpeaking && (
-                    <div
-                      className="absolute -inset-2 rounded-full"
-                      style={{
-                        background: `radial-gradient(circle, ${color}40, transparent)`,
-                        animation: 'pulse 1s infinite',
-                      }}
-                    />
+                    <div className="court-speech-ring" style={{ background: `radial-gradient(circle, ${color}40, transparent)`, animation: 'pulse 1s infinite' }} />
                   )}
-                  {/* 头像 */}
                   <div
-                    className="relative w-10 h-10 rounded-full flex items-center justify-center text-lg border-2 transition-all"
+                    className={`court-avatar${isSpeaking ? ' speaking' : ''}`}
                     style={{
                       borderColor: isSpeaking ? color : color + '40',
                       background: isSpeaking ? color + '30' : color + '10',
-                      transform: isSpeaking ? 'scale(1.2)' : 'scale(1)',
                       boxShadow: isSpeaking ? `0 0 16px ${color}50` : 'none',
                     }}
                   >
                     {o.emoji}
-                    {/* 情绪气泡 */}
                     {EMOTION_EMOJI[emotion] && (
-                      <span
-                        className="absolute -top-1 -right-1 text-xs"
-                        style={{ animation: 'bounceIn .3s' }}
-                      >
-                        {EMOTION_EMOJI[emotion]}
-                      </span>
+                      <span className="emotion-bubble" style={{ animation: 'bounceIn .3s' }}>{EMOTION_EMOJI[emotion]}</span>
                     )}
                   </div>
-                  {/* 名字 */}
-                  <div
-                    className="text-[9px] text-center mt-0.5 whitespace-nowrap"
-                    style={{ color: isSpeaking ? color : 'var(--muted)' }}
-                  >
-                    {o.name}
-                  </div>
+                  <div className="court-official-name" style={{ color: isSpeaking ? color : undefined }}>{o.name}</div>
                 </div>
               );
             })}
@@ -638,48 +527,30 @@ export default function CourtDiscussion() {
         </div>
 
         {/* 右侧：聊天记录 */}
-        <div className="bg-[var(--panel)] rounded-xl border border-[var(--line)] flex flex-col" style={{ maxHeight: 500 }}>
-          {/* 消息列表 */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-2" style={{ minHeight: 200 }}>
+        <div className="court-chat-panel">
+          <div className="court-msg-list">
             {messages.map((msg, i) => (
               <MessageBubble key={i} msg={msg} officials={officials} />
             ))}
-            {loading && (
-              <div className="text-xs text-[var(--muted)] text-center py-2" style={{ animation: 'pulse 1.5s infinite' }}>
-                🏛 群臣正在思考...
-              </div>
-            )}
+            {loading && <div className="court-thinking">🏛 群臣正在思考...</div>}
             <div ref={messagesEndRef} />
           </div>
 
           {/* 皇帝输入栏 */}
           {session?.phase !== 'concluded' && (
-            <div className="border-t border-[var(--line)] p-2 flex gap-2">
+            <div className="court-input-bar">
               <input
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleEmperor()}
                 placeholder="朕有话说..."
-                className="flex-1 bg-[var(--panel2)] rounded-lg px-3 py-1.5 text-sm border border-[var(--line)] outline-none focus:border-amber-600"
+                className="court-input"
               />
-              <button
-                onClick={handleEmperor}
-                disabled={!userInput.trim() || loading}
-                className="px-4 py-1.5 rounded-lg text-xs font-semibold border-0 disabled:opacity-40"
-                style={{
-                  background: userInput.trim() ? 'linear-gradient(135deg, #e8a040, #f5c842)' : 'var(--panel2)',
-                  color: userInput.trim() ? '#000' : 'var(--muted)',
-                }}
-              >
+              <button onClick={handleEmperor} disabled={!userInput.trim() || loading}
+                className={`court-speak-btn${userInput.trim() ? ' ready' : ' disabled'}`}>
                 👑 发言
               </button>
-              <button
-                onClick={() => handleAdvance()}
-                disabled={loading}
-                className="px-3 py-1.5 rounded-lg text-xs border border-[var(--acc)]40 text-[var(--acc)] hover:bg-[var(--acc)]10 disabled:opacity-40 transition"
-              >
-                ▶ 下一轮
-              </button>
+              <button onClick={() => handleAdvance()} disabled={loading} className="court-next-btn">▶ 下一轮</button>
             </div>
           )}
         </div>
@@ -698,30 +569,21 @@ function MessageBubble({
   officials: Array<{ id: string; name: string; emoji: string }>;
 }) {
   const color = OFFICIAL_COLORS[msg.official_id || ''] || '#6a9eff';
-  const official = officials.find((o) => o.id === msg.official_id);
 
   if (msg.type === 'system') {
-    return (
-      <div className="text-center text-[10px] text-[var(--muted)] py-1 border-b border-[var(--line)] border-dashed">
-        {msg.content}
-      </div>
-    );
+    return <div className="court-system-msg">{msg.content}</div>;
   }
 
   if (msg.type === 'scene_note') {
-    return (
-      <div className="text-center text-[10px] text-purple-400/80 py-1 italic">
-        ✦ {msg.content} ✦
-      </div>
-    );
+    return <div className="court-scene-note">✦ {msg.content} ✦</div>;
   }
 
   if (msg.type === 'emperor') {
     return (
-      <div className="flex justify-end">
-        <div className="max-w-[80%] bg-gradient-to-br from-amber-900/40 to-amber-800/20 rounded-xl px-3 py-2 border border-amber-700/30">
-          <div className="text-[10px] text-amber-400 mb-0.5">👑 皇帝</div>
-          <div className="text-sm">{msg.content}</div>
+      <div className="court-emperor-msg">
+        <div className="court-emperor-bubble">
+          <div className="court-emperor-label">👑 皇帝</div>
+          <div className="court-emperor-text">{msg.content}</div>
         </div>
       </div>
     );
@@ -729,10 +591,10 @@ function MessageBubble({
 
   if (msg.type === 'decree') {
     return (
-      <div className="text-center py-2">
-        <div className="inline-block bg-gradient-to-r from-amber-900/30 via-purple-900/30 to-amber-900/30 rounded-lg px-4 py-2 border border-amber-600/30">
-          <div className="text-xs text-amber-400 font-bold">⚡ 天命降临</div>
-          <div className="text-sm mt-0.5">{msg.content}</div>
+      <div className="court-decree-msg">
+        <div className="court-decree-bubble">
+          <div className="court-decree-label">⚡ 天命降临</div>
+          <div className="court-decree-text">{msg.content}</div>
         </div>
       </div>
     );
@@ -740,30 +602,19 @@ function MessageBubble({
 
   // 官员消息
   return (
-    <div className="flex gap-2 items-start" style={{ animation: 'fadeIn .4s' }}>
-      <div
-        className="w-7 h-7 rounded-full flex items-center justify-center text-sm flex-shrink-0 border"
-        style={{ borderColor: color + '60', background: color + '15' }}
-      >
-        {official?.emoji || '💬'}
+    <div className="court-official-msg">
+      <div className="court-official-avatar" style={{ borderColor: color + '60', background: color + '15' }}>
+        {officials.find((o) => o.id === msg.official_id)?.emoji || '💬'}
       </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5 mb-0.5">
-          <span className="text-[11px] font-semibold" style={{ color }}>
-            {msg.official_name || '官员'}
-          </span>
-          {msg.emotion && EMOTION_EMOJI[msg.emotion] && (
-            <span className="text-xs">{EMOTION_EMOJI[msg.emotion]}</span>
-          )}
+      <div className="court-msg-content">
+        <div className="court-msg-header">
+          <span className="court-msg-name" style={{ color }}>{msg.official_name || '官员'}</span>
+          {msg.emotion && EMOTION_EMOJI[msg.emotion] && <span className="text-xs">{EMOTION_EMOJI[msg.emotion]}</span>}
         </div>
-        <div className="text-sm leading-relaxed">
+        <div className="court-msg-text">
           {msg.content?.split(/(\*[^*]+\*)/).map((part, i) => {
             if (part.startsWith('*') && part.endsWith('*')) {
-              return (
-                <span key={i} className="text-[var(--muted)] italic text-xs">
-                  {part.slice(1, -1)}
-                </span>
-              );
+              return <span key={i} className="thought">{part.slice(1, -1)}</span>;
             }
             return <span key={i}>{part}</span>;
           })}

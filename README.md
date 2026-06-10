@@ -1,60 +1,51 @@
-<h1 align="center">⚔️ 三省六部 · Edict</h1>
+# YYC³ Dynasty Project Overview
 
-<p align="center">
-  <strong>我用 1300 年前的帝国制度，重新设计了 AI 多 Agent 协作架构。<br>结果发现，古人比现代 AI 框架更懂分权制衡。</strong>
-</p>
+<div align="center">
 
-<p align="center">
-  <sub>12 个 AI Agent（11 个业务角色 + 1 个兼容角色）组成三省六部：太子分拣、中书省规划、门下省审核封驳、尚书省派发、六部+吏部并行执行。<br>比 CrewAI 多一层<b>制度性审核</b>，比 AutoGen 多一个<b>实时看板</b>。</sub>
-</p>
+<img src="public/YYC3-Family-001.png" alt="YYC³ Dynasty Framework" width="100%">
 
-<p align="center">
-  <a href="#-demo">🎬 看 Demo</a> ·
-  <a href="#-30-秒快速体验">🚀 30 秒体验</a> ·
-  <a href="#-架构">🏛️ 架构</a> ·
-  <a href="#-功能全景">📋 看板功能</a> ·
-  <a href="docs/task-dispatch-architecture.md">📚 架构文档</a> ·
-  <a href="README_EN.md">English</a> ·
-  <a href="README_JA.md">日本語</a> ·
-  <a href="CONTRIBUTING.md">参与贡献</a>
-</p>
+</div>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/OpenClaw-Required-blue?style=flat-square" alt="OpenClaw">
-  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Agents-12_Specialized-8B5CF6?style=flat-square" alt="Agents">
-  <img src="https://img.shields.io/badge/Dashboard-Real--time-F59E0B?style=flat-square" alt="Dashboard">
-  <img src="https://img.shields.io/badge/License-MIT-22C55E?style=flat-square" alt="License">
-  <img src="https://img.shields.io/badge/Frontend-React_18-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React">
-  <img src="https://img.shields.io/badge/Backend-stdlib_only-EC4899?style=flat-square" alt="Zero Backend Dependencies">
-</p>
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/公众号-cft0808-07C160?style=for-the-badge&logo=wechat&logoColor=white" alt="WeChat">
-</p>
+# YYC³ Dynasty Framework
+
+**三省六部 · AI 多智能体协作架构**
+
+[![Website](https://img.shields.io/badge/Website-dynasty.yyc3.vip-blue?style=flat-square&logo=globe&logoColor=white)](https://dynasty.yyc3.vip)
+[![GitHub](https://img.shields.io/badge/GitHub-YYC3--Dynasty--Framework-181717?style=flat-square&logo=github)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/yyc3/dynasty-demo)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-222?style=flat-square&logo=githubactions&logoColor=white)](https://dynasty.yyc3.vip)
+
+[![CI](https://img.shields.io/github/actions/workflow/status/YYC-Cube/YYC3-Dynasty-Framework/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/actions/workflows/ci.yml)
+[![Docker Build](https://img.shields.io/github/actions/workflow/status/YYC-Cube/YYC3-Dynasty-Framework/docker-publish.yml?branch=main&style=flat-square&label=Docker)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/actions/workflows/docker-publish.yml)
+[![Pages Deploy](https://img.shields.io/github/actions/workflow/status/YYC-Cube/YYC3-Dynasty-Framework/pages-deploy.yml?branch=main&style=flat-square&label=Pages)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/actions/workflows/pages-deploy.yml)
+[![Stars](https://img.shields.io/github/stars/YYC-Cube/YYC3-Dynasty-Framework?style=flat-square&logo=starship&logoColor=white)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/stargazers)
+[![Issues](https://img.shields.io/github/issues/YYC-Cube/YYC3-Dynasty-Framework?style=flat-square)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/issues)
+[![PRs](https://img.shields.io/github/issues-pr/YYC-Cube/YYC3-Dynasty-Framework?style=flat-square)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/pulls)
+
+[English](README_EN.md) | **中文**
+
+</div>
+
+<div align="center">
+
+> ***YanYuCloudCube***
+> *言启象限 | 语枢未来*
+> ***Words Initiate Quadrants, Language Serves as Core for Future***
+> *万象归元于云枢 | 深栈智启新纪元*
+> ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
 
 ---
 
-## 🎬 Demo
+</div>
 
-<p align="center">
-  <video src="docs/Agent_video_Pippit_20260225121727.mp4" width="100%" autoplay muted loop playsinline controls>
-    您的浏览器不支持视频播放，请查看下方 GIF 或 <a href="docs/Agent_video_Pippit_20260225121727.mp4">下载视频</a>。
-  </video>
-  <br>
-  <sub>🎥 三省六部 AI 多 Agent 协作全流程演示</sub>
-</p>
-
-<details>
-<summary>📸 GIF 预览（加载更快）</summary>
-<p align="center">
-  <img src="docs/demo.gif" alt="三省六部 Demo" width="100%">
-  <br>
-  <sub>飞书下旨 → 太子分拣 → 中书省规划 → 门下省审议 → 六部并行执行 → 奏折回报（30 秒）</sub>
-</p>
-</details>
-
-> 🐳 **没有 OpenClaw？** 跑一行 `docker run -p 7891:7891 cft0808/edict` 即可体验完整看板 Demo（预置模拟数据）。
+> 🐳 **没有 OpenClaw？** 跑一行 `docker run -p 7891:7891 yyc3/dynasty-demo` 即可体验完整看板 Demo（预置模拟数据）。
+> 🌐 **在线体验**：[dynasty.yyc3.vip](https://dynasty.yyc3.vip)
 
 ---
 
@@ -74,7 +65,7 @@
 
 这不是花哨的 metaphor，这是**真正的分权制衡**：
 
-| | CrewAI | MetaGPT | AutoGen | **三省六部** |
+| | CrewAI | MetaGPT | AutoGen | **YYC³ Dynasty** |
 |---|:---:|:---:|:---:|:---:|
 | **审核机制** | ❌ 无 | ⚠️ 可选 | ⚠️ Human-in-loop | **✅ 门下省专职审核 · 可封驳** |
 | **实时看板** | ❌ | ❌ | ❌ | **✅ 军机处 Kanban + 时间线** |
@@ -112,6 +103,7 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 ## ✨ 功能全景
 
 ### 🏛️ 十二部制 Agent 架构
+
 - **太子** 消息分拣 —— 闲聊自动回复，旨意才建任务
 - **三省**（中书·门下·尚书）负责规划、审议、派发
 - **七部**（户·礼·兵·刑·工·吏 + 早朝官）负责专项执行
@@ -126,6 +118,7 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 <tr><td width="50%">
 
 **📋 旨意看板 · Kanban**
+
 - 按状态列展示全部任务
 - 省部过滤 + 全文搜索
 - 心跳徽章（🟢活跃 🟡停滞 🔴告警）
@@ -135,6 +128,7 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 </td><td width="50%">
 
 **🔭 省部调度 · Monitor**
+
 - 可视化各状态任务数量
 - 部门分布横向条形图
 - Agent 健康状态实时卡片
@@ -143,6 +137,7 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 <tr><td>
 
 **📜 奏折阁 · Memorials**
+
 - 已完成旨意自动归档为奏折
 - 五阶段时间线：圣旨→中书→门下→六部→回奏
 - 一键复制为 Markdown
@@ -151,6 +146,7 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 </td><td>
 
 **📜 旨库 · Template Library**
+
 - 9 个预设圣旨模板
 - 分类筛选 · 参数表单 · 预估时间和费用
 - 预览旨意 → 一键下旨
@@ -159,12 +155,14 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 <tr><td>
 
 **👥 官员总览 · Officials**
+
 - Token 消耗排行榜
 - 活跃度 · 完成数 · 会话统计
 
 </td><td>
 
 **📰 天下要闻 · News**
+
 - 每日自动采集科技/财经资讯
 - 分类订阅管理 + 飞书推送
 
@@ -172,12 +170,14 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 <tr><td>
 
 **⚙️ 模型配置 · Models**
+
 - 每个 Agent 独立切换 LLM
 - 应用后自动重启 Gateway（~5秒生效）
 
 </td><td>
 
 **🛠️ 技能配置 · Skills**
+
 - 各省部已安装 Skills 一览
 - 查看详情 + 添加新技能
 
@@ -185,12 +185,14 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 <tr><td>
 
 **💬 小任务 · Sessions**
+
 - OC-* 会话实时监控
 - 来源渠道 · 心跳 · 消息预览
 
 </td><td>
 
 **🎬 上朝仪式 · Ceremony**
+
 - 每日首次打开播放开场动画
 - 今日统计 · 3.5秒自动消失
 
@@ -198,6 +200,7 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 <tr><td>
 
 **🏛️ 朝堂议政 · Court Discussion**
+
 - 多官员围绕议题展开部门视角讨论
 - LLM 驱动的多角色辩论（各部依职责发表专业意见）
 - 支持多轮推进 · 总结结论 · 保留讨论记录
@@ -212,39 +215,50 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 ## 🖼️ 截图
 
 ### 旨意看板
+
 ![旨意看板](docs/screenshots/01-kanban-main.png)
 
 <details>
 <summary>📸 展开查看更多截图</summary>
 
 ### 省部调度
+
 ![省部调度](docs/screenshots/02-monitor.png)
 
 ### 任务流转详情
+
 ![任务流转详情](docs/screenshots/03-task-detail.png)
 
 ### 模型配置
+
 ![模型配置](docs/screenshots/04-model-config.png)
 
 ### 技能配置
+
 ![技能配置](docs/screenshots/05-skills-config.png)
 
 ### 官员总览
+
 ![官员总览](docs/screenshots/06-official-overview.png)
 
 ### 会话记录
+
 ![会话记录](docs/screenshots/07-sessions.png)
 
 ### 奏折归档
+
 ![奏折归档](docs/screenshots/08-memorials.png)
 
 ### 圣旨模板
+
 ![圣旨模板](docs/screenshots/09-templates.png)
 
 ### 天下要闻
+
 ![天下要闻](docs/screenshots/10-morning-briefing.png)
 
 ### 上朝仪式
+
 ![上朝仪式](docs/screenshots/11-ceremony.png)
 
 </details>
@@ -253,27 +267,35 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 
 ## 🚀 30 秒快速体验
 
+### 在线体验
+
+打开 [dynasty.yyc3.vip](https://dynasty.yyc3.vip) 即可体验军机处看板。
+
 ### Docker 一键启动
 
 ```bash
-docker run -p 7891:7891 cft0808/sansheng-demo
+docker run -p 7891:7891 yyc3/dynasty-demo
 ```
-打开 http://localhost:7891 即可体验军机处看板。
+
+打开 <http://localhost:7891> 即可体验军机处看板。
 
 <details>
 <summary><b>⚠️ 遇到 <code>exec format error</code>？（点击展开）</b></summary>
 
 如果你在 **x86/amd64** 机器（如 Ubuntu、WSL2）上看到：
+
 ```
 exec /usr/local/bin/python3: exec format error
 ```
 
 这是因为镜像架构不匹配。请使用 `--platform` 参数：
+
 ```bash
-docker run --platform linux/amd64 -p 7891:7891 cft0808/sansheng-demo
+docker run --platform linux/amd64 -p 7891:7891 yyc3/dynasty-demo
 ```
 
 或使用 docker-compose（已内置 `platform: linux/amd64`）：
+
 ```bash
 docker compose up
 ```
@@ -283,6 +305,7 @@ docker compose up
 ### 完整安装
 
 #### 前置条件
+
 - [OpenClaw](https://openclaw.ai) 已安装
 - Python 3.9+
 - macOS / Linux
@@ -290,12 +313,13 @@ docker compose up
 #### 安装
 
 ```bash
-git clone https://github.com/cft0808/edict.git
-cd edict
+git clone https://github.com/YYC-Cube/YYC3-Dynasty-Framework.git
+cd YYC3-Dynasty-Framework
 chmod +x install.sh && ./install.sh
 ```
 
 安装脚本自动完成：
+
 - ✅ 创建全量 Agent Workspace（含太子/吏部/早朝，兼容历史 main）
 - ✅ 写入各省部 SOUL.md（角色人格 + 工作流规则 + 数据清洗规范）
 - ✅ 注册 Agent 及权限矩阵到 `openclaw.json`
@@ -356,7 +380,7 @@ bash edict.sh stop     # 停止
                            └─────────────────┬─────────────────┘
                                              │ 下旨
                            ┌─────────────────▼─────────────────┐
-                           │          � 太子 (taizi)            │
+                           │          👑 太子 (taizi)            │
                            │    分拣：闲聊直接回 / 旨意建任务      │
                            └─────────────────┬─────────────────┘
                                              │ 传旨
@@ -387,19 +411,19 @@ bash edict.sh stop     # 停止
 
 ### 各省部职责
 
-| 部门 | Agent ID | 职责 | 擅长领域 |
-|------|----------|------|---------|
-| � **太子** | `taizi` | 消息分拣、需求整理 | 闲聊识别、旨意提炼、标题概括 |
-| 📜 **中书省** | `zhongshu` | 接旨、规划、拆解 | 需求理解、任务分解、方案设计 |
-| 🔍 **门下省** | `menxia` | 审议、把关、封驳 | 质量评审、风险识别、标准把控 |
-| 📮 **尚书省** | `shangshu` | 派发、协调、汇总 | 任务调度、进度跟踪、结果整合 |
-| 💰 **户部** | `hubu` | 数据、资源、核算 | 数据处理、报表生成、成本分析 |
-| 📝 **礼部** | `libu` | 文档、规范、报告 | 技术文档、API 文档、规范制定 |
-| ⚔️ **兵部** | `bingbu` | 代码、算法、巡检 | 功能开发、Bug 修复、代码审查 |
-| ⚖️ **刑部** | `xingbu` | 安全、合规、审计 | 安全扫描、合规检查、红线管控 |
-| 🔧 **工部** | `gongbu` | CI/CD、部署、工具 | Docker 配置、流水线、自动化 |
-| 📋 **吏部** | `libu_hr` | 人事、Agent 管理 | Agent 注册、权限维护、培训 |
-| 🌅 **早朝官** | `zaochao` | 每日早朝、新闻聚合 | 定时播报、数据汇总 |
+| 部门　　　　　| Agent ID   | 职责　　　　　　　 | 擅长领域　　　　　　　　　　 |
+| ---------------| ------------| --------------------| ------------------------------|
+| 👑 **太子**　　| `taizi`    | 消息分拣、需求整理 | 闲聊识别、旨意提炼、标题概括 |
+| 📜 **中书省** | `zhongshu` | 接旨、规划、拆解　 | 需求理解、任务分解、方案设计 |
+| 🔍 **门下省** | `menxia`   | 审议、把关、封驳　 | 质量评审、风险识别、标准把控 |
+| 📮 **尚书省** | `shangshu` | 派发、协调、汇总　 | 任务调度、进度跟踪、结果整合 |
+| 💰 **户部**　 | `hubu`     | 数据、资源、核算　 | 数据处理、报表生成、成本分析 |
+| 📝 **礼部**　 | `libu`     | 文档、规范、报告　 | 技术文档、API 文档、规范制定 |
+| ⚔️ **兵部**　　| `bingbu`   | 代码、算法、巡检　 | 功能开发、Bug 修复、代码审查 |
+| ⚖️ **刑部**　　| `xingbu`   | 安全、合规、审计　 | 安全扫描、合规检查、红线管控 |
+| 🔧 **工部**　 | `gongbu`   | CI/CD、部署、工具　| Docker 配置、流水线、自动化　|
+| 📋 **吏部**　 | `libu_hr`  | 人事、Agent 管理　 | Agent 注册、权限维护、培训　 |
+| 🌅 **早朝官** | `zaochao`  | 每日早朝、新闻聚合 | 定时播报、数据汇总　　　　　 |
 
 ### 权限矩阵
 
@@ -432,7 +456,7 @@ bash edict.sh stop     # 停止
 ## 📁 项目结构
 
 ```
-edict/
+YYC3-Dynasty-Framework/
 ├── agents/                     # 12 个 Agent 的人格模板
 │   ├── taizi/SOUL.md           # 太子 · 消息分拣（含旨意标题规范）
 │   ├── zhongshu/SOUL.md        # 中书省 · 规划中枢
@@ -471,10 +495,7 @@ edict/
 │   ├── run_loop.sh             # 数据刷新循环（每 15 秒）
 │   ├── kanban_update.py        # 看板 CLI（含旨意数据清洗 + 标题校验 + 状态机）
 │   ├── skill_manager.py        # Skill 管理工具（远程/本地 Skills 添加、更新、移除）
-│   ├── agentrec_advisor.py     # Agent 模型推荐（功过簿 + 成本优化）
-│   ├── linucb_router.py        # LinUCB 智能路由
 │   ├── refresh_watcher.py      # 数据变更监听
-│   ├── sync_from_openclaw_runtime.py
 │   ├── sync_agent_config.py
 │   ├── sync_officials_stats.py
 │   ├── fetch_morning_news.py
@@ -486,14 +507,11 @@ edict/
 │   └── test_state_machine_consistency.py  # 状态机一致性测试
 ├── data/                       # 运行时数据（gitignored）
 ├── docs/
-│   ├── task-dispatch-architecture.md  # 📚 详细架构文档：任务分发、流转、调度的完整设计（业务+技术）
+│   ├── task-dispatch-architecture.md  # 详细架构文档
 │   ├── getting-started.md             # 快速上手指南
-│   ├── wechat-article.md              # 微信文章
 │   └── screenshots/                   # 功能截图（11 张）
 ├── install.sh                  # 一键安装脚本
 ├── start.sh                    # 一键启动（Dashboard + 数据刷新）
-├── edict.service               # systemd 服务配置（生产部署）
-├── edict.sh                    # 服务管理脚本（start/stop/restart/status）
 ├── CONTRIBUTING.md             # 贡献指南
 └── LICENSE                     # MIT License
 ```
@@ -587,9 +605,10 @@ curl -X POST http://localhost:7891/api/add-remote-skill \
 curl http://localhost:7891/api/remote-skills-list
 ```
 
-**官方 Skills Hub：** https://github.com/openclaw-ai/skills-hub
+**官方 Skills Hub：** <https://github.com/openclaw-ai/skills-hub>
 
 支持的 Skills：
+
 - `code_review` — 代码审查（Python/JS/Go）
 - `api_design` — API 设计审查
 - `security_audit` — 安全审计
@@ -622,7 +641,7 @@ curl http://localhost:7891/api/remote-skills-list
 
 ---
 
-## � 深入了解
+## 深入了解
 
 ### 核心文档
 
@@ -642,14 +661,11 @@ curl http://localhost:7891/api/remote-skills-list
   - 支持版本管理和一键更新
 
 - **[⚡ Remote Skills 快速入门](docs/remote-skills-quickstart.md)** — 5 分钟上手
-  - 快速体验、CLI 命令、看板操作示例
-  - 创建自己的 Skills 库
-  - API 完整参考 + 常见问题
-
 - **[🚀 快速上手指南](docs/getting-started.md)** — 新手入门
 - **[🤝 贡献指南](CONTRIBUTING.md)** — 想参与贡献？从这里开始
 
 ---
+
 ## 🔧 常见问题排查
 
 <details>
@@ -660,23 +676,27 @@ curl http://localhost:7891/api/remote-skills-list
 **排查步骤**：
 
 1. **检查 Agent 注册状态**：
+
 ```bash
 curl -s http://127.0.0.1:7891/api/agents-status | python3 -m json.tool
 ```
+
 确认 `taizi` agent 的 `statusLabel` 是 `alive`。
 
-2. **检查 Gateway 日志**：
+1. **检查 Gateway 日志**：
+
 ```bash
 ls /tmp/openclaw/ | tail -5          # 找到最新日志
 grep -i "error\|fail\|unknown" /tmp/openclaw/openclaw-*.log | tail -20
 ```
 
-3. **常见原因**：
+1. **常见原因**：
    - Agent ID 不匹配（已在 v1.2 修复：`main` → `taizi`）
    - LLM provider 超时（增加了自动重试）
    - 僵尸 Agent 进程（运行 `ps aux | grep openclaw` 检查）
 
-4. **强制重试**：
+2. **强制重试**：
+
 ```bash
 # 手动触发巡检扫描（自动重试卡住的任务）
 curl -X POST http://127.0.0.1:7891/api/scheduler-scan \
@@ -693,9 +713,10 @@ curl -X POST http://127.0.0.1:7891/api/scheduler-scan \
 **原因**：镜像架构（arm64）与主机架构（amd64）不匹配。
 
 **解决**：
+
 ```bash
 # 方法 1：指定平台
-docker run --platform linux/amd64 -p 7891:7891 cft0808/sansheng-demo
+docker run --platform linux/amd64 -p 7891:7891 yyc3/dynasty-demo
 
 # 方法 2：使用 docker-compose（已内置 platform）
 docker compose up
@@ -709,6 +730,7 @@ docker compose up
 **症状**：`python3 scripts/skill_manager.py import-official-hub` 报错。
 
 **排查**：
+
 ```bash
 # 测试网络连通性
 curl -I https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/code_review/SKILL.md
@@ -719,6 +741,7 @@ python3 scripts/skill_manager.py import-official-hub --agents zhongshu
 ```
 
 **常见原因**：
+
 - 中国大陆访问 GitHub raw 资源需要代理
 - 网络超时（已增加到 30 秒 + 自动重试 3 次）
 - 官方 Skills Hub 仓库维护中
@@ -726,11 +749,13 @@ python3 scripts/skill_manager.py import-official-hub --agents zhongshu
 </details>
 
 ---
-## �🗺️ Roadmap
+
+## 🗺️ Roadmap
 
 > 完整路线图及参与方式：[ROADMAP.md](ROADMAP.md)
 
 ### Phase 1 — 核心架构 ✅
+
 - [x] 十二部制 Agent 架构（太子 + 三省 + 七部 + 早朝官）+ 权限矩阵
 - [x] 军机处实时看板（10 个功能面板 + 实时活动面板）
 - [x] 任务叫停 / 取消 / 恢复
@@ -750,6 +775,7 @@ python3 scripts/skill_manager.py import-official-hub --agents zhongshu
 - [x] 前后端一体化部署（server.py 同时提供 API + 静态文件服务）
 
 ### Phase 2 — 制度深化 🚧
+
 - [ ] 御批模式（人工审批 + 一键准奏/封驳）
 - [x] 功过簿（Agent 绩效评分 + 模型推荐 + 成本优化）
 - [x] EventBus 事件总线（Redis Streams 解耦通信）
@@ -763,6 +789,7 @@ python3 scripts/skill_manager.py import-official-hub --agents zhongshu
 - [ ] 国史馆（知识库检索 + 引用溯源）
 
 ### Phase 3 — 生态扩展
+
 - [ ] Docker Compose + Demo 镜像
 - [ ] Notion / Linear 适配器
 - [ ] 年度大考（Agent 年度绩效报告）
@@ -776,6 +803,7 @@ python3 scripts/skill_manager.py import-official-hub --agents zhongshu
 欢迎任何形式的贡献！详见 [CONTRIBUTING.md](CONTRIBUTING.md)
 
 特别欢迎的方向：
+
 - 🎨 **UI 增强**：深色/浅色主题、响应式、动画优化
 - 🤖 **新 Agent**：适合特定场景的专职 Agent 角色
 - 📦 **Skills 生态**：各部门专用技能包
@@ -803,19 +831,13 @@ python3 scripts/skill_manager.py import-official-hub --agents zhongshu
 
 如果这个项目让你会心一笑，请给个 Star ⚔️
 
-[![Star History Chart](https://api.star-history.com/svg?repos=cft0808/edict&type=Date)](https://star-history.com/#cft0808/edict&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=YYC-Cube/YYC3-Dynasty-Framework&type=Date)](https://star-history.com/#YYC-Cube/YYC3-Dynasty-Framework&Date)
 
 ---
 
 ## 📮 朕的邸报——公众号
 
 > 古有邸报传天下政令，今有公众号聊 AI 架构。
-
-<p align="center">
-  <img src="docs/assets/wechat-qrcode.jpg" width="220" alt="公众号二维码 · cft0808">
-  <br><br>
-  <b>👆 扫码关注「cft0808」—— 朕的技术邸报</b>
-</p>
 
 你会看到：
 
@@ -835,8 +857,14 @@ python3 scripts/skill_manager.py import-official-hub --agents zhongshu
 
 ---
 
-<p align="center">
-  <strong>⚔️ 以古制御新技，以智慧驾驭 AI</strong><br>
-  <sub>Governing AI with the wisdom of ancient empires</sub><br><br>
-  <a href="#-朕的邸报公众号"><img src="https://img.shields.io/badge/公众号_cft0808-关注获取更新-07C160?style=for-the-badge&logo=wechat&logoColor=white" alt="WeChat"></a>
-</p>
+**感恩您的信任与支持！携手与智同行 ❤️**
+
+<div align="center">
+
+> 「***YanYuCloudCube***」
+> 「***<admin@0379.email>***」
+> 「***Words Initiate Quadrants, Language Serves as Core for the Future***」
+> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
+
+**© 2025-2026 YYC³ Team. All Rights Reserved.**
+</div>

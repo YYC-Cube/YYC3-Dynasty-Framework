@@ -35,6 +35,10 @@ edict/frontend/node_modules/
 # Vite cache
 .vite/
 
+# Build output
+dist/
+edict/frontend/dist/
+
 # IDE
 .vscode/
 

@@ -165,7 +165,8 @@ export interface SyncStatus {
 
 export interface LiveStatus {
   tasks: Task[];
-  syncStatus: SyncStatus;
+  syncStatus?: SyncStatus;
+  last_updated?: string;
 }
 
 export interface AgentInfo {

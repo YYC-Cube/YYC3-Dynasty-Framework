@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
-"""Record a demo video of the dashboard and convert to GIF."""
+"""
+file: record_demo.py
+description: Demo 录制工具 · 录制仪表板视频并转换为 GIF
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: active
+tags: [demo],[video],[gif]
+
+dependencies: playwright, ffmpeg
+"""
 from playwright.sync_api import sync_playwright
 import subprocess, os, time
 

@@ -1,6 +1,17 @@
 #!/bin/bash
 # ══════════════════════════════════════════════════════════════
-# 三省六部 · OpenClaw Multi-Agent System 一键卸载脚本
+# file: uninstall.sh
+# description: YYC³ Dynasty 一键卸载脚本 · 清理安装环境与数据
+# author: YanYuCloudCube Team
+# version: v1.0.0
+# created: 2026-02-26
+# updated: 2026-06-08
+# status: active
+# tags: [script],[uninstall],[cleanup]
+#
+# brief: OpenClaw Multi-Agent System 一键卸载脚本
+#
+# dependencies: bash
 # ══════════════════════════════════════════════════════════════
 set -e
 

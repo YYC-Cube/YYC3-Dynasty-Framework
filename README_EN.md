@@ -1,224 +1,344 @@
-<h1 align="center">⚔️ Edict · Multi-Agent Orchestration</h1>
+# YYC³ Dynasty Project Overview — Introduction, Quick Start, Architecture & Deployment
 
-<p align="center">
-  <strong>I modeled an AI multi-agent system after China's 1,300-year-old imperial governance.<br>Turns out, ancient bureaucracy understood separation of powers better than modern AI frameworks.</strong>
-</p>
+<div align="center">
 
-<p align="center">
-  <sub>12 AI agents (11 business roles + 1 compatibility role) form the Three Departments & Six Ministries: Crown Prince triages, Planning proposes, Review vetoes, Dispatch assigns, Ministries execute.<br>Built-in <b>institutional review gates</b> that CrewAI doesn't have. A <b>real-time dashboard</b> that AutoGen doesn't have.</sub>
-</p>
+<img src="public/YYC3-Family-001.png" alt="YYC³ Dynasty Framework" width="100%">
 
-<p align="center">
-  <a href="#-demo">🎬 Demo</a> ·
-  <a href="#-quick-start">🚀 Quick Start</a> ·
-  <a href="#-architecture">🏛️ Architecture</a> ·
-  <a href="#-features">📋 Features</a> ·
-  <a href="README.md">中文</a> ·
-  <a href="README_JA.md">日本語</a> ·
-  <a href="CONTRIBUTING.md">Contributing</a>
-</p>
+</div>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/OpenClaw-Required-blue?style=flat-square" alt="OpenClaw">
-  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Agents-12_Specialized-8B5CF6?style=flat-square" alt="Agents">
-  <img src="https://img.shields.io/badge/Dashboard-Real--time-F59E0B?style=flat-square" alt="Dashboard">
-  <img src="https://img.shields.io/badge/License-MIT-22C55E?style=flat-square" alt="License">
-  <img src="https://img.shields.io/badge/Zero_Deps-stdlib_only-EC4899?style=flat-square" alt="Zero Dependencies">
-</p>
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/WeChat-cft0808-07C160?style=for-the-badge&logo=wechat&logoColor=white" alt="WeChat">
-</p>
+# YYC³ Dynasty Framework
 
----
+**Three Departments and Six Ministries · AI Multi-Agent Collaboration Architecture**
 
-## 🎬 Demo
+[![Website](https://img.shields.io/badge/Website-dynasty.yyc3.vip-blue?style=flat-square&logo=globe&logoColor=white)](https://dynasty.yyc3.vip)
+[![GitHub](https://img.shields.io/badge/GitHub-YYC3--Dynasty--Framework-181717?style=flat-square&logo=github)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/yyc3/dynasty-demo)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-222?style=flat-square&logo=githubactions&logoColor=white)](https://dynasty.yyc3.vip)
 
-<p align="center">
-  <video src="docs/Agent_video_Pippit_20260225121727.mp4" width="100%" autoplay muted loop playsinline controls>
-    Your browser does not support video playback. See the GIF below or <a href="docs/Agent_video_Pippit_20260225121727.mp4">download the video</a>.
-  </video>
-  <br>
-  <sub>🎥 Full demo: AI Multi-Agent collaboration with Three Departments & Six Ministries</sub>
-</p>
+[![CI](https://img.shields.io/github/actions/workflow/status/YYC-Cube/YYC3-Dynasty-Framework/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/actions/workflows/ci.yml)
+[![Docker Build](https://img.shields.io/github/actions/workflow/status/YYC-Cube/YYC3-Dynasty-Framework/docker-publish.yml?branch=main&style=flat-square&label=Docker)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/actions/workflows/docker-publish.yml)
+[![Pages Deploy](https://img.shields.io/github/actions/workflow/status/YYC-Cube/YYC3-Dynasty-Framework/pages-deploy.yml?branch=main&style=flat-square&label=Pages)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/actions/workflows/pages-deploy.yml)
+[![Stars](https://img.shields.io/github/stars/YYC-Cube/YYC3-Dynasty-Framework?style=flat-square&logo=starship&logoColor=white)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/stargazers)
+[![Issues](https://img.shields.io/github/issues/YYC-Cube/YYC3-Dynasty-Framework?style=flat-square)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/issues)
+[![PRs](https://img.shields.io/github/issues-pr/YYC-Cube/YYC3-Dynasty-Framework?style=flat-square)](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/pulls)
 
-<details>
-<summary>📸 GIF Preview (loads faster)</summary>
-<p align="center">
-  <img src="docs/demo.gif" alt="Edict Demo" width="100%">
-  <br>
-  <sub>Issue edict → Crown Prince triage → Planning → Review → Ministries execute → Report back (30s)</sub>
-</p>
-</details>
+**中文** | [English](README_EN.md)
 
-> 🐳 **No OpenClaw?** Run `docker run -p 7891:7891 cft0808/edict` to try the full dashboard with simulated data.
+</div>
+
+<div align="center">
+
+> ***YanYuCloudCube***
+> *Words Initiate Quadrants, Language Serves as Core for Future*
+> *言启象限 | 语枢未来*
+> ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
 
 ---
 
-## 💡 The Idea
+</div>
 
-Most multi-agent frameworks let AI agents talk freely, producing opaque results you can't audit or intervene in. **Edict** takes a radically different approach — borrowing the governance system that ran China for 1,400 years:
+> 🐳 **No OpenClaw?** Run `docker run -p 7891:7891 yyc3/dynasty-demo` to try the full Kanban demo with mock data.
+> 🌐 **Live Demo**: [dynasty.yyc3.vip](https://dynasty.yyc3.vip)
+
+---
+
+## 🤔 Why Three Departments & Six Ministries?
+
+Most Multi-Agent frameworks follow this pattern:
+
+> *"Here, you AIs chat amongst yourselves, then give me the result."*
+
+Then you get a blob of output with no idea how it was processed — impossible to reproduce, audit, or intervene.
+
+**YYC³ Dynasty takes a completely different approach** — inspired by a governance system that existed in China for over 1,400 years:
 
 ```
-You (Emperor) → Crown Prince (Triage) → Planning Dept → Review Dept → Dispatch Dept → 6 Ministries → Report Back
-   皇上              太子               中书省          门下省         尚书省           六部          回奏
+You (Emperor) → Crown Prince (Sorting) → Secretariat (Planning) → Chancellery (Review) → Department of State Affairs (Dispatch) → Six Ministries (Execution) → Report
 ```
 
-This isn't a cute metaphor. It's **real separation of powers** for AI:
+This isn't a fancy metaphor — it's **genuine checks and balances**:
 
-- **Crown Prince (太子)** triages messages — casual chat gets auto-replied, real commands become tasks
-- **Planning (中书省)** breaks your command into actionable sub-tasks
-- **Review (门下省)** audits the plan — can reject and force re-planning
-- **Dispatch (尚书省)** assigns approved tasks to specialist ministries
-- **7 Ministries** execute in parallel, each with distinct expertise
-- **Data sanitization** auto-strips file paths, metadata, and junk from task titles
-- Everything flows through a **real-time dashboard** you can monitor and intervene
-
----
-
-## 🤔 Why Edict?
-
-> **"Instead of one AI doing everything wrong, 9 specialized agents check each other's work."**
-
-| | CrewAI | MetaGPT | AutoGen | **Edict** |
+| | CrewAI | MetaGPT | AutoGen | **YYC³ Dynasty** |
 |---|:---:|:---:|:---:|:---:|
-| **Built-in review/veto** | ❌ | ⚠️ | ⚠️ | **✅ Dedicated reviewer** |
-| **Real-time Kanban** | ❌ | ❌ | ❌ | **✅ 10-panel dashboard** |
-| **Task intervention** | ❌ | ❌ | ❌ | **✅ Stop / Cancel / Resume** |
-| **Full audit trail** | ⚠️ | ⚠️ | ❌ | **✅ Memorial archive** |
-| **Agent health monitoring** | ❌ | ❌ | ❌ | **✅ Heartbeat detection** |
-| **Hot-swap LLM models** | ❌ | ❌ | ❌ | **✅ From the dashboard** |
-| **Skill management** | ❌ | ❌ | ❌ | **✅ View / Add skills** |
-| **News aggregation** | ❌ | ❌ | ❌ | **✅ Daily digest + webhook** |
-| **Setup complexity** | Med | High | Med | **Low · One-click / Docker** |
+| **Review Mechanism** | ❌ None | ⚠️ Optional | ⚠️ Human-in-loop | **✅ Dedicated Chancellery Review · Can Reject** |
+| **Live Dashboard** | ❌ | ❌ | ❌ | **✅ Grand Council Kanban + Timeline** |
+| **Task Intervention** | ❌ | ❌ | ❌ | **✅ Pause / Cancel / Resume** |
+| **Workflow Audit** | ⚠️ | ⚠️ | ❌ | **✅ Complete Memorial Archive** |
+| **Agent Health Monitor** | ❌ | ❌ | ❌ | **✅ Heartbeat + Activity Detection** |
+| **Hot-Swap Models** | ❌ | ❌ | ❌ | **✅ One-Click LLM Switch** |
+| **Skills Management** | ❌ | ❌ | ❌ | **✅ View / Add Skills** |
+| **News Aggregation** | ❌ | ❌ | ❌ | **✅ Daily Briefing + Feishu Push** |
+| **Deploy Difficulty** | Medium | High | Medium | **Low · One-Click Install / Docker** |
 
-> **Core differentiator: Institutional review + Full observability + Real-time intervention**
+> **Core Differentiator: Institutional Review + Full Observability + Real-Time Intervention**
 
 <details>
-<summary><b>🔍 Why the "Review Department" is the killer feature (click to expand)</b></summary>
+<summary><b>🔍 Why is "Chancellery Review" a Killer Feature? (Click to expand)</b></summary>
 
 <br>
 
-CrewAI and AutoGen agents work in a **"done, ship it"** mode — no one checks output quality. It's like a company with no QA department where engineers push code straight to production.
+CrewAI and AutoGen's collaboration model is **"finish and submit"** — no one checks output quality. Like a company without a QA department, engineers push code directly to production.
 
-Edict's **Review Department (门下省)** exists specifically for this:
+The **Chancellery (Menxia)** in YYC³ Dynasty is specifically designed for this:
 
-- 📋 **Audit plan quality** — Is the Planning Department's decomposition complete and sound?
-- 🚫 **Veto subpar output** — Not a warning. A hard reject that forces re-planning.
-- 🔄 **Mandatory rework loop** — Nothing passes until it meets standards.
+- 📋 **Review plan quality** — Is the Secretariat's plan complete? Are subtasks well-decomposed?
+- 🚫 **Reject subpar outputs** — Not a warning, but a direct rejection with mandatory rework
+- 🔄 **Enforced rework loop** — Plans don't proceed until they meet quality standards
 
-This isn't an optional plugin — **it's part of the architecture**. Every command must pass through Review. No exceptions.
+This isn't an optional plugin — **it's part of the architecture**. Every edict must pass through the Chancellery, no exceptions.
 
-This is why Edict produces reliable results on complex tasks: there's a mandatory quality gate before anything reaches execution. Emperor Taizong figured this out 1,300 years ago — **unchecked power inevitably produces errors**.
+This is why YYC³ Dynasty handles complex tasks reliably: there's a mandatory quality gate before anything reaches the execution layer. Emperor Taizong figured this out 1,300 years ago — **unchecked power inevitably makes mistakes**.
 
 </details>
 
 ---
 
-## ✨ Features
+## ✨ Feature Overview
 
-### 🏛️ Twelve-Department Agent Architecture
-- **Crown Prince** (太子) message triage — auto-reply casual chat, create tasks for real commands
-- **Three Departments** (Planning · Review · Dispatch) for governance
-- **Seven Ministries** (Finance · Docs · Engineering · Compliance · Infrastructure · HR + Briefing) for execution
-- Strict permission matrix — who can message whom is enforced
-- Each agent: own workspace, own skills, own LLM model
-- **Data sanitization** — auto-strips file paths, metadata, invalid prefixes from titles/remarks
+### 🏛️ Twelve-Agent Architecture
 
-### 📋 Command Center Dashboard (10 Panels)
+- **Crown Prince** message sorting — auto-reply for casual chat, create tasks for edicts
+- **Three Departments** (Secretariat · Chancellery · Department of State Affairs) for planning, review, and dispatch
+- **Seven Ministries** (Revenue · Rites · War · Justice · Works · Personnel + Morning Herald) for specialized execution
+- Strict permission matrix — who can message whom, clearly defined
+- **State transition validation** — kanban_update.py enforces legal transition paths, illegal state jumps are rejected
+- Each Agent has independent Workspace · Skills · Model
+- **Edict data cleaning** — auto-strip file paths, metadata, invalid prefixes from titles/notes
 
-| Panel | Description |
-|-------|------------|
-| 📋 **Edicts Kanban** | Task cards by state, filters, search, heartbeat badges, stop/cancel/resume |
-| 🔭 **Department Monitor** | Pipeline visualization, distribution charts, health cards |
-| 📜 **Memorial Archive** | Auto-generated archives with 5-phase timeline |
-| 📜 **Edict Templates** | 9 presets with parameter forms, cost estimates, one-click dispatch |
-| 👥 **Officials Overview** | Token leaderboard, activity stats |
-| 📰 **Daily Briefing** | Auto-curated news, subscription management, Feishu push |
-| ⚙️ **Model Config** | Per-agent LLM switching, automatic Gateway restart |
-| 🛠️ **Skills Config** | View installed skills, add new ones |
-| 💬 **Sessions** | Live session monitoring with channel labels |
-| 🎬 **Court Ceremony** | Immersive daily opening animation with stats |
+### 📋 Grand Council Dashboard (10 Feature Panels)
+
+<table>
+<tr><td width="50%">
+
+**📋 Edict Kanban**
+
+- All tasks displayed by status columns
+- Department filter + full-text search
+- Heartbeat badges (🟢Active 🟡Stalled 🔴Alert)
+- Task details + complete workflow chain
+- Pause / Cancel / Resume actions
+
+</td><td width="50%">
+
+**🔭 Department Monitor**
+
+- Visualize task counts by status
+- Department distribution bar chart
+- Agent health status real-time cards
+
+</td></tr>
+<tr><td>
+
+**📜 Memorial Archive**
+
+- Completed edicts auto-archived as memorials
+- Five-stage timeline: Edict→Secretariat→Chancellery→Ministries→Report
+- One-click copy as Markdown
+- Filter by status
+
+</td><td>
+
+**📜 Edict Templates**
+
+- 9 preset edict templates
+- Category filter · Parameter forms · Estimated time & cost
+- Preview edict → One-click dispatch
+
+</td></tr>
+<tr><td>
+
+**👥 Officials Overview**
+
+- Token consumption leaderboard
+- Activity · Completions · Session stats
+
+</td><td>
+
+**📰 Daily Briefing**
+
+- Auto-collect tech/finance news daily
+- Category subscription management + Feishu push
+
+</td></tr>
+<tr><td>
+
+**⚙️ Model Config**
+
+- Switch LLM independently for each Agent
+- Auto-restart Gateway on apply (~5s)
+
+</td><td>
+
+**🛠️ Skills Config**
+
+- View installed Skills per department
+- View details + add new skills
+
+</td></tr>
+<tr><td>
+
+**💬 Sessions**
+
+- OC-* session real-time monitoring
+- Source channel · Heartbeat · Message preview
+
+</td><td>
+
+**🎬 Court Ceremony**
+
+- Opening animation on first visit each day
+- Today's stats · 3.5s auto-dismiss
+
+</td></tr>
+<tr><td>
+
+**🏛️ Court Discussion**
+
+- Multi-official debate on topics from department perspectives
+- LLM-driven multi-role debate (each ministry speaks from its expertise)
+- Multi-round progression · Summary conclusions · Discussion records preserved
+
+</td><td>
+
+</td></tr>
+</table>
 
 ---
 
 ## 🖼️ Screenshots
 
-### Edicts Kanban
-![Kanban](docs/screenshots/01-kanban-main.png)
+### Edict Kanban
+
+![Edict Kanban](docs/screenshots/01-kanban-main.png)
 
 <details>
-<summary>📸 More screenshots</summary>
+<summary>📸 Click to view more screenshots</summary>
 
-### Agent Monitor
-![Monitor](docs/screenshots/02-monitor.png)
+### Department Monitor
 
-### Task Detail
-![Detail](docs/screenshots/03-task-detail.png)
+![Department Monitor](docs/screenshots/02-monitor.png)
+
+### Task Flow Details
+
+![Task Flow Details](docs/screenshots/03-task-detail.png)
 
 ### Model Config
-![Models](docs/screenshots/04-model-config.png)
 
-### Skills
-![Skills](docs/screenshots/05-skills-config.png)
+![Model Config](docs/screenshots/04-model-config.png)
 
-### Officials
-![Officials](docs/screenshots/06-official-overview.png)
+### Skills Config
+
+![Skills Config](docs/screenshots/05-skills-config.png)
+
+### Officials Overview
+
+![Officials Overview](docs/screenshots/06-official-overview.png)
 
 ### Sessions
+
 ![Sessions](docs/screenshots/07-sessions.png)
 
-### Memorials Archive
-![Memorials](docs/screenshots/08-memorials.png)
+### Memorial Archive
 
-### Command Templates
-![Templates](docs/screenshots/09-templates.png)
+![Memorial Archive](docs/screenshots/08-memorials.png)
+
+### Edict Templates
+
+![Edict Templates](docs/screenshots/09-templates.png)
 
 ### Daily Briefing
-![Briefing](docs/screenshots/10-morning-briefing.png)
+
+![Daily Briefing](docs/screenshots/10-morning-briefing.png)
 
 ### Court Ceremony
-![Ceremony](docs/screenshots/11-ceremony.png)
+
+![Court Ceremony](docs/screenshots/11-ceremony.png)
 
 </details>
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start in 30 Seconds
 
-### Docker
+### Live Demo
+
+Open [dynasty.yyc3.vip](https://dynasty.yyc3.vip) to try the Grand Council Dashboard.
+
+### Docker One-Click Launch
 
 ```bash
-docker run -p 7891:7891 cft0808/edict
+docker run -p 7891:7891 yyc3/dynasty-demo
 ```
-Open http://localhost:7891
 
-### Full Install
+Open <http://localhost:7891> to experience the Grand Council Dashboard.
 
-**Prerequisites:** [OpenClaw](https://openclaw.ai) · Python 3.9+ · macOS/Linux
+<details>
+<summary><b>⚠️ Getting <code>exec format error</code>? (Click to expand)</b></summary>
+
+If you see this on an **x86/amd64** machine (e.g., Ubuntu, WSL2):
+
+```
+exec /usr/local/bin/python3: exec format error
+```
+
+This is due to image architecture mismatch. Use the `--platform` flag:
 
 ```bash
-git clone https://github.com/cft0808/edict.git
-cd edict
+docker run --platform linux/amd64 -p 7891:7891 yyc3/dynasty-demo
+```
+
+Or use docker-compose (with built-in `platform: linux/amd64`):
+
+```bash
+docker compose up
+```
+
+</details>
+
+### Full Installation
+
+#### Prerequisites
+
+- [OpenClaw](https://openclaw.ai) installed
+- Python 3.9+
+- macOS / Linux
+
+#### Install
+
+```bash
+git clone https://github.com/YYC-Cube/YYC3-Dynasty-Framework.git
+cd YYC3-Dynasty-Framework
 chmod +x install.sh && ./install.sh
 ```
 
-The installer automatically:
-- Creates workspaces for all departments (`~/.openclaw/workspace-*`, including Crown Prince/HR/Briefing)
-- Writes SOUL.md personality files for each department
-- Registers agents + permission matrix in `openclaw.json`
-- Initializes data directory + first sync
-- Restarts Gateway
+The install script automatically:
 
-### Launch
+- ✅ Creates all Agent Workspaces (including Crown Prince, Personnel, Morning Herald, compatible with legacy main)
+- ✅ Writes SOUL.md for each department (persona + workflow rules + data cleaning specs)
+- ✅ Registers Agents and permission matrix to `openclaw.json`
+- ✅ **Symlinks unified data** (each Workspace's data/scripts → project directory)
+- ✅ **Sets inter-Agent communication visibility** (`sessions.visibility all`)
+- ✅ **Syncs API Key to all Agents** (auto-copy from configured Agent)
+- ✅ Builds React frontend (requires Node.js 18+, skipped if not installed)
+- ✅ Initializes data directory + first data sync (including officials stats)
+- ✅ Restarts Gateway to apply configuration
+
+> ⚠️ **First-time install**: Configure API Key first: `openclaw agents add taizi`, then re-run `./install.sh` to sync to all Agents.
+
+#### Start
 
 ```bash
-# Option 1: One-click launch (recommended)
+# Option 1: One-click start (recommended)
 chmod +x start.sh && ./start.sh
 
-# Option 2: Manual launch
-bash scripts/run_loop.sh &      # Data sync loop
+# Option 2: Start separately
+bash scripts/run_loop.sh &      # Data refresh loop
 python3 dashboard/server.py     # Dashboard server
 
 # Open browser
@@ -226,7 +346,7 @@ open http://127.0.0.1:7891
 ```
 
 <details>
-<summary><b>🖥️ Production deployment (systemd)</b></summary>
+<summary><b>🖥️ Production Deployment (systemd)</b></summary>
 
 ```bash
 # Install systemd service
@@ -244,7 +364,9 @@ bash edict.sh stop     # Stop
 
 </details>
 
-> 📖 See [Getting Started Guide](docs/getting-started.md) for detailed walkthrough.
+> 💡 **Dashboard works out of the box**: `server.py` embeds `dashboard/dashboard.html`, Docker image includes pre-built React frontend
+
+> 💡 See the [Getting Started Guide](docs/getting-started.md) for detailed instructions
 
 ---
 
@@ -252,96 +374,107 @@ bash edict.sh stop     # Stop
 
 ```
                            ┌───────────────────────────────────┐
-                           │         👑 Emperor (You)           │
+                           │          👑 Emperor (You)          │
                            │     Feishu · Telegram · Signal     │
                            └─────────────────┬─────────────────┘
-                                             │ Issue edict
+                                             │ Edict
                            ┌─────────────────▼─────────────────┐
-                           │     👑 Crown Prince (太子)          │
-                           │   Triage: chat → reply / cmd → task │
+                           │       👑 Crown Prince (taizi)      │
+                           │    Sort: chat reply / task create    │
                            └─────────────────┬─────────────────┘
-                                             │ Forward edict
+                                             │ Forward
                            ┌─────────────────▼─────────────────┐
-                           │      📜 Planning Dept (中书省)      │
-                           │     Receive → Plan → Decompose      │
+                           │     📜 Secretariat (zhongshu)       │
+                           │     Receive → Plan → Decompose       │
                            └─────────────────┬─────────────────┘
-                                             │ Submit for review
+                                             │ Submit Review
                            ┌─────────────────▼─────────────────┐
-                           │       🔍 Review Dept (门下省)       │
-                           │     Audit → Approve / Reject 🚫     │
+                           │      🔍 Chancellery (menxia)        │
+                           │     Review → Approve / Reject 🚫    │
                            └─────────────────┬─────────────────┘
                                              │ Approved ✅
                            ┌─────────────────▼─────────────────┐
-                           │      📮 Dispatch Dept (尚书省)      │
-                           │   Assign → Coordinate → Collect     │
+                           │    📮 Dept. of State (shangshu)     │
+                           │   Dispatch → Coordinate → Report    │
                            └───┬──────┬──────┬──────┬──────┬───┘
                                │      │      │      │      │
                          ┌─────▼┐ ┌───▼───┐ ┌▼─────┐ ┌───▼─┐ ┌▼─────┐
-                         │💰 Fin.│ │📝 Docs│ │⚔️ Eng.│ │⚖️ Law│ │🔧 Ops│
-                         │ 户部  │ │ 礼部  │ │ 兵部  │ │ 刑部 │ │ 工部  │
+                         │💰Rev.│ │📝Rites│ │⚔️ War│ │⚖️Just│ │🔧Work│
+                         │ Data │ │  Docs │ │ Eng. │ │Compl.│ │ Infra│
                          └──────┘ └──────┘ └──────┘ └─────┘ └──────┘
                                                                ┌──────┐
-                                                               │📋 HR  │
-                                                               │ 吏部  │
+                                                               │📋Pers.│
+                                                               │  HR  │
                                                                └──────┘
 ```
 
-### Agent Roles
+### Department Responsibilities
 
-| Dept | Agent ID | Role | Expertise |
-|------|----------|------|-----------|
-| 👑 **Crown Prince** | `taizi` | Triage, summarize | Chat detection, intent extraction |
-| 📜 **Planning** | `zhongshu` | Receive, plan, decompose | Requirements, architecture |
-| 🔍 **Review** | `menxia` | Audit, gatekeep, veto | Quality, risk, standards |
-| 📮 **Dispatch** | `shangshu` | Assign, coordinate, collect | Scheduling, tracking |
-| 💰 **Finance** | `hubu` | Data, resources, accounting | Data processing, reports |
-| 📝 **Documentation** | `libu` | Docs, standards, reports | Tech writing, API docs |
-| ⚔️ **Engineering** | `bingbu` | Code, algorithms, checks | Development, code review |
-| ⚖️ **Compliance** | `xingbu` | Security, compliance, audit | Security scanning |
-| 🔧 **Infrastructure** | `gongbu` | CI/CD, deploy, tooling | Docker, pipelines |
-| 📋 **HR** | `libu_hr` | Agent management, training | Registration, permissions |
-| 🌅 **Briefing** | `zaochao` | Daily briefing, news | Scheduled reports, summaries |
+| Department | Agent ID | Responsibility | Expertise |
+| ---| ---| ---| ---|
+| 👑 **Crown Prince** | `taizi` | Message sorting, requirement organization | Chat detection, edict extraction, title summarization |
+| 📜 **Secretariat** | `zhongshu` | Receive edicts, plan, decompose | Requirement understanding, task decomposition, solution design |
+| 🔍 **Chancellery** | `menxia` | Review, vet, reject | Quality assessment, risk identification, standards enforcement |
+| 📮 **Dept. of State** | `shangshu` | Dispatch, coordinate, aggregate | Task scheduling, progress tracking, result integration |
+| 💰 **Revenue** | `hubu` | Data, resources, accounting | Data processing, report generation, cost analysis |
+| 📝 **Rites** | `libu` | Documentation, standards, reports | Technical docs, API docs, standards development |
+| ⚔️ **War** | `bingbu` | Code, algorithms, inspection | Feature development, bug fixes, code review |
+| ⚖️ **Justice** | `xingbu` | Security, compliance, audit | Security scanning, compliance checks, red line management |
+| 🔧 **Works** | `gongbu` | CI/CD, deployment, tooling | Docker configuration, pipelines, automation |
+| 📋 **Personnel** | `libu_hr` | HR, Agent management | Agent registration, permission maintenance, training |
+| 🌅 **Morning Herald** | `zaochao` | Daily briefing, news aggregation | Scheduled broadcasting, data summary |
 
 ### Permission Matrix
 
-| From ↓ \ To → | Prince | Planning | Review | Dispatch | Ministries |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Crown Prince** | — | ✅ | | | |
-| **Planning** | ✅ | — | ✅ | ✅ | |
-| **Review** | | ✅ | — | ✅ | |
-| **Dispatch** | | ✅ | ✅ | — | ✅ all |
-| **Ministries** | | | | ✅ | |
+> Can't just message anyone — genuine checks and balances
 
-### State Machine
+| From ↓ \ To → | Prince | Secretariat | Chancellery | State | Rev. | Rites | War | Justice | Works | Pers. |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Prince** | — | ✅ | | | | | | | | |
+| **Secretariat** | ✅ | — | ✅ | ✅ | | | | | | |
+| **Chancellery** | | ✅ | — | ✅ | | | | | | |
+| **Dept. of State** | | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Ministries+Pers.** | | | | ✅ | | | | | | |
+
+### Task State Flow
 
 ```
-Emperor → Prince Triage → Planning → Review → Assigned → Executing → ✅ Done
-                              ↑          │                       │
-                              └── Veto ──┘              Blocked ──
+Emperor → Prince Sort → Secretariat Plan → Chancellery Review → Dispatched → Executing → Review → ✅ Completed
+                          ↑          │                                      │
+                          └── Rejected ─┘                           Blocked
 ```
+
+> ⚡ **State transitions are protected**: `kanban_update.py` has built-in `_VALID_TRANSITIONS` state machine validation.
+> Illegal jumps (e.g., Doing→Taizi) are rejected and logged.
+>
+> 🔄 **Async event-driven**: Services communicate via Redis Streams EventBus, Outbox Relay ensures reliable event delivery.
+> All state changes are automatically written to audit logs (`audit.py`), supporting full traceability.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-edict/
-├── agents/                     # 12 agent personality templates (SOUL.md)
-│   ├── taizi/                  #   Crown Prince (triage)
-│   ├── zhongshu/               #   Planning Dept
-│   ├── menxia/                 #   Review Dept
-│   ├── shangshu/               #   Dispatch Dept
-│   ├── hubu/ libu/ bingbu/     #   Finance / Docs / Engineering
-│   ├── xingbu/ gongbu/         #   Compliance / Infrastructure
-│   ├── libu_hr/                #   HR Dept
-│   └── zaochao/                #   Morning Briefing
+YYC3-Dynasty-Framework/
+├── agents/                     # 12 Agent persona templates
+│   ├── taizi/SOUL.md           # Crown Prince · Message sorting
+│   ├── zhongshu/SOUL.md        # Secretariat · Planning hub
+│   ├── menxia/SOUL.md          # Chancellery · Review gate
+│   ├── shangshu/SOUL.md        # Dept. of State · Dispatch brain
+│   ├── hubu/SOUL.md            # Revenue · Data resources
+│   ├── libu/SOUL.md            # Rites · Documentation standards
+│   ├── bingbu/SOUL.md          # War · Engineering
+│   ├── xingbu/SOUL.md          # Justice · Compliance audit
+│   ├── gongbu/SOUL.md          # Works · Infrastructure
+│   ├── libu_hr/                # Personnel · HR management
+│   └── zaochao/SOUL.md         # Morning Herald · Intelligence hub
 ├── dashboard/
-│   ├── dashboard.html          # Dashboard (single file, zero deps, works out of the box)
-│   ├── dist/                   # Pre-built React frontend (included in Docker image)
-│   ├── auth.py                 # Dashboard login authentication
-│   ├── court_discuss.py        # Court discussion (multi-agent LLM debate engine)
-│   └── server.py               # API server (stdlib, zero deps)
-├── edict/backend/              # Async backend services (SQLAlchemy + Redis)
+│   ├── dashboard.html          # Grand Council Kanban (single-file · zero deps · ~2500 lines)
+│   ├── dist/                   # React frontend build output (included in Docker image)
+│   ├── auth.py                 # Dashboard authentication
+│   ├── court_discuss.py        # Court Discussion (multi-official LLM debate engine)
+│   └── server.py               # API server (Python stdlib · zero deps · ~2300 lines)
+├── edict/backend/              # Async backend service (SQLAlchemy + Redis)
 │   ├── app/models/
 │   │   ├── task.py             # Task model + state machine
 │   │   ├── audit.py            # Audit log model
@@ -353,116 +486,235 @@ edict/
 │       ├── dispatch_worker.py  # Parallel dispatch + retry + resource lock
 │       ├── orchestrator_worker.py  # DAG orchestrator
 │       └── outbox_relay.py     # Transactional Outbox Relay
-├── agents/
-│   ├── <agent_id>/SOUL.md      # Agent personality templates
-│   ├── GLOBAL.md               # Global agent config
-│   └── groups/                 # Agent groups (sansheng / liubu)
-├── scripts/                    # Data sync & automation scripts
-│   ├── kanban_update.py        #   Kanban CLI with data sanitization + state machine
-│   ├── agentrec_advisor.py     #   Agent model recommendation (merit + cost optimization)
-│   ├── linucb_router.py        #   LinUCB smart routing
-│   ├── refresh_watcher.py      #   Data change watcher
-│   └── ...                     #   fetch_morning_news, sync, etc.
+├── scripts/
+│   ├── run_loop.sh             # Data refresh loop (every 15s)
+│   ├── kanban_update.py        # Kanban CLI (edict data cleaning + title validation + state machine)
+│   ├── skill_manager.py        # Skill management tool (remote/local add, update, remove)
+│   └── ...                     # More utility scripts
 ├── tests/
-│   ├── test_e2e_kanban.py      #   Kanban sanitization tests (17 assertions)
+│   ├── test_e2e_kanban.py      # End-to-end tests (17 assertions)
 │   └── test_state_machine_consistency.py  # State machine consistency tests
-├── data/                       # Runtime data (gitignored)
-├── docs/                       # Documentation + screenshots
-├── install.sh                  # One-click installer
-├── start.sh                    # One-click launch (Dashboard + data sync)
-├── edict.service               # systemd service config (production deploy)
-├── edict.sh                    # Service management (start/stop/restart/status)
-└── LICENSE                     # MIT
+├── docs/
+│   ├── task-dispatch-architecture.md  # Detailed architecture documentation
+│   ├── getting-started.md             # Quick start guide
+│   └── screenshots/                   # Feature screenshots (11 images)
+├── install.sh                  # One-click install script
+├── start.sh                    # One-click start (Dashboard + data refresh)
+├── CONTRIBUTING.md             # Contribution guide
+└── LICENSE                     # MIT License
 ```
+
+---
+
+## 🎯 Usage
+
+### Issue an Edict to AI
+
+Send a message to the Secretariat via Feishu / Telegram / Signal:
+
+```
+Design a user registration system with:
+1. RESTful API (FastAPI)
+2. PostgreSQL database
+3. JWT authentication
+4. Complete test cases
+5. Deployment documentation
+```
+
+**Then sit back and watch:**
+
+1. 📜 Secretariat receives the edict, plans subtask allocation
+2. 🔍 Chancellery reviews, approves / rejects for re-planning
+3. 📮 Dept. of State dispatches to War + Works + Rites ministries
+4. ⚔️ Ministries execute in parallel, progress visible in real-time
+5. 📮 Dept. of State aggregates results, reports back to you
+
+The entire process is monitored in real-time on the **Grand Council Dashboard**, with the ability to **pause, cancel, or resume** at any time.
+
+### Use Edict Templates
+
+> Dashboard → 📜 Templates → Select template → Fill parameters → Dispatch
+
+9 preset templates: Weekly Report · Code Review · API Design · Competitive Analysis · Data Report · Blog Post · Deployment Plan · Email Draft · Standup Summary
+
+### Customize Agents
+
+Edit `agents/<id>/SOUL.md` to modify an Agent's persona, responsibilities, and output standards.
+
+### Add Skills (Connect from Web)
+
+**Three ways to add Skills:**
+
+#### 1️⃣ Dashboard UI (Simplest)
+
+```
+Dashboard → 🛠️ Skills Config → ➕ Add Remote Skill
+→ Enter Agent + Skill name + GitHub URL
+→ Confirm → ✅ Done
+```
+
+#### 2️⃣ CLI Command (Most Flexible)
+
+```bash
+# Add code_review skill to Secretariat from GitHub
+python3 scripts/skill_manager.py add-remote \
+  --agent zhongshu \
+  --name code_review \
+  --source https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/code_review/SKILL.md \
+  --description "Code review skill"
+
+# Import official skills hub to specified agents
+python3 scripts/skill_manager.py import-official-hub \
+  --agents zhongshu,menxia,shangshu,bingbu,xingbu
+
+# List all remote skills
+python3 scripts/skill_manager.py list-remote
+
+# Update a skill to latest version
+python3 scripts/skill_manager.py update-remote \
+  --agent zhongshu \
+  --name code_review
+```
+
+#### 3️⃣ API Request (Automation Integration)
+
+```bash
+# Add remote skill
+curl -X POST http://localhost:7891/api/add-remote-skill \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agentId": "zhongshu",
+    "skillName": "code_review",
+    "sourceUrl": "https://raw.githubusercontent.com/...",
+    "description": "Code review"
+  }'
+
+# View all remote skills
+curl http://localhost:7891/api/remote-skills-list
+```
+
+**Official Skills Hub:** <https://github.com/openclaw-ai/skills-hub>
+
+See [🎓 Remote Skills Management Guide](docs/remote-skills-guide.md) for details.
 
 ---
 
 ## 🔧 Technical Highlights
 
-| | |
-|---|---|
-| **React 18 Frontend** | TypeScript + Vite + Zustand, 13 components |
-| **stdlib Backend** | `server.py` on `http.server`, zero dependencies |
-| **EventBus** | Redis Streams pub/sub for decoupled service communication |
-| **Outbox Relay** | Transactional outbox pattern for reliable event delivery (at-least-once) |
-| **State Machine Audit** | Strict lifecycle transitions + full audit logging (`audit.py`) |
-| **Parallel Dispatch** | Dispatch Worker with parallel execution, exponential backoff retry, resource locking |
-| **DAG Orchestrator** | Task decomposition and dependency resolution via DAG |
-| **Agent Thinking Visible** | Real-time display of agent thinking, tool calls, results |
-| **One-click Install / Launch** | `install.sh` auto-configures, `start.sh` launches all services |
-| **systemd Production Deploy** | `edict.service` for daemon process, auto-restart on boot |
-| **15s Auto-sync** | Live data refresh with countdown |
-| **Dashboard Auth** | `auth.py` provides login authentication |
-| **Daily Ceremony** | Immersive opening animation |
+| Feature | Description |
+|---------|-------------|
+| **React 18 Frontend** | TypeScript + Vite + Zustand state management, 13 feature components |
+| **Pure stdlib Backend** | `server.py` based on `http.server`, zero dependencies, serves both API + static files |
+| **EventBus** | Redis Streams pub/sub for decoupled inter-service communication |
+| **Outbox Relay** | Transactional Outbox pattern for reliable event delivery (at-least-once semantics) |
+| **State Machine Audit** | Strict lifecycle state transitions + complete audit logs (`audit.py`) |
+| **Parallel Dispatch Engine** | Dispatch Worker supports parallel execution, exponential backoff retry, resource locks |
+| **DAG Orchestrator** | DAG-based task decomposition and dependency resolution |
+| **Agent Thinking Visualization** | Real-time display of Agent thinking process, tool calls, and results |
+| **One-Click Install/Start** | `install.sh` auto-configures, `start.sh` launches all services |
+| **systemd Production Deploy** | `edict.service` supports systemd daemon, auto-start on boot |
+| **15s Sync** | Auto data refresh, countdown displayed on dashboard |
+| **Dashboard Auth** | `auth.py` provides dashboard login authentication |
+| **Daily Ceremony** | Opening animation on first visit each day |
+| **Remote Skills Ecosystem** | One-click import from GitHub/URL, version management + CLI + API + UI |
+
+---
+
+## 📚 Documentation
+
+- **[📖 Task Dispatch Architecture](docs/task-dispatch-architecture.md)** — **Must Read**
+  - Detailed explanation of how YYC³ Dynasty handles complex tasks
+  - Covers: 9-state task machine / Permission matrix / 4-stage dispatch (retry→escalate→rollback) / Session JSONL data fusion
+  - Comparison with CrewAI/AutoGen: why institutional > free collaboration
+  - **Reading this doc explains why YYC³ Dynasty is so powerful** (9,500+ words)
+
+- **[🎓 Remote Skills Management Guide](docs/remote-skills-guide.md)** — Skills Ecosystem
+- **[⚡ Remote Skills Quickstart](docs/remote-skills-quickstart.md)** — Get started in 5 minutes
+- **[🚀 Getting Started Guide](docs/getting-started.md)** — New user onboarding
+- **[🤝 Contributing Guide](CONTRIBUTING.md)** — Want to contribute? Start here
 
 ---
 
 ## 🗺️ Roadmap
 
-> Full roadmap with contribution opportunities: [ROADMAP.md](ROADMAP.md)
+> Full roadmap and how to participate: [ROADMAP.md](ROADMAP.md)
 
 ### Phase 1 — Core Architecture ✅
-- [x] Twelve-department agent architecture + permissions
-- [x] Crown Prince triage layer (chat vs task auto-routing)
-- [x] Real-time dashboard (10 panels)
-- [x] Task stop / cancel / resume
-- [x] Memorial archive (5-phase timeline)
-- [x] Edict template library (9 presets)
-- [x] Court ceremony animation
-- [x] Daily news + Feishu webhook push
-- [x] Hot-swap LLM models + skill management
-- [x] Officials overview + token stats
-- [x] Session monitoring
-- [x] Edict data sanitization (title/remark cleaning, dirty data rejection)
-- [x] Duplicate task overwrite protection
-- [x] E2E kanban tests (17 assertions)
 
-### Phase 2 — Institutional Depth 🚧
-- [ ] Imperial approval mode (human-in-the-loop)
-- [x] Merit/demerit ledger (agent scoring + model recommendation + cost optimization)
+- [x] Twelve-Agent architecture (Crown Prince + 3 Departments + 7 Ministries) + Permission matrix
+- [x] Grand Council real-time dashboard (10 feature panels)
+- [x] Task pause / cancel / resume
+- [x] Memorial system (auto-archive + five-stage timeline)
+- [x] Edict template library (9 presets + parameter forms)
+- [x] Court ceremony animation
+- [x] Daily briefing + Feishu push + subscription management
+- [x] Model hot-swap + skills management
+- [x] Officials overview + Token consumption stats
+- [x] Sessions monitoring
+- [x] Crown Prince message sorting
+- [x] Edict data cleaning
+- [x] Duplicate task prevention
+- [x] E2E test coverage (17 assertions)
+- [x] React 18 frontend refactor (TypeScript + Vite + Zustand · 13 components)
+- [x] Agent thinking visualization
+- [x] Integrated frontend/backend deployment
+
+### Phase 2 — Institutional Deepening 🚧
+
+- [ ] Imperial Review mode (human approval + one-click approve/reject)
+- [x] Merit & Demerit Register (Agent performance scoring + model recommendation)
 - [x] EventBus (Redis Streams decoupled communication)
 - [x] Outbox Relay (transactional event delivery)
-- [x] State machine audit (strict lifecycle + audit logging)
-- [x] Parallel dispatch engine (exponential backoff retry + resource lock)
-- [x] DAG orchestrator (task decomposition + dependency resolution)
-- [x] Dashboard authentication (login auth)
-- [x] One-click launch / systemd production deploy
-- [ ] Express courier (inter-agent message visualization)
-- [ ] Imperial Archives (knowledge base + citation)
+- [x] State machine audit
+- [x] Parallel dispatch engine
+- [x] DAG orchestrator
+- [x] Dashboard authentication
+- [x] One-click start / systemd production deployment
+- [ ] Express Courier (real-time inter-Agent message flow visualization)
+- [ ] Imperial Archives (knowledge base retrieval + citation tracing)
 
-### Phase 3 — Ecosystem
-- [ ] Docker Compose + demo image
+### Phase 3 — Ecosystem Expansion
+
+- [ ] Docker Compose + Demo image
 - [ ] Notion / Linear adapters
-- [ ] Annual review (yearly performance reports)
-- [ ] Mobile responsive + PWA
+- [ ] Annual Review (Agent annual performance report)
+- [ ] Mobile adaptation + PWA
 - [ ] ClawHub marketplace listing
 
 ---
 
 ## 🤝 Contributing
 
-All contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md)
+All forms of contribution are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md)
 
-- 🎨 **UI** — themes, responsiveness, animations
-- 🤖 **New agents** — specialized roles
-- 📦 **Skills** — ministry-specific packages
-- 🔗 **Integrations** — Notion · Jira · Linear · GitHub Issues
-- 🌐 **i18n** — Japanese · Korean · Spanish
-- 📱 **Mobile** — responsive, PWA
+Special areas of interest:
+
+- 🎨 **UI Enhancement**: Dark/light themes, responsive design, animation optimization
+- 🤖 **New Agents**: Specialized agent roles for specific scenarios
+- 📦 **Skills Ecosystem**: Department-specific skill packages
+- 🔗 **Integration Extensions**: Notion · Jira · Linear · GitHub Issues
+- 🌐 **Internationalization**: Japanese · Korean · Spanish
+- 📱 **Mobile**: Responsive adaptation, PWA
 
 ---
 
-## � Examples
+## 📂 Examples
 
 The `examples/` directory contains real end-to-end use cases:
 
-| Example | Command | Departments |
-|---------|---------|-------------|
-| [Competitive Analysis](examples/competitive-analysis.md) | "Analyze CrewAI vs AutoGen vs LangGraph" | Planning→Review→Finance+Engineering+Docs |
-| [Code Review](examples/code-review.md) | "Review this FastAPI code for security issues" | Planning→Review→Engineering+Compliance |
-| [Weekly Report](examples/weekly-report.md) | "Generate this week's engineering team report" | Planning→Review→Finance+Docs |
+| Case | Edict | Departments Involved |
+|------|-------|---------------------|
+| [Competitive Analysis](examples/competitive-analysis.md) | "Analyze CrewAI vs AutoGen vs LangGraph" | Secretariat→Chancellery→Revenue+War+Rites |
+| [Code Review](examples/code-review.md) | "Review the security of this FastAPI code" | Secretariat→Chancellery→War+Justice |
+| [Weekly Report](examples/weekly-report.md) | "Generate this week's engineering team report" | Secretariat→Chancellery→Revenue+Rites |
 
-Each case includes: Full command → Planning proposal → Review feedback → Ministry outputs → Final report.
+---
+
+## ⭐ Star History
+
+If this project makes you smile, please give it a Star ⚔️
+
+[![Star History Chart](https://api.star-history.com/svg?repos=YYC-Cube/YYC3-Dynasty-Framework&type=Date)](https://star-history.com/#YYC-Cube/YYC3-Dynasty-Framework&Date)
 
 ---
 
@@ -472,32 +724,14 @@ Each case includes: Full command → Planning proposal → Review feedback → M
 
 ---
 
-## 📮 WeChat · Behind the Scenes
+**Thank you for your trust and support! Marching forward with intelligence ❤️**
 
-> *In ancient China, the “Dǐbào” (imperial gazette) delivered edicts across the empire. Today we have a WeChat account.*
+<div align="center">
 
-<p align="center">
-  <img src="docs/assets/wechat-qrcode.jpg" width="200" alt="WeChat QR · cft0808">
-  <br>
-  <b>Scan to follow · cft0808</b>
-</p>
+> 「***YanYuCloudCube***」
+> 「***<admin@0379.email>***」
+> 「***Words Initiate Quadrants, Language Serves as Core for the Future***」
+> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
 
-What you’ll find:
-- 🏛️ Architecture deep-dives — how 12 agents achieve separation of powers
-- 🔥 War stories — when agents fight, burn tokens, or go on strike
-- 💡 Token-saving tricks — run the full pipeline at 1/10 the cost
-- 🎭 Behind the SOUL.md — how to write prompts that make AI agents stay in character
-
----
-
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=cft0808/edict&type=Date)](https://star-history.com/#cft0808/edict&Date)
-
----
-
-<p align="center">
-  <strong>⚔️ Governing AI with the wisdom of ancient empires</strong><br>
-  <sub>以古制御新技，以智慧驾驭 AI</sub><br><br>
-  <a href="#-wechat--behind-the-scenes"><img src="https://img.shields.io/badge/WeChat_cft0808-Follow_for_updates-07C160?style=for-the-badge&logo=wechat&logoColor=white" alt="WeChat"></a>
-</p>
+**© 2025-2026 YYC³ Team. All Rights Reserved.**
+</div>

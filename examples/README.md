@@ -1,3 +1,18 @@
+---
+file: examples/README.md
+description: YYC³ Dynasty 使用案例索引 — 端到端旨意处理全流程示例
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: stable
+tags: [examples],[guide],[use-cases]
+category: guide
+language: zh-CN
+audience: users,developers
+complexity: basic
+---
+
 # 📂 案例 / Examples
 
 真实的端到端使用案例，展示三省六部处理完整旨意的全流程。

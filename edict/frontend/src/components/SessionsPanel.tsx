@@ -1,6 +1,6 @@
-import { useStore, isEdict, STATE_LABEL, timeAgo } from '../store';
+import { useEffect, useState } from 'react';
 import type { Task } from '../api';
-import { useState } from 'react';
+import { STATE_LABEL, isEdict, timeAgo, useStore } from '../store';
 
 // Agent maps built from agentConfig
 function useAgentMaps() {
@@ -169,6 +169,13 @@ function SessionDetailModal({
   emojiMap: Record<string, string>;
   onClose: () => void;
 }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
   const agent = extractAgent(t);
   const emoji = emojiMap[agent] || '🏛️';
   const title = humanTitle(t, labelMap);

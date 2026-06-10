@@ -1,3 +1,18 @@
+---
+file: CODE_OF_CONDUCT.md
+description: YYC³ Dynasty 贡献者行为准则 — 社区公约与行为规范
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [community],[code-of-conduct],[governance]
+category: policy
+language: zh-CN
+audience: developers,community
+complexity: basic
+---
+
 # 贡献者行为准则 · Contributor Covenant
 
 ## 我们的承诺

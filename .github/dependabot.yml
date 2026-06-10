@@ -16,9 +16,9 @@ updates:
       prefix: "chore(deps):"
     open-pull-requests-limit: 5
 
-  # npm 依赖
+  # npm 依赖（前端子项目）
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/edict/frontend"
     schedule:
       interval: "weekly"
       day: "monday"

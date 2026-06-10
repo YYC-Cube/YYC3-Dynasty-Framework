@@ -6,27 +6,27 @@
 import { create } from 'zustand';
 import {
   api,
-  type Task,
-  type LiveStatus,
   type AgentConfig,
-  type OfficialsData,
   type AgentsStatusData,
-  type MorningBrief,
-  type SubConfig,
   type ChangeLogEntry,
+  type LiveStatus,
+  type MorningBrief,
+  type OfficialsData,
+  type SubConfig,
+  type Task,
 } from './api';
 
 // ── Pipeline Definition (PIPE) ──
 
 export const PIPE = [
-  { key: 'Inbox',    dept: '皇上',   icon: '👑', action: '下旨' },
-  { key: 'Taizi',    dept: '太子',   icon: '🤴', action: '分拣' },
+  { key: 'Inbox', dept: '皇上', icon: '👑', action: '下旨' },
+  { key: 'Taizi', dept: '太子', icon: '🤴', action: '分拣' },
   { key: 'Zhongshu', dept: '中书省', icon: '📜', action: '起草' },
-  { key: 'Menxia',   dept: '门下省', icon: '🔍', action: '审议' },
+  { key: 'Menxia', dept: '门下省', icon: '🔍', action: '审议' },
   { key: 'Assigned', dept: '尚书省', icon: '📮', action: '派发' },
-  { key: 'Doing',    dept: '六部',   icon: '⚙️', action: '执行' },
-  { key: 'Review',   dept: '尚书省', icon: '🔎', action: '汇总' },
-  { key: 'Done',     dept: '回奏',   icon: '✅', action: '完成' },
+  { key: 'Doing', dept: '六部', icon: '⚙️', action: '执行' },
+  { key: 'Review', dept: '尚书省', icon: '🔎', action: '汇总' },
+  { key: 'Done', dept: '回奏', icon: '✅', action: '完成' },
 ] as const;
 
 export const PIPE_STATE_IDX: Record<string, number> = {
@@ -86,32 +86,32 @@ export type TabKey =
   | 'skills' | 'sessions' | 'memorials' | 'templates' | 'morning' | 'court';
 
 export const TAB_DEFS: { key: TabKey; label: string; icon: string }[] = [
-  { key: 'edicts',    label: '旨意看板', icon: '📜' },
-  { key: 'court',     label: '朝堂议政', icon: '🏛️' },
-  { key: 'monitor',   label: '省部调度', icon: '🔌' },
+  { key: 'edicts', label: '旨意看板', icon: '📜' },
+  { key: 'court', label: '朝堂议政', icon: '🏛️' },
+  { key: 'monitor', label: '省部调度', icon: '🔌' },
   { key: 'officials', label: '官员总览', icon: '👔' },
-  { key: 'models',    label: '模型配置', icon: '🤖' },
-  { key: 'skills',    label: '技能配置', icon: '🎯' },
-  { key: 'sessions',  label: '小任务',   icon: '💬' },
-  { key: 'memorials', label: '奏折阁',   icon: '📜' },
-  { key: 'templates', label: '旨库',     icon: '📋' },
-  { key: 'morning',   label: '天下要闻', icon: '🌅' },
+  { key: 'models', label: '模型配置', icon: '🤖' },
+  { key: 'skills', label: '技能配置', icon: '🎯' },
+  { key: 'sessions', label: '小任务', icon: '💬' },
+  { key: 'memorials', label: '奏折阁', icon: '📜' },
+  { key: 'templates', label: '旨库', icon: '📋' },
+  { key: 'morning', label: '天下要闻', icon: '🌅' },
 ];
 
 // ── DEPTS for monitor ──
 
 export const DEPTS = [
-  { id: 'taizi',    label: '太子',   emoji: '🤴', role: '太子',     rank: '储君' },
-  { id: 'zhongshu', label: '中书省', emoji: '📜', role: '中书令',   rank: '正一品' },
-  { id: 'menxia',   label: '门下省', emoji: '🔍', role: '侍中',     rank: '正一品' },
-  { id: 'shangshu', label: '尚书省', emoji: '📮', role: '尚书令',   rank: '正一品' },
-  { id: 'libu',     label: '礼部',   emoji: '📝', role: '礼部尚书', rank: '正二品' },
-  { id: 'hubu',     label: '户部',   emoji: '💰', role: '户部尚书', rank: '正二品' },
-  { id: 'bingbu',   label: '兵部',   emoji: '⚔️', role: '兵部尚书', rank: '正二品' },
-  { id: 'xingbu',   label: '刑部',   emoji: '⚖️', role: '刑部尚书', rank: '正二品' },
-  { id: 'gongbu',   label: '工部',   emoji: '🔧', role: '工部尚书', rank: '正二品' },
-  { id: 'libu_hr',  label: '吏部',   emoji: '👔', role: '吏部尚书', rank: '正二品' },
-  { id: 'zaochao',  label: '钦天监', emoji: '📰', role: '朝报官',   rank: '正三品' },
+  { id: 'taizi', label: '太子', emoji: '🤴', role: '太子', rank: '储君' },
+  { id: 'zhongshu', label: '中书省', emoji: '📜', role: '中书令', rank: '正一品' },
+  { id: 'menxia', label: '门下省', emoji: '🔍', role: '侍中', rank: '正一品' },
+  { id: 'shangshu', label: '尚书省', emoji: '📮', role: '尚书令', rank: '正一品' },
+  { id: 'libu', label: '礼部', emoji: '📝', role: '礼部尚书', rank: '正二品' },
+  { id: 'hubu', label: '户部', emoji: '💰', role: '户部尚书', rank: '正二品' },
+  { id: 'bingbu', label: '兵部', emoji: '⚔️', role: '兵部尚书', rank: '正二品' },
+  { id: 'xingbu', label: '刑部', emoji: '⚖️', role: '刑部尚书', rank: '正二品' },
+  { id: 'gongbu', label: '工部', emoji: '🔧', role: '工部尚书', rank: '正二品' },
+  { id: 'libu_hr', label: '吏部', emoji: '👔', role: '吏部尚书', rank: '正二品' },
+  { id: 'zaochao', label: '钦天监', emoji: '📰', role: '朝报官', rank: '正三品' },
 ];
 
 // ── Templates ──
@@ -271,6 +271,9 @@ interface AppStore {
   // Toast
   toasts: { id: number; msg: string; type: 'ok' | 'err' }[];
 
+  // WebSocket
+  wsConnected: boolean;
+
   // Actions
   setActiveTab: (tab: TabKey) => void;
   setEdictFilter: (f: 'active' | 'archived' | 'all') => void;
@@ -280,6 +283,8 @@ interface AppStore {
   setModalTaskId: (id: string | null) => void;
   setCountdown: (n: number) => void;
   toast: (msg: string, type?: 'ok' | 'err') => void;
+  setWsConnected: (v: boolean) => void;
+  handleWSEvent: (topic: string, data: Record<string, unknown>) => void;
 
   // Data fetching
   loadLive: () => Promise<void>;
@@ -301,6 +306,8 @@ export const useStore = create<AppStore>((set, get) => ({
   agentsStatusData: null,
   morningBrief: null,
   subConfig: null,
+
+  wsConnected: false,
 
   activeTab: 'edicts',
   edictFilter: 'active',
@@ -327,6 +334,16 @@ export const useStore = create<AppStore>((set, get) => ({
   setModalTaskId: (id) => set({ modalTaskId: id }),
   setCountdown: (n) => set({ countdown: n }),
 
+  setWsConnected: (v) => set({ wsConnected: v }),
+
+  handleWSEvent: (topic, data) => {
+    // 处理 live-status 实时推送
+    if (topic === 'task.status' || topic === 'task.completed' || topic === 'task.created') {
+      // 收到事件后刷新数据
+      useStore.getState().loadLive();
+    }
+  },
+
   toast: (msg, type = 'ok') => {
     const id = ++_toastId;
     set((s) => ({ toasts: [...s.toasts, { id, msg, type }] }));
@@ -339,13 +356,12 @@ export const useStore = create<AppStore>((set, get) => ({
     try {
       const data = await api.liveStatus();
       set({ liveStatus: data });
-      // Also preload officials for monitor tab
       const s = get();
       if (!s.officialsData) {
-        api.officialsStats().then((d) => set({ officialsData: d })).catch(() => {});
+        api.officialsStats().then((d) => set({ officialsData: d })).catch(() => { });
       }
-    } catch {
-      // silently fail
+    } catch (e) {
+      console.warn('[store] loadLive failed:', e);
     }
   },
 
@@ -354,8 +370,8 @@ export const useStore = create<AppStore>((set, get) => ({
       const cfg = await api.agentConfig();
       const log = await api.modelChangeLog();
       set({ agentConfig: cfg, changeLog: log });
-    } catch {
-      // silently fail
+    } catch (e) {
+      console.warn('[store] loadAgentConfig failed:', e);
     }
   },
 
@@ -363,8 +379,8 @@ export const useStore = create<AppStore>((set, get) => ({
     try {
       const data = await api.officialsStats();
       set({ officialsData: data });
-    } catch {
-      // silently fail
+    } catch (e) {
+      console.warn('[store] loadOfficials failed:', e);
     }
   },
 
@@ -372,7 +388,8 @@ export const useStore = create<AppStore>((set, get) => ({
     try {
       const data = await api.agentsStatus();
       set({ agentsStatusData: data });
-    } catch {
+    } catch (e) {
+      console.warn('[store] loadAgentsStatus failed:', e);
       set({ agentsStatusData: null });
     }
   },
@@ -381,8 +398,8 @@ export const useStore = create<AppStore>((set, get) => ({
     try {
       const [brief, config] = await Promise.all([api.morningBrief(), api.morningConfig()]);
       set({ morningBrief: brief, subConfig: config });
-    } catch {
-      // silently fail
+    } catch (e) {
+      console.warn('[store] loadMorning failed:', e);
     }
   },
 
@@ -390,8 +407,8 @@ export const useStore = create<AppStore>((set, get) => ({
     try {
       const config = await api.morningConfig();
       set({ subConfig: config });
-    } catch {
-      // silently fail
+    } catch (e) {
+      console.warn('[store] loadSubConfig failed:', e);
     }
   },
 
@@ -403,21 +420,28 @@ export const useStore = create<AppStore>((set, get) => ({
   },
 }));
 
-// ── Countdown & Polling ──
+// ── Countdown & Polling (WebSocket 降级回退) ──
 
 let _cdTimer: ReturnType<typeof setInterval> | null = null;
 
+export const POLL_INTERVAL_WS = 30;  // WebSocket 连接时轮询间隔（秒）
+export const POLL_INTERVAL_HTTP = 5; // 纯 HTTP 时轮询间隔（秒）
+
 export function startPolling() {
   if (_cdTimer) return;
-  useStore.getState().loadAll();
+  const s = useStore.getState();
+  s.loadAll();
+  s.setCountdown(s.wsConnected ? POLL_INTERVAL_WS : POLL_INTERVAL_HTTP);
+
   _cdTimer = setInterval(() => {
-    const s = useStore.getState();
-    const cd = s.countdown - 1;
+    const st = useStore.getState();
+    const interval = st.wsConnected ? POLL_INTERVAL_WS : POLL_INTERVAL_HTTP;
+    const cd = st.countdown - 1;
     if (cd <= 0) {
-      s.setCountdown(5);
-      s.loadAll();
+      st.setCountdown(interval);
+      st.loadAll();
     } else {
-      s.setCountdown(cd);
+      st.setCountdown(cd);
     }
   }, 1000);
 }

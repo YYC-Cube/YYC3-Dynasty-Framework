@@ -1,3 +1,18 @@
+---
+file: SECURITY.md
+description: YYC³ Dynasty 安全政策 — 漏洞报告、响应流程与安全最佳实践
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [security],[policy],[vulnerability]
+category: policy
+language: zh-CN
+audience: developers,security-researchers
+complexity: intermediate
+---
+
 # 🔒 安全政策
 
 ## 支持的版本
@@ -14,7 +29,7 @@
 
 如果你发现了安全问题，请通过以下方式私密报告：
 
-1. **首选方式**：使用 [GitHub Security Advisories](https://github.com/cft0808/edict/security/advisories/new) 创建私密安全报告
+1. **首选方式**：使用 [GitHub Security Advisories](https://github.com/YYC-Cube/YYC3-Dynasty-Framework/security/advisories/new) 创建私密安全报告
 2. **备选方式**：发送邮件至维护者（请在 GitHub Profile 中获取联系方式）
 
 ### 报告应包含

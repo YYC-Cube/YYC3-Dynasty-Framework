@@ -1,4 +1,27 @@
-# 三省六部任务分发流转体系 · 业务与技术架构
+---
+file: task-dispatch-architecture.md
+description: YYC³ Dynasty 任务分发流转完整架构 — 业务设计与技术实现详解
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-10
+updated: 2026-06-08
+status: stable
+tags: [architecture],[task-dispatch],[state-machine]
+category: technical
+language: zh-CN
+audience: developers,architects
+complexity: advanced
+---
+
+# YYC³ Dynasty · 三省六部 · 任务分发流转 · 业务技术架构
+
+> ***YanYuCloudCube***
+> *言启象限 | 语枢未来*
+> ***Words Initiate Quadrants, Language Serves as Core for Future***
+> *万象归元于云枢 | 深栈智启新纪元*
+> ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
+
+---
 
 > 本文档详细阐述「三省六部」项目如何从**业务制度设计**到**代码实现细节**，完整处理复杂多Agent协作的任务分发与流转。这是一个**制度化的AI多Agent框架**，而非传统的自由讨论式协作系统。
 
@@ -33,6 +56,7 @@
 #### 核心理念
 
 传统的多Agent框架（如CrewAI、AutoGen）采用**"自由协作"模式**：
+
 - Agent自主选择协作对象
 - 框架仅提供通信通道
 - 质量控制完全依赖Agent智能
@@ -140,7 +164,7 @@ DAY 1:
   10:00 - 皇上飞书："为三省六部编写完整自动化测试方案"
           太子接旨。state = Taizi, org = 太子
           自动派发 taizi agent → 处理此旨意
-  
+
   10:30 - 太子分拣完毕。判定为「工作旨意」（非闲聊）
           建任务 JJC-20260228-E2E
           flow_log 记录："皇上 → 太子：下旨"
@@ -151,7 +175,7 @@ DAY 2:
   09:00 - 中书省接旨。开始规划
           汇报进展："分析测试需求，拆解为单元/集成/E2E三层"
           progress_log 记录："中书省 张三：分需求"
-          
+
   15:00 - 中书省完成方案
           todos 快照：需求分析✅、方案设计✅、待审议🔄
           flow_log 记录："中书省 → 门下省：方案提交审议"
@@ -161,7 +185,7 @@ DAY 2:
 DAY 3:
   09:00 - 门下省开始审议
           进度汇报："现在审查方案的完整性和风险"
-          
+
   14:00 - 门下省审议完毕
           判定："方案可行，但缺失 _infer_agent_id_from_runtime 函数的测试"
           行为：✅ 准奏 (带修改建议)
@@ -182,7 +206,7 @@ DAY 4-5:
   - 兵部(bingbu)：实现 pytest + unittest 测试框架
   - 刑部(xingbu)：编写测试覆盖所有关键函数
   - 礼部(libu)：整理测试文档和用例说明
-  
+
   实时汇报（hourly progress）：
   - 兵部："✅ 已实现 16 个单元测试"
   - 刑部："🔄 正在编写集成测试（8/12 完成）"
@@ -193,7 +217,7 @@ DAY 5:
           state: Doing → Review, org: 兵部 → 尚书省
           尚书省汇总："所有测试已完成，通过率 98.5%"
           转回中书省
-          
+
   15:00 - 中书省回奏皇上
           state: Review → Done
           模板回复飞书，含最终成果链接和总结
@@ -243,18 +267,18 @@ DAY 7：全部完成（比理想路径晚1-2天）
   "official": "中书令",              // 负责官职
   "org": "中书省",                   // 当前负责部门
   "state": "Assigned",               // 当前状态（见 _STATE_FLOW）
-  
+
   // ──── 质量与约束 ────
   "priority": "normal",              // 优先级：critical/high/normal/low
   "block": "无",                     // 当前阻滞原因（如"等待工部反馈"）
   "reviewRound": 2,                  // 门下审议第几轮
   "_prev_state": "Menxia",           // 若被 stop，记录之前状态用于 resume
-  
+
   // ──── 业务产出 ────
   "output": "",                      // 最终任务成果（URL/文件路径/总结）
   "ac": "",                          // Acceptance Criteria（验收标准）
   "priority": "normal",
-  
+
   // ──── 流转记录 ────
   "flow_log": [
     {
@@ -294,7 +318,7 @@ DAY 7：全部完成（比理想路径晚1-2天）
       "remark": "✅ 准奏通过（第2轮，5条建议已采纳）"
     }
   ],
-  
+
   // ──── Agent 实时汇报 ────
   "progress_log": [
     {
@@ -315,7 +339,7 @@ DAY 7：全部完成（比理想路径晚1-2天）
     },
     // ... 更多 progress_log 条目 ...
   ],
-  
+
   // ──── 调度元数据 ────
   "_scheduler": {
     "enabled": true,
@@ -332,7 +356,7 @@ DAY 7：全部完成（比理想路径晚1-2天）
       "note": "review-before-approve"
     }
   },
-  
+
   // ──── 生命周期 ────
   "archived": false,                 // 是否归档
   "now": "门下省准奏，移交尚书省派发",  // 当前实时状态描述
@@ -474,15 +498,15 @@ def can_dispatch_to(from_agent, to_agent):
     """检查 from_agent 是否有权调用 to_agent。"""
     cfg = read_json(DATA / 'agent_config.json', {})
     agents = cfg.get('agents', [])
-    
+
     from_record = next((a for a in agents if a.get('id') == from_agent), None)
     if not from_record:
         return False, f'{from_agent} 不存在'
-    
+
     allowed = from_record.get('allowAgents', [])
     if to_agent not in allowed:
         return False, f'{from_agent} 无权调用 {to_agent}（允许列表：{allowed}）'
-    
+
     return True, 'OK'
 ```
 
@@ -526,6 +550,7 @@ def can_dispatch_to(from_agent, to_agent):
 #### 问题诊断
 
 过去，只靠 flow_log + progress_log 展现进展：
+
 - ❌ 看不到Agent的具体思考过程
 - ❌ 看不到每次工具调用的结果
 - ❌ 看不到Agent中间的对话历史
@@ -540,10 +565,10 @@ def can_dispatch_to(from_agent, to_agent):
 ```python
 def get_task_activity(task_id):
     # ... 前面代码同上 ...
-    
+
     # ── 融合 Agent Session 活动（thinking / tool_result / user）──
     session_entries = []
-    
+
     # 活跃任务：尝试按 task_id 精确匹配
     if state not in ('Done', 'Cancelled'):
         if agent_id:
@@ -551,7 +576,7 @@ def get_task_activity(task_id):
                 agent_id, limit=30, task_id=task_id
             )
             session_entries.extend(entries)
-        
+
         # 也从相关Agent获取
         for ra in related_agents:
             if ra != agent_id:
@@ -569,7 +594,7 @@ def get_task_activity(task_id):
                     ra, keywords, limit=15
                 )
                 session_entries.extend(entries)
-    
+
     # 去重（通过 at+kind 去重避免重复）
     existing_keys = {(a.get('at', ''), a.get('kind', '')) for a in activity}
     for se in session_entries:
@@ -577,10 +602,10 @@ def get_task_activity(task_id):
         if key not in existing_keys:
             activity.append(se)
             existing_keys.add(key)
-    
+
     # 重新排序
     activity.sort(key=lambda x: x.get('at', ''))
-    
+
     # 返回时标记数据来源
     return {
         'activity': activity,
@@ -599,7 +624,7 @@ def _parse_activity_entry(item):
     msg = item.get('message', {})
     role = str(msg.get('role', '')).strip().lower()
     ts = item.get('timestamp', '')
-    
+
     # 🧠 Assistant 角色 - Agent思考过程
     if role == 'assistant':
         entry = {
@@ -613,7 +638,7 @@ def _parse_activity_entry(item):
             ]
         }
         return entry
-    
+
     # 🔧 Tool Result - 工具调用结果
     if role in ('toolresult', 'tool_result'):
         entry = {
@@ -625,7 +650,7 @@ def _parse_activity_entry(item):
             'durationMs': 4500  # 执行时长
         }
         return entry
-    
+
     # 👤 User - 人工反馈或对话
     if role == 'user':
         entry = {
@@ -654,6 +679,7 @@ tool_result 16   工具调用记录（bash运行结果、API调用结果）
 ```
 
 看板展示时，用户可以：
+
 - 📋 看流转链了解任务在哪个阶段
 - 📝 看 progress 了解Agent实时说了什么
 - ✅ 看 todos 了解任务拆解和完成进度
@@ -674,7 +700,7 @@ _scheduler = {
     'stallThresholdSec': 180,         # 停滞多久后自动升级（默认180秒）
     'maxRetry': 1,                    # 自动重试次数（0=不重试，1=重试1次）
     'autoRollback': True,             # 是否自动回滚到快照
-    
+
     # 运行时状态
     'retryCount': 0,                  # 当前已重试几次
     'escalationLevel': 0,             # 0=无升级 1=门下协调 2=尚书协调
@@ -682,13 +708,13 @@ _scheduler = {
     'lastProgressAt': '2026-03-01T...',  # 最后一次获得进展的时间
     'lastEscalatedAt': '2026-03-01T...',
     'lastRetryAt': '2026-03-01T...',
-    
+
     # 派发追踪
     'lastDispatchStatus': 'success',  # queued|success|failed|timeout|gateway-offline|error
     'lastDispatchAgent': 'zhongshu',
     'lastDispatchTrigger': 'state-transition',
     'lastDispatchError': '',          # 错误堆栈（如有）
-    
+
     # 快照（用于自动回滚）
     'snapshot': {
         'state': 'Assigned',
@@ -708,12 +734,12 @@ _scheduler = {
 FOR EACH 任务:
   IF state in (Done, Cancelled, Blocked):
     SKIP  # 终态不处理
-  
+
   elapsed_since_progress = NOW - lastProgressAt
-  
+
   IF elapsed_since_progress < stallThreshold:
     SKIP  # 最近有进展，无需处理
-  
+
   # ── 停滞处理逻辑 ──
   IF retryCount < maxRetry:
     ✅ 执行【重试】
@@ -721,7 +747,7 @@ FOR EACH 任务:
     - dispatch_for_state(task, new_state, trigger='taizi-scan-retry')
     - flow_log: "停滞180秒，触发自动重试第N次"
     - NEXT task
-  
+
   IF escalationLevel < 2:
     ✅ 执行【升级】
     - nextLevel = escalationLevel + 1
@@ -729,7 +755,7 @@ FOR EACH 任务:
     - wake_agent(target_agent, "💬 任务停滞，请介入协调推进")
     - flow_log: "升级至{target_agent}协调"
     - NEXT task
-  
+
   IF escalationLevel >= 2 AND autoRollback:
     ✅ 执行【自动回滚】
     - restore task to snapshot.state
@@ -760,7 +786,7 @@ T+60:
 T+180:
   scheduler_scan 扫一遍，发现：
   elapsed = 180 >= 180，触发处理
-  
+
   ✅ 阶段1：重试
   - retryCount: 0 → 1
   - dispatch_for_state('JJC-20260228-E2E', 'Zhongshu', trigger='taizi-scan-retry')
@@ -772,18 +798,18 @@ T+ 240:
   汇报进展："已恢复，继续规划..."
   lastProgressAt 更新为 T+240
   retryCount 重置为 0
-  
+
   ✓ 问题解决
 
 T+360 (若仍未恢复):
   scheduler_scan 再次扫，发现：
   elapsed = 360 >= 180, retryCount 已经 = 1
-  
+
   ✅ 阶段2：升级
   - escalationLevel: 0 → 1
   - wake_agent('menxia', "💬 任务JJC-20260228-E2E停滞，中书省无反应，请介入")
   - flow_log: "升级至门下省协调"
-  
+
   门下省Agent被唤醒，可以：
   - 检查中书省是否在线
   - 若在线，询问进度
@@ -792,7 +818,7 @@ T+360 (若仍未恢复):
 T+540 (若仍未解决):
   scheduler_scan 再次扫，发现：
   escalationLevel = 1, 还能升级到 2
-  
+
   ✅ 阶段3：再次升级
   - escalationLevel: 1 → 2
   - wake_agent('shangshu', "💬 任务长期停滞，中书省+门下省都无法推进，尚书省请介入协调")
@@ -801,13 +827,13 @@ T+540 (若仍未解决):
 T+720 (若仍未解决):
   scheduler_scan 再次扫，发现：
   escalationLevel = 2（已最大），autoRollback = true
-  
+
   ✅ 阶段4：自动回滚
   - snapshot.state = 'Assigned' (前一个稳定状态)
   - task.state: Zhongshu → Assigned
   - dispatch_for_state('JJC-20260228-E2E', 'Assigned', trigger='taizi-auto-rollback')
   - flow_log: "连续停滞，自动回滚到Assigned，由尚书省重新派发"
-  
+
   结果：
   - 尚书省重新派发给六部执行
   - 中书省的方案保留在前一个 snapshot 版本中
@@ -862,7 +888,7 @@ GET /api/task-activity/JJC-20260228-E2E
   },
   "agentId": "shangshu",
   "agentLabel": "尚书省",
-  
+
   // ── 完整活动流（59条示例）──
   "activity": [
     // flow_log (10条)
@@ -924,7 +950,7 @@ GET /api/task-activity/JJC-20260228-E2E
       "durationMs": 450
     }
   ],
-  
+
   "activitySource": "progress+session",
   "relatedAgents": ["taizi", "zhongshu", "menxia"],
   "phaseDurations": [
@@ -1038,7 +1064,7 @@ python3 scripts/kanban_update.py state \
 # - 第一个参数：task_id
 # - 第二个参数：新状态（Pending/Taizi/Zhongshu/...）
 # - 第三个参数：可选，描述信息（会记录到 now 字段）
-# 
+#
 # 效果：
 # - task.state = Menxia
 # - task.org 自动推断为 "门下省"
@@ -1174,6 +1200,7 @@ python3 scripts/kanban_update.py cancel \
 ### 业务契约的严格性
 
 **CrewAI 的"温和"方式**
+
 ```python
 # Agent可以自由选择下一步工作
 if task_seems_done:
@@ -1182,15 +1209,16 @@ if task_seems_done:
 ```
 
 **三省六部的"严格"方式**
+
 ```python
 # 任务状态严格受限，下一步由系统决定
 if task.state == 'Zhongshu' and agent_id == 'zhongshu':
     # 只能做Zhongshu该做的事（起草方案）
     deliver_plan_to_menxia()
-    
+
     # 状态转移只能通过API，不能绕过
     # 中书不能直接转尚书，必须经过门下审议
-    
+
     # 若想绕过门下审议
     try:
         dispatch_to(shangshu)  # ❌ 权限检查拦截
@@ -1214,18 +1242,18 @@ if task.state == 'Zhongshu' and agent_id == 'zhongshu':
     ✅ 第1阶段：自动重试
        - 派发消息到agent（唤醒或重启）
        - 如果agent恢复，流程继续
-  
+
   T+360: 若仍未恢复
     ✅ 第2阶段：升级协调
        - 唤醒门下省agent
        - 汇报："中书省无响应，请介入"
        - 门下可能接管或代理工作
-  
+
   T+540: 若仍未恢复
     ✅ 第3阶段：再次升级
        - 唤醒尚书省agent
        - 汇报："任务彻底卡住，请企业级协调"
-  
+
   T+720: 若仍未恢复
     ✅ 第4阶段：自动回滚
        - 恢复到前一个稳定状态
@@ -1598,12 +1626,12 @@ curl http://127.0.0.1:7891/api/task-activity/JJC-20260302-001
 
 相比 CrewAI/AutoGen 的"自由+人工管理"，三省六部提供了一套**企业级的AI协作框架**。
 
-
 ## Workflow state vs execution ownership
 
-In Edict workflows, **workflow state** and **execution ownership** are related but not always identical.
+In Dynasty Framework workflows, **workflow state** and **execution ownership** are related but not always identical.
 
 ### Workflow state
+
 Workflow state describes the current institutional stage of a task, for example:
 
 - `Taizi`
@@ -1617,16 +1645,20 @@ Workflow state describes the current institutional stage of a task, for example:
 This is the stage shown in the board/UI and reflects where the task is in the intended process.
 
 ### Execution ownership
+
 Execution ownership means which actual runtime agent/session currently owns the next action or is writing the next progress/log update.
 
 In simple flows, workflow state and execution ownership may appear to match.
 
 In more complex or multi-stage flows, they can temporarily diverge. For example:
+
 - the workflow state may already show `Assigned`
 - while the active runtime execution context is still tied to an earlier stage's dispatch chain
 
 ### Why this distinction matters
+
 This distinction is useful when:
+
 - debugging handoff behavior
 - understanding why a later-stage label appears before a fully isolated execution handoff occurs
 - reasoning about future improvements such as stage-isolated orchestration
@@ -1637,3 +1669,15 @@ In short:
 - **execution ownership** = which runtime path currently holds the next action
 
 > This documentation does not change runtime semantics. It only clarifies an important concept for advanced real-world usage.
+
+---
+
+<div align="center">
+
+> 「***YanYuCloudCube***」
+> 「***<admin@0379.email>***」
+> 「***Words Initiate Quadrants, Language Serves as Core for the Future***」
+> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
+
+**© 2025-2026 YYC³ Team. All Rights Reserved.**
+</div>

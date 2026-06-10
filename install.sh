@@ -1,6 +1,17 @@
 #!/bin/bash
 # ══════════════════════════════════════════════════════════════
-# 三省六部 · OpenClaw Multi-Agent System 一键安装脚本
+# file: install.sh
+# description: YYC³ Dynasty 一键安装脚本 · 依赖检查与环境初始化
+# author: YanYuCloudCube Team
+# version: v1.0.0
+# created: 2026-02-26
+# updated: 2026-06-08
+# status: active
+# tags: [script],[install],[setup]
+#
+# brief: OpenClaw Multi-Agent System 一键安装脚本
+#
+# dependencies: python3, pip, bash
 # ══════════════════════════════════════════════════════════════
 set -e
 

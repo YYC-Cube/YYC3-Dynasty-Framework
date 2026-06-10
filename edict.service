@@ -1,9 +1,16 @@
 # ══════════════════════════════════════════════════════════════
-# 三省六部 · systemd 服务模板
-# 部署说明: 复制到 /etc/systemd/system/edict.service
-#   sudo cp edict.service /etc/systemd/system/
-#   sudo systemctl daemon-reload
-#   sudo systemctl enable --now edict
+# file: edict.service
+# description: YYC³ Dynasty systemd 服务模板 · 系统级守护进程配置
+# author: YanYuCloudCube Team
+# version: v1.0.0
+# created: 2026-02-26
+# updated: 2026-06-08
+# status: active
+# tags: [config],[systemd],[service]
+#
+# brief: systemd 服务单元，用于开机自启和进程管理
+#
+# notes: 复制到 /etc/systemd/system/edict.service 后启用
 # ══════════════════════════════════════════════════════════════
 [Unit]
 Description=三省六部 Multi-Agent Orchestration Dashboard

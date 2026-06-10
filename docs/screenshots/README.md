@@ -1,3 +1,18 @@
+---
+file: docs/screenshots/README.md
+description: YYC³ Dynasty 看板截图说明 — 截图清单与自动截图工具使用指南
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: stable
+tags: [screenshots],[documentation],[tool]
+category: general
+language: zh-CN
+audience: developers
+complexity: basic
+---
+
 # 📸 截图说明
 
 看板截图用于 README 和文档展示。请启动看板后按以下顺序截图并放置到本目录。
@@ -21,8 +36,11 @@
 ## 自动截图
 
 ```bash
-# 确保看板服务器正在运行
-python3 dashboard/server.py &
+# 确保看板服务器正在运行（使用 edict 后端）
+cd edict/backend && uvicorn app.main:app --port 8000 &
+
+# 也可使用旧版看板（需先启动）
+# python3 dashboard/server.py &
 
 # 自动截取全部 11 张截图
 python3 scripts/take_screenshots.py

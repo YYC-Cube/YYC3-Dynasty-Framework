@@ -1,7 +1,17 @@
 #!/bin/bash
 # ══════════════════════════════════════════════════════════════
-# 三省六部 · 一键启动脚本
-# 同时启动看板服务器 + 数据刷新循环
+# file: start.sh
+# description: YYC³ Dynasty 一键启动脚本 · 看板服务器 + 数据刷新循环
+# author: YanYuCloudCube Team
+# version: v1.0.0
+# created: 2026-02-26
+# updated: 2026-06-08
+# status: active
+# tags: [script],[start],[launch]
+#
+# brief: 同时启动看板服务器 + 数据刷新循环
+#
+# dependencies: python3, bash
 # ══════════════════════════════════════════════════════════════
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

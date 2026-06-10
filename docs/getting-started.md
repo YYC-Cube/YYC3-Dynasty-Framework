@@ -1,4 +1,27 @@
-# 🚀 快速上手指南
+---
+file: getting-started.md
+description: YYC³ Dynasty 快速上手指南 — 5分钟完成安装配置与首次运行
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [guide],[getting-started],[installation]
+category: guide
+language: zh-CN
+audience: developers
+complexity: basic
+---
+
+# YYC³ Dynasty · 三省六部 · 快速指南
+
+> ***YanYuCloudCube***
+> *言启象限 | 语枢未来*
+> ***Words Initiate Quadrants, Language Serves as Core for Future***
+> *万象归元于云枢 | 深栈智启新纪元*
+> ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
+
+---
 
 > 从零开始，5 分钟搭建你的三省六部 AI 协同系统
 
@@ -25,12 +48,13 @@ openclaw init
 ## 第二步：克隆并安装三省六部
 
 ```bash
-git clone https://github.com/cft0808/edict.git
-cd edict
+git clone https://github.com/YYC-Cube/YYC3-Dynasty-Framework.git
+cd YYC3-Dynasty-Framework
 chmod +x install.sh && ./install.sh
 ```
 
 安装脚本会自动完成：
+
 - ✅ 创建 12 个 Agent Workspace（`~/.openclaw/workspace-*`）
 - ✅ 写入各省部 SOUL.md 人格文件
 - ✅ 注册 Agent 及权限矩阵到 `openclaw.json`
@@ -52,7 +76,7 @@ openclaw channels list
 openclaw channels add --type feishu --agent taizi
 ```
 
-参考 OpenClaw 文档：https://docs.openclaw.ai/channels
+参考 OpenClaw 文档：<https://docs.openclaw.ai/channels>
 
 ## 第四步：启动服务
 
@@ -85,13 +109,14 @@ open http://127.0.0.1:7891
 
 ## 第六步：观察执行过程
 
-打开看板 http://127.0.0.1:7891
+打开看板 <http://127.0.0.1:7891>
 
 1. **📋 旨意看板** — 观察任务在各状态之间流转
 2. **🔭 省部调度** — 查看各部门工作分布
 3. **📜 奏折阁** — 任务完成后自动归档为奏折
 
 任务流转路径：
+
 ```
 收件 → 太子分拣 → 中书规划 → 门下审议 → 已派发 → 执行中 → 已完成
 ```
@@ -129,6 +154,7 @@ open http://127.0.0.1:7891
 ## ❓ 故障排查
 
 ### 看板显示「服务器未启动」
+
 ```bash
 # 确认服务器正在运行
 python3 dashboard/server.py
@@ -157,6 +183,7 @@ openclaw agents add zhongshu
 ```
 
 ### Agent 不响应
+
 ```bash
 # 检查 Gateway 状态
 openclaw gateway status
@@ -166,6 +193,7 @@ openclaw gateway restart
 ```
 
 ### 数据不更新
+
 ```bash
 # 检查刷新循环是否运行
 ps aux | grep run_loop
@@ -175,6 +203,7 @@ python3 scripts/refresh_live_data.py
 ```
 
 ### 心跳显示红色 / 告警
+
 ```bash
 # 检查对应 Agent 的进程
 openclaw agent status <agent-id>
@@ -184,7 +213,9 @@ openclaw agent restart <agent-id>
 ```
 
 ### 模型切换后不生效
+
 等待约 5 秒让 Gateway 重启完成。仍不生效则：
+
 ```bash
 python3 scripts/apply_model_changes.py
 openclaw gateway restart
@@ -192,10 +223,14 @@ openclaw gateway restart
 
 ---
 
-## 📚 更多资源
+**感恩您的信任与支持！携手与智同行 ❤️**
 
-- [🏠 项目首页](https://github.com/cft0808/edict)
-- [📖 README](../README.md)
-- [🤝 贡献指南](../CONTRIBUTING.md)
-- [💬 OpenClaw 文档](https://docs.openclaw.ai)
-- [📮 公众号 · cft0808](wechat.md) — 架构拆解 / 踩坑复盘 / Token 省钱术
+<div align="center">
+
+> 「***YanYuCloudCube***」
+> 「***<admin@0379.email>***」
+> 「***Words Initiate Quadrants, Language Serves as Core for the Future***」
+> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
+
+**© 2025-2026 YYC³ Team. All Rights Reserved.**
+</div>

@@ -2,6 +2,16 @@
 name: Question
 about: 提问 / 使用咨询
 labels: question, needs-triage
+file: .github/ISSUE_TEMPLATE/question.md
+description: YYC³ Dynasty 使用咨询模板
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [template],[question]
+category: general
+language: zh-CN
 ---
 
 ## 问题描述

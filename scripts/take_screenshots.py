@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
-"""Take all dashboard screenshots for the README using Playwright."""
+"""
+file: take_screenshots.py
+description: 仪表板截图工具 · Playwright 自动截取全页面截图
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: active
+tags: [demo],[screenshot],[playwright]
+
+dependencies: playwright
+"""
 from playwright.sync_api import sync_playwright
 import time, os
 

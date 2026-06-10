@@ -1,4 +1,19 @@
-# 🗺️ 三省六部 · Roadmap
+---
+file: ROADMAP.md
+description: YYC³ Dynasty 路线图 — 分阶段开发计划与社区认领指南
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: active
+tags: [roadmap],[planning],[community]
+category: project
+language: zh-CN
+audience: developers,managers,stakeholders
+complexity: basic
+---
+
+# 🗺️ YYC³ Dynasty · Roadmap
 
 > 这份路线图是公开的。欢迎认领未完成的项目，提 PR 参与建设。
 >

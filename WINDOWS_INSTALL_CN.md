@@ -1,4 +1,19 @@
-# 三省六部 Windows 安装说明（简明版 + 详细版）
+---
+file: WINDOWS_INSTALL_CN.md
+description: YYC³ Dynasty Windows 安装说明 — 简明版与详细版
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: stable
+tags: [guide],[windows],[installation]
+category: guide
+language: zh-CN
+audience: users
+complexity: basic
+---
+
+# YYC³ Dynasty Windows 安装说明
 
 > 适用于 Windows 用户。本文默认你下载的是**已经包含 Windows 兼容修复**的版本，因此不需要再手动改 Python 文件。
 

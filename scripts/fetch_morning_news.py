@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
 """
-早朝简报采集脚本
-每日 06:00 自动运行，抓取全球新闻 RSS → data/morning_brief_YYYYMMDD.json
-覆盖: 政治 | 军事 | 经济 | AI大模型
+file: fetch_morning_news.py
+description: 早朝简报采集脚本 · RSS 全球新闻 → data/morning_brief_YYYYMMDD.json
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: active
+tags: [news],[rss],[cron]
+
+brief: 每日 06:00 自动运行，抓取全球新闻 RSS
+
+details:
+- 覆盖: 政治 | 军事 | 经济 | AI 大模型
+- 输出: data/morning_brief_YYYYMMDD.json
+
+dependencies: xml.etree.ElementTree, requests
 """
 import json, pathlib, datetime, subprocess, re, sys, os, logging
 from xml.etree import ElementTree as ET

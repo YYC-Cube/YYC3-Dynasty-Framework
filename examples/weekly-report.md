@@ -1,3 +1,16 @@
+---
+file: weekly-report.md
+description: 周报生成案例 — 工程团队周报自动生成与汇总
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: stable
+tags: [example],[weekly-report],[automation]
+category: general
+language: zh-CN
+---
+
 # 案例 3：周报生成
 
 > **旨意**：生成本周工程团队周报，汇总进度、问题和下周计划

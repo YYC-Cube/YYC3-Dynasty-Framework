@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+"""
+file: sync_from_openclaw_runtime.py
+description: OpenClaw 运行时数据同步 · 实时同步 Agent 状态到本地数据
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-03-15
+updated: 2026-06-08
+status: active
+tags: [sync],[runtime],[agent]
+
+dependencies: file_lock, utils
+"""
 import json
 import pathlib
 import time

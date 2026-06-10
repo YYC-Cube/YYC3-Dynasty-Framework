@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
-"""同步各官员统计数据 → data/officials_stats.json"""
+"""
+file: sync_officials_stats.py
+description: 官员统计数据同步 · 各 Agent 统计 → data/officials_stats.json
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: active
+tags: [sync],[stats],[officials]
+
+dependencies: file_lock, utils
+"""
 import json, pathlib, datetime, logging
 from file_lock import atomic_json_write
 from utils import get_openclaw_home

@@ -1,4 +1,4 @@
-# 三省六部 · Edict — 代码所有权定义
+# YYC³ Dynasty Framework — 代码所有权定义
 # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 #
 # 当 PR 涉及以下路径时，GitHub 会自动请求对应 owner 做 review。
@@ -7,30 +7,30 @@
 
 # ── 全局默认 ──────────────────────────────────────────
 # 未匹配其他规则的文件，默认由维护者 review
-*                       @cft0808
+*                       @YYC-Cube/core
 
 # ── 核心后端 ──────────────────────────────────────────
-/dashboard/server.py    @cft0808
-/dashboard/court_discuss.py @cft0808
-/agents/                @cft0808
-/edict/backend/         @cft0808
+/dashboard/server.py    @YYC-Cube/core
+/dashboard/court_discuss.py @YYC-Cube/core
+/agents/                @YYC-Cube/core
+/edict/backend/         @YYC-Cube/core
 
 # ── 数据与配置 ────────────────────────────────────────
-/data/                  @cft0808
-requirements.txt        @cft0808
+/data/                  @YYC-Cube/core
+requirements.txt        @YYC-Cube/core
 
 # ── 脚本与自动化 ──────────────────────────────────────
-/scripts/               @cft0808
-install.sh              @cft0808
-start.sh                @cft0808
+/scripts/               @YYC-Cube/core
+install.sh              @YYC-Cube/core
+start.sh                @YYC-Cube/core
 
 # ── 部署基础设施 ──────────────────────────────────────
-Dockerfile              @cft0808
-docker-compose.yml      @cft0808
-/docker/                @cft0808
+Dockerfile              @YYC-Cube/core
+docker-compose.yml      @YYC-Cube/core
+/docker/                @YYC-Cube/core
 
 # ── CI/CD 与仓库配置 ─────────────────────────────────
-/.github/               @cft0808
+/.github/               @YYC-Cube/core
 
 # ── 以下路径欢迎社区贡献者自主 review ────────────────
 # /docs/                可由任何 Committer review

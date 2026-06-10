@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
-"""应用 data/pending_model_changes.json → openclaw.json，并重启 Gateway"""
+"""
+file: apply_model_changes.py
+description: 模型变更应用工具 · pending_model_changes → openclaw.json + Gateway 重启
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: active
+tags: [config],[model],[gateway]
+
+dependencies: file_lock, utils
+"""
 import json, pathlib, subprocess, datetime, shutil, logging, glob
 from file_lock import atomic_json_write, atomic_json_read
 from utils import get_openclaw_home

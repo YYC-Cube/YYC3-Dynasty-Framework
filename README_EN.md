@@ -111,7 +111,7 @@ This is why YYC³ Dynasty handles complex tasks reliably: there's a mandatory qu
 - Each Agent has independent Workspace · Skills · Model
 - **Edict data cleaning** — auto-strip file paths, metadata, invalid prefixes from titles/notes
 
-### 📋 Grand Council Dashboard (10 Feature Panels)
+### 📋 Grand Council Dashboard (11 Feature Panels)
 
 <table>
 <tr><td width="50%">
@@ -205,6 +205,27 @@ This is why YYC³ Dynasty handles complex tasks reliably: there's a mandatory qu
 - Multi-round progression · Summary conclusions · Discussion records preserved
 
 </td><td>
+
+**🔍 Global Search**
+
+- Ctrl+K search all edicts/officials
+- Real-time filtering · One-click navigation
+
+</td></tr>
+<tr><td>
+
+**🌐 i18n · 10 Languages**
+
+- Chinese/English/Japanese/Korean/French/German/Spanish/Portuguese/Russian/Arabic
+- Flag emoji one-click switch · Auto-detect
+
+</td><td>
+
+**📐 Panel Layout**
+
+- Drag-to-resize panels
+- Show/hide · Maximize/restore
+- Persistent layout (localStorage)
 
 </td></tr>
 </table>
@@ -337,12 +358,15 @@ The install script automatically:
 # Option 1: One-click start (recommended)
 chmod +x start.sh && ./start.sh
 
-# Option 2: Start separately
-bash scripts/run_loop.sh &      # Data refresh loop
-python3 dashboard/server.py     # Dashboard server
+# Option 2: Start separately (edict backend + frontend)
+cd edict/backend && uvicorn app.main:app --port 8000 &
+cd edict/frontend && npx vite dev --port 5173 &
+
+# Or legacy kanban (data sync mode)
+bash scripts/run_loop.sh &
 
 # Open browser
-open http://127.0.0.1:7891
+open http://localhost:5173              # New edict frontend
 ```
 
 <details>
@@ -364,7 +388,7 @@ bash edict.sh stop     # Stop
 
 </details>
 
-> 💡 **Dashboard works out of the box**: `server.py` embeds `dashboard/dashboard.html`, Docker image includes pre-built React frontend
+> 💡 **Dashboard works out of the box**: `edict/backend` serves the API, `edict/frontend` serves the SPA. Docker image includes pre-built React frontend.
 
 > 💡 See the [Getting Started Guide](docs/getting-started.md) for detailed instructions
 
@@ -468,24 +492,35 @@ YYC3-Dynasty-Framework/
 │   ├── gongbu/SOUL.md          # Works · Infrastructure
 │   ├── libu_hr/                # Personnel · HR management
 │   └── zaochao/SOUL.md         # Morning Herald · Intelligence hub
-├── dashboard/
-│   ├── dashboard.html          # Grand Council Kanban (single-file · zero deps · ~2500 lines)
-│   ├── dist/                   # React frontend build output (included in Docker image)
-│   ├── auth.py                 # Dashboard authentication
-│   ├── court_discuss.py        # Court Discussion (multi-official LLM debate engine)
-│   └── server.py               # API server (Python stdlib · zero deps · ~2300 lines)
-├── edict/backend/              # Async backend service (SQLAlchemy + Redis)
-│   ├── app/models/
-│   │   ├── task.py             # Task model + state machine
-│   │   ├── audit.py            # Audit log model
-│   │   └── outbox.py           # Outbox message model
-│   ├── app/services/
-│   │   ├── event_bus.py        # Redis Streams EventBus
-│   │   └── task_service.py     # Task service layer
-│   └── app/workers/
-│       ├── dispatch_worker.py  # Parallel dispatch + retry + resource lock
-│       ├── orchestrator_worker.py  # DAG orchestrator
-│       └── outbox_relay.py     # Transactional Outbox Relay
+├── edict/backend/              # Async backend service (FastAPI + SQLAlchemy + Redis)
+│   ├── app/
+│   │   ├── api/                # API routes (tasks/agents/events/admin/websocket)
+│   │   ├── channels/           # 9 notification channels (Feishu/WeCom/Telegram/etc)
+│   │   ├── models/             # ORM models (task/audit/outbox/thought/todo)
+│   │   ├── services/           # Business services (TaskService / EventBus)
+│   │   └── workers/            # Background workers (dispatch/orchestrator/outbox)
+│   └── app/main.py             # FastAPI entry
+├── edict/frontend/             # React + TypeScript frontend (Vite)
+│   ├── src/
+│   │   ├── components/         # 18 React components
+│   │   │   ├── App.tsx         # Main app entry
+│   │   │   ├── store.ts        # Zustand state management
+│   │   │   ├── api.ts          # HTTP/WebSocket API layer
+│   │   │   ├── i18n.ts         # i18n engine (10 languages)
+│   │   │   ├── useWebSocket.ts # WebSocket real-time push
+│   │   │   └── index.css       # Unified styles (3864 lines)
+│   │   └── components/
+│   │       ├── DashboardLayout.tsx  # Drag-resizable panel layout
+│   │       ├── GlobalSearch.tsx     # Ctrl+K global search
+│   │       ├── MarkdownRenderer.tsx # Markdown rendering
+│   │       ├── LanguageSwitcher.tsx # Language switcher
+│   │       ├── EdictBoard.tsx       # Edict Kanban
+│   │       ├── TaskModal.tsx        # Task detail modal
+│   │       ├── CourtDiscussion.tsx  # Court discussion
+│   │       ├── MonitorPanel.tsx     # Department monitor
+│   │       ├── OfficialPanel.tsx    # Officials + merit ranking
+│   │       └── ...                  # Other 8 panels
+│   └── dist/                   # Build output
 ├── scripts/
 │   ├── run_loop.sh             # Data refresh loop (every 15s)
 │   ├── kanban_update.py        # Kanban CLI (edict data cleaning + title validation + state machine)

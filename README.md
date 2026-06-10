@@ -112,7 +112,7 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 - 每个 Agent 独立 Workspace · 独立 Skills · 独立模型
 - **旨意数据清洗** —— 标题/备注自动剥离文件路径、元数据、无效前缀
 
-### 📋 军机处看板（10 个功能面板）
+### 📋 军机处看板（11 个功能面板）
 
 <table>
 <tr><td width="50%">
@@ -206,6 +206,27 @@ CrewAI 和 AutoGen 的 Agent 协作模式是 **"做完就交"**——没有人�
 - 支持多轮推进 · 总结结论 · 保留讨论记录
 
 </td><td>
+
+**🔍 全局搜索 · Global Search**
+
+- Ctrl+K 一键搜索全部旨意/官员
+- 实时过滤 · 点击直达目标面板
+
+</td></tr>
+<tr><td>
+
+**🌐 国际化 · i18n**
+
+- 10 种语言支持（中/英/日/韩/法/德/西/葡/俄/阿）
+- 国旗 emoji 一键切换 · 浏览器自动检测 · 响应式
+
+</td><td>
+
+**📐 自定义布局 · Panel Layout**
+
+- 可拖拽调整面板大小
+- 面板显示/隐藏 · 最大化/还原
+- 布局持久化保存
 
 </td></tr>
 </table>
@@ -338,12 +359,17 @@ chmod +x install.sh && ./install.sh
 # 方式 1：一键启动（推荐）
 chmod +x start.sh && ./start.sh
 
-# 方式 2：分别启动
-bash scripts/run_loop.sh &      # 数据刷新循环
-python3 dashboard/server.py     # 看板服务器
+# 方式 2：分别启动（edict 后端 + 前端）
+cd edict/backend && uvicorn app.main:app --port 8000 &
+cd edict/frontend && npx vite dev --port 5173 &
+
+# 或使用旧看板（数据同步模式）
+bash scripts/run_loop.sh &
+python3 scripts/kanban_update.py serve  # 旧版看板数据服务
 
 # 打开浏览器
-open http://127.0.0.1:7891
+open http://localhost:5173              # 新版 edict 前端
+open http://127.0.0.1:7891              # 旧版看板
 ```
 
 <details>
@@ -365,7 +391,7 @@ bash edict.sh stop     # 停止
 
 </details>
 
-> 💡 **看板即开即用**：`server.py` 内嵌 `dashboard/dashboard.html`，Docker 镜像包含预构建的 React 前端
+> 💡 **看板即开即用**：`edict/backend` 提供 API，`edict/frontend` 提供前端 SPA。Docker 镜像包含预构建的 React 前端。
 
 > 💡 详细教程请看 [Getting Started 指南](docs/getting-started.md)
 
@@ -469,24 +495,35 @@ YYC3-Dynasty-Framework/
 │   ├── gongbu/SOUL.md          # 工部 · 基础设施
 │   ├── libu_hr/                # 吏部 · 人事管理
 │   └── zaochao/SOUL.md         # 早朝官 · 情报枢纽
-├── dashboard/
-│   ├── dashboard.html          # 军机处看板（单文件 · 零依赖 · ~2500 行）
-│   ├── dist/                   # React 前端构建产物（Docker 镜像内包含，本地可选）
-│   ├── auth.py                 # Dashboard 登录鉴权
-│   ├── court_discuss.py        # 朝堂议政（多官员 LLM 讨论引擎）
-│   └── server.py               # API 服务器（Python 标准库 · 零依赖 · ~2300 行）
-├── edict/backend/              # 异步后端服务（SQLAlchemy + Redis）
-│   ├── app/models/
-│   │   ├── task.py             # 任务模型 + 状态机
-│   │   ├── audit.py            # 审计日志模型
-│   │   └── outbox.py           # Outbox 消息模型
-│   ├── app/services/
-│   │   ├── event_bus.py        # Redis Streams EventBus
-│   │   └── task_service.py     # 任务服务层
-│   └── app/workers/
-│       ├── dispatch_worker.py  # 并行调度 + 重试 + 资源锁
-│       ├── orchestrator_worker.py  # DAG 编排器
-│       └── outbox_relay.py     # 事务性 Outbox Relay
+├── edict/backend/              # 异步后端服务（FastAPI + SQLAlchemy + Redis）
+│   ├── app/
+│   │   ├── api/                # API 路由（tasks/agents/events/admin/websocket）
+│   │   ├── channels/           # 9 种通知渠道（飞书/企微/Telegram/Discord等）
+│   │   ├── models/             # ORM 模型（task/audit/outbox/thought/todo）
+│   │   ├── services/           # 业务服务层（TaskService / EventBus）
+│   │   └── workers/            # 后台 Worker（dispatch/orchestrator/outbox）
+│   └── app/main.py             # FastAPI 入口
+├── edict/frontend/             # React + TypeScript 前端（Vite）
+│   ├── src/
+│   │   ├── components/         # 18 个 React 组件
+│   │   │   ├── App.tsx         # 主应用入口
+│   │   │   ├── store.ts        # Zustand 状态管理
+│   │   │   ├── api.ts          # HTTP/WebSocket API 通信层
+│   │   │   ├── i18n.ts         # 国际化引擎（8 语言）
+│   │   │   ├── useWebSocket.ts # WebSocket 实时推送
+│   │   │   └── index.css       # 统一样式系统（3864 行）
+│   │   └── components/
+│   │       ├── DashboardLayout.tsx  # 可拖拽面板布局
+│   │       ├── GlobalSearch.tsx     # Ctrl+K 全局搜索
+│   │       ├── MarkdownRenderer.tsx # Markdown 渲染
+│   │       ├── LanguageSwitcher.tsx # 语言切换器
+│   │       ├── EdictBoard.tsx       # 旨意看板
+│   │       ├── TaskModal.tsx        # 任务详情弹窗
+│   │       ├── CourtDiscussion.tsx  # 朝堂议政
+│   │       ├── MonitorPanel.tsx     # 省部调度
+│   │       ├── OfficialPanel.tsx    # 官员总览 + 功绩排行
+│   │       └── ...                  # 其余 8 个面板
+│   └── dist/                   # 构建产物
 ├── agents/
 │   ├── <agent_id>/SOUL.md      # 各省部 Agent 人格模板
 │   ├── GLOBAL.md               # 全局 Agent 配置

@@ -5,26 +5,30 @@
  * 无外部依赖，零构建负担
  */
 
+import { useState, useEffect } from 'react';
+
 const STORAGE_KEY = 'dynasty_locale';
 
-// ── 支持语言 ──
-export const LOCALES = ['zh-CN', 'en', 'ja', 'ko', 'fr', 'de', 'es', 'ar'] as const;
+// ── 支持语言（10 种）──
+export const LOCALES = ['zh-CN', 'en', 'ja', 'ko', 'fr', 'de', 'es', 'pt-BR', 'ru', 'ar'] as const;
 export type Locale = (typeof LOCALES)[number];
 
-const LANG_META: Record<Locale, { label: string; native: string; flag: string }> = {
-  'zh-CN': { label: '中文', native: '简体中文', flag: '🇨🇳' },
-  en: { label: 'English', native: 'English', flag: '🇺🇸' },
-  ja: { label: '日本語', native: '日本語', flag: '🇯🇵' },
-  ko: { label: '한국어', native: '한국어', flag: '🇰🇷' },
-  fr: { label: 'Français', native: 'Français', flag: '🇫🇷' },
-  de: { label: 'Deutsch', native: 'Deutsch', flag: '🇩🇪' },
-  es: { label: 'Español', native: 'Español', flag: '🇪🇸' },
-  ar: { label: 'العربية', native: 'العربية', flag: '🇸🇦' },
+interface LangInfo { label: string; native: string; flag: string }
+const LANG_META: Record<Locale, LangInfo> = {
+  'zh-CN': { label: '中文',    native: '简体中文',  flag: '🇨🇳' },
+  en:      { label: 'English', native: 'English',   flag: '🇺🇸' },
+  ja:      { label: '日本語',  native: '日本語',    flag: '🇯🇵' },
+  ko:      { label: '한국어',  native: '한국어',    flag: '🇰🇷' },
+  fr:      { label: 'Français',native: 'Français',  flag: '🇫🇷' },
+  de:      { label: 'Deutsch', native: 'Deutsch',   flag: '🇩🇪' },
+  es:      { label: 'Español', native: 'Español',   flag: '🇪🇸' },
+  'pt-BR': { label: 'Português',native: 'Português (BR)', flag: '🇧🇷' },
+  ru:      { label: 'Русский', native: 'Русский',   flag: '🇷🇺' },
+  ar:      { label: 'العربية', native: 'العربية',  flag: '🇸🇦' },
 };
 
 // ── 翻译表 ──
-type TranslationValue = string | Record<string, unknown>;
-type TranslationMap = Record<string, TranslationValue>;
+type TranslationMap = Record<string, string>;
 
 const zhCN: TranslationMap = {
   'dynasty.title': '三省六部 · 总控台',
@@ -113,47 +117,41 @@ const en: TranslationMap = {
 const TRANSLATIONS: Record<Locale, TranslationMap> = {
   'zh-CN': zhCN,
   en,
-  ja: en, // fallback to English for now
-  ko: en,
-  fr: en,
-  de: en,
-  es: en,
-  ar: en,
+  ja: en, ko: en, fr: en, de: en, es: en, 'pt-BR': en, ru: en, ar: en,
 };
 
-// ── i18n 引擎 ──
-function detectLocale(): Locale {
+// ── i18n 引擎（纯函数层）──
+let _locale: Locale = detectInitialLocale();
+const _subscribers = new Set<(locale: Locale) => void>();
+
+function detectInitialLocale(): Locale {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && LOCALES.includes(stored as Locale)) return stored as Locale;
+    if (stored && (LOCALES as readonly string[]).includes(stored)) return stored as Locale;
   } catch { /* */ }
-  const nav = navigator.language?.toLowerCase() || '';
+  const nav = (navigator.language || '').toLowerCase();
   if (nav.startsWith('zh')) return 'zh-CN';
   if (nav.startsWith('ja')) return 'ja';
   if (nav.startsWith('ko')) return 'ko';
   if (nav.startsWith('fr')) return 'fr';
   if (nav.startsWith('de')) return 'de';
   if (nav.startsWith('es')) return 'es';
+  if (nav.startsWith('pt')) return 'pt-BR';
+  if (nav.startsWith('ru')) return 'ru';
   if (nav.startsWith('ar')) return 'ar';
   return 'zh-CN';
 }
-
-let _locale: Locale = detectLocale();
-const _subscribers = new Set<(locale: Locale) => void>();
 
 function persistLocale(locale: Locale) {
   try { localStorage.setItem(STORAGE_KEY, locale); } catch { /* */ }
 }
 
-/** 获取翻译 */
+/** 获取翻译文本 */
 export function t(key: string, params?: Record<string, string | number>): string {
   const map = TRANSLATIONS[_locale] || zhCN;
-  let val = map[key] as string | undefined;
-  if (!val) {
-    // fallback to zh-CN
-    val = zhCN[key] as string | undefined;
-    if (!val) return key; // key not found, return as-is
-  }
+  let val = map[key];
+  if (!val) val = zhCN[key];
+  if (!val) return key;
   if (params) {
     for (const [k, v] of Object.entries(params)) {
       val = val.replace(`{${k}}`, String(v));
@@ -163,11 +161,9 @@ export function t(key: string, params?: Record<string, string | number>): string
 }
 
 /** 获取当前语言 */
-export function getLocale(): Locale {
-  return _locale;
-}
+export function getLocale(): Locale { return _locale; }
 
-/** 设置语言 */
+/** 切换语言 — 通知所有订阅者 */
 export function setLocale(locale: Locale) {
   if (_locale === locale) return;
   _locale = locale;
@@ -178,22 +174,31 @@ export function setLocale(locale: Locale) {
 /** 订阅语言变化 */
 export function onLocaleChange(fn: (locale: Locale) => void) {
   _subscribers.add(fn);
-  return () => _subscribers.delete(fn);
+  return () => { _subscribers.delete(fn); };
 }
 
-/** 获取可用语言列表 */
+/** 获取可用语言列表（含元信息） */
 export function getAvailableLocales() {
-  return LOCALES.map((loc) => ({ ...LANG_META[loc], id: loc }));
+  return LOCALES.map((id) => ({ id, ...LANG_META[id] }));
 }
 
-/** React Hook */
+// ── React Hook（响应式）──
 export function useLocale() {
+  const [locale, setLocaleState] = useState<Locale>(_locale);
+
+  useEffect(() => {
+    const unsub = onLocaleChange((newLocale) => {
+      setLocaleState(newLocale);
+    });
+    return unsub;
+  }, []);
+
   return {
-    locale: getLocale(),
+    locale,
     setLocale,
     t,
     available: getAvailableLocales(),
-    localeMeta: LANG_META[getLocale()],
+    localeMeta: LANG_META[locale],
   };
 }
 

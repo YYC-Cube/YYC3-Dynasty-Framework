@@ -1,3 +1,18 @@
+---
+file: agents/groups/liubu.md
+description: 六部组级指令 — 户部/礼部/兵部/刑部/工部/吏部共用执行规则
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [agent],[liubu],[execution]
+category: technical
+language: zh-CN
+audience: developers
+complexity: intermediate
+---
+
 # 六部组级指令 — 户部、礼部、兵部、刑部、工部、吏部共用
 
 > 本文件包含六部（执行角色）共用的任务执行规则。

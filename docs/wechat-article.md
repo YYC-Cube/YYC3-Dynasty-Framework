@@ -1,4 +1,27 @@
-# 我用三省六部制重新设计了 AI 多 Agent 协作架构
+---
+file: wechat-article.md
+description: YYC³ Dynasty 微信公众号推广文章 — 项目介绍与核心卖点
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: stable
+tags: [article],[promotion],[wechat]
+category: general
+language: zh-CN
+audience: users,stakeholders
+complexity: basic
+---
+
+# YYC³ Dynasty · AI Agent · 协作架构
+
+> ***YanYuCloudCube***
+> *言启象限 | 语枢未来*
+> ***Words Initiate Quadrants, Language Serves as Core for Future***
+> *万象归元于云枢 | 深栈智启新纪元*
+> ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
+
+---
 
 > 1300 年前的制度设计，比现代 AI 框架更懂分权。
 
@@ -73,9 +96,9 @@ CrewAI 的模式是：几个 Agent 各自干活，做完就交。AutoGen 好一�
 
 我用 OpenClaw 搭了一个真正的三省六部系统。9 个 AI Agent 各司其职，严格按照权限矩阵通信。
 
-项目叫 **Edict（三省六部）**，已开源：
+项目叫 **Dynasty Framework（三省六部）**，已开源：
 
-**GitHub：https://github.com/cft0808/edict**
+**GitHub：<https://github.com/YYC-Cube/Dynasty> Framework**
 
 核心架构很简单：
 
@@ -181,12 +204,13 @@ CrewAI 的模式是：几个 Agent 各自干活，做完就交。AutoGen 好一�
 ### 中书省规划（45 秒）
 
 中书省接旨后，拆成了 4 个子任务：
+
 1. 兵部 → 架构与通信机制调研
 2. 户部 → 数据采集与量化对比（GitHub Stars、Contributors 等）
 3. 兵部 → 开发者体验深度评测
 4. 礼部 → 汇总写对比报告
 
-### 门下省审议（32 秒）—— 封驳了！
+### 门下省审议（32 秒）—— 封驳了
 
 **门下省第一轮直接打回：**
 
@@ -241,13 +265,13 @@ CrewAI 的模式是：几个 Agent 各自干活，做完就交。AutoGen 好一�
 
 项目已经开源，MIT 协议。
 
-**GitHub：https://github.com/cft0808/edict**
+**GitHub：<https://github.com/YYC-Cube/Dynasty> Framework**
 
 最快的体验方式：
 
 ```bash
 # Docker 一行启动
-docker run -p 7891:7891 cft0808/edict
+docker run -p 7891:7891 YYC-Cube/Dynasty Framework
 
 # 打开浏览器
 open http://localhost:7891
@@ -256,8 +280,8 @@ open http://localhost:7891
 如果你装了 OpenClaw，可以完整安装：
 
 ```bash
-git clone https://github.com/cft0808/edict.git
-cd edict
+git clone https://github.com/YYC-Cube/Dynasty Framework.git
+cd Dynasty Framework
 chmod +x install.sh && ./install.sh
 ```
 
@@ -297,6 +321,14 @@ CrewAI 解决了"多个 Agent 一起干活"的问题。AutoGen 解决了"Agent �
 
 ---
 
-**GitHub：https://github.com/cft0808/edict**
+**感恩您的信任与支持！携手与智同行 ❤️**
 
-开源 · MIT · 欢迎 Star ⚔️
+<div align="center">
+
+> 「***YanYuCloudCube***」
+> 「***<admin@0379.email>***」
+> 「***Words Initiate Quadrants, Language Serves as Core for the Future***」
+> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
+
+**© 2025-2026 YYC³ Team. All Rights Reserved.**
+</div>

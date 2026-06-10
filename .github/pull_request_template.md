@@ -1,3 +1,16 @@
+---
+file: .github/pull_request_template.md
+description: YYC³ Dynasty Pull Request 模板 — 变更描述、检查清单与关联 Issue
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [template],[pull-request]
+category: general
+language: zh-CN
+---
+
 ## 变更描述
 <!-- 简要描述此 PR 的目的和变更内容 -->
 

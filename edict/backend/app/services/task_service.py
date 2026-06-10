@@ -268,17 +268,9 @@ class TaskService:
     async def get_live_status(self) -> dict[str, Any]:
         """生成兼容旧 live_status.json 格式的全局状态。"""
         tasks = await self.list_tasks(limit=200)
-        active_tasks = {}
-        completed_tasks = {}
-        for t in tasks:
-            d = t.to_dict()
-            if t.state in TERMINAL_STATES:
-                completed_tasks[str(t.task_id)] = d
-            else:
-                active_tasks[str(t.task_id)] = d
+        all_tasks = [t.to_dict() for t in tasks]
         return {
-            "tasks": active_tasks,
-            "completed_tasks": completed_tasks,
+            "tasks": all_tasks,
             "last_updated": datetime.now(timezone.utc).isoformat(),
         }
 

@@ -64,6 +64,41 @@ export default function OfficialPanel() {
         </div>
       </div>
 
+      {/* Merit Bar — 官员功绩横向对比图 */}
+      {offs.length > 1 && (
+        <div className="off-merit-bar" style={{ marginBottom: 16, background: 'var(--panel)', border: '1px solid var(--line)', borderRadius: 12, padding: '14px 18px' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--muted)', letterSpacing: '.06em', marginBottom: 10, textTransform: 'uppercase' }}>
+            🏆 功绩横向对比
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {[...offs]
+              .sort((a, b) => b.merit_score - a.merit_score)
+              .slice(0, 8)
+              .map((o, i) => {
+                const maxScore = Math.max(...offs.map((x) => x.merit_score), 1);
+                const pct = Math.round((o.merit_score / maxScore) * 100);
+                const gradColor = i === 0 ? 'linear-gradient(90deg, #f5c842, #e8a040)' :
+                  i === 1 ? 'linear-gradient(90deg, #c0c0c0, #a0a0a0)' :
+                    i === 2 ? 'linear-gradient(90deg, #cd7f32, #b8860b)' :
+                      'linear-gradient(90deg, var(--acc), var(--acc2))';
+                return (
+                  <div key={o.id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ minWidth: 20, textAlign: 'center', fontSize: 12, fontWeight: 700, color: i < 3 ? undefined : 'var(--muted)' }}>
+                      {i < 3 ? ['🥇', '🥈', '🥉'][i] : `#${i + 1}`}
+                    </span>
+                    <span style={{ fontSize: 16 }}>{o.emoji}</span>
+                    <span style={{ minWidth: 60, fontSize: 11, fontWeight: 600, color: 'var(--text)' }}>{o.role}</span>
+                    <div style={{ flex: 1, height: 16, background: 'var(--panel2)', borderRadius: 8, overflow: 'hidden', position: 'relative' }}>
+                      <div style={{ width: `${pct}%`, height: '100%', background: gradColor, borderRadius: 8, transition: 'width 0.6s ease' }} />
+                    </div>
+                    <span style={{ minWidth: 40, textAlign: 'right', fontSize: 11, fontWeight: 700, color: 'var(--acc)' }}>{o.merit_score}</span>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
       {/* Layout: Ranklist + Detail */}
       <div className="off-layout">
         {/* Left: Ranklist */}

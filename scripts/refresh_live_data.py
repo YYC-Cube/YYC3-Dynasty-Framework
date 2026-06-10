@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
-import json, pathlib, datetime, logging
+"""
+file: refresh_live_data.py
+description: 实时数据刷新工具 · 重算全局统计并写入看板数据
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: active
+tags: [data],[refresh],[dashboard]
+
+dependencies: file_lock, utils
+"""
 from file_lock import atomic_json_write, atomic_json_read
 from utils import read_json
 

@@ -1,3 +1,16 @@
+---
+file: competitive-analysis.md
+description: 竞品分析案例 — CrewAI vs AutoGen vs LangGraph 多Agent框架对比
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: stable
+tags: [example],[competitive-analysis],[multi-agent]
+category: general
+language: zh-CN
+---
+
 # 案例 1：竞品分析
 
 > **旨意**：分析 CrewAI、AutoGen、LangGraph 三个多 Agent 框架，输出对比报告

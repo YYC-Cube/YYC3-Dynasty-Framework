@@ -1,6 +1,26 @@
-import { useState } from 'react';
-import { useStore, isEdict, STATE_LABEL } from '../store';
-import type { Task, FlowEntry } from '../api';
+import { useEffect, useState } from 'react';
+import type { FlowEntry, Task } from '../api';
+import { STATE_LABEL, isEdict, useStore } from '../store';
+
+function buildMemorialMd(t: Task): string {
+  const fl = t.flow_log || [];
+  let md = `# 📜 奏折 · ${t.title}\n\n`;
+  md += `- **任务编号**: ${t.id}\n`;
+  md += `- **状态**: ${t.state}\n`;
+  md += `- **负责部门**: ${t.org}\n`;
+  if (fl.length) {
+    const startAt = fl[0].at ? fl[0].at.substring(0, 19).replace('T', ' ') : '未知';
+    const endAt = fl[fl.length - 1].at ? fl[fl.length - 1].at.substring(0, 19).replace('T', ' ') : '未知';
+    md += `- **开始时间**: ${startAt}\n`;
+    md += `- **完成时间**: ${endAt}\n`;
+  }
+  md += `\n## 流转记录\n\n`;
+  for (const f of fl) {
+    md += `- **${f.from}** → **${f.to}**  \n  ${f.remark}  \n  _${(f.at || '').substring(0, 19)}_\n\n`;
+  }
+  if (t.output && t.output !== '-') md += `## 产出物\n\n\`${t.output}\`\n`;
+  return md;
+}
 
 export default function MemorialPanel() {
   const liveStatus = useStore((s) => s.liveStatus);
@@ -13,27 +33,26 @@ export default function MemorialPanel() {
   if (filter !== 'all') mems = mems.filter((t) => t.state === filter);
 
   const exportMemorial = (t: Task) => {
-    const fl = t.flow_log || [];
-    let md = `# 📜 奏折 · ${t.title}\n\n`;
-    md += `- **任务编号**: ${t.id}\n`;
-    md += `- **状态**: ${t.state}\n`;
-    md += `- **负责部门**: ${t.org}\n`;
-    if (fl.length) {
-      const startAt = fl[0].at ? fl[0].at.substring(0, 19).replace('T', ' ') : '未知';
-      const endAt = fl[fl.length - 1].at ? fl[fl.length - 1].at.substring(0, 19).replace('T', ' ') : '未知';
-      md += `- **开始时间**: ${startAt}\n`;
-      md += `- **完成时间**: ${endAt}\n`;
-    }
-    md += `\n## 流转记录\n\n`;
-    for (const f of fl) {
-      md += `- **${f.from}** → **${f.to}**  \n  ${f.remark}  \n  _${(f.at || '').substring(0, 19)}_\n\n`;
-    }
-    if (t.output && t.output !== '-') md += `## 产出物\n\n\`${t.output}\`\n`;
+    const md = buildMemorialMd(t);
     navigator.clipboard.writeText(md).then(
       () => toast('✅ 奏折已复制为 Markdown', 'ok'),
       () => toast('复制失败', 'err')
     );
   };
+
+  const downloadMemorial = (t: Task) => {
+    const md = buildMemorialMd(t);
+    const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${t.id || 'memorial'}-${(t.title || 'untitled').replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_')}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('📥 奏折已下载为 Markdown 文件', 'ok');
+  };
+
+
 
   return (
     <div>
@@ -109,6 +128,13 @@ function MemorialDetailModal({
   onClose: () => void;
   onExport: (t: Task) => void;
 }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
   const fl = t.flow_log || [];
   const st = t.state || 'Unknown';
   const stIcon = st === 'Done' ? '✅' : st === 'Cancelled' ? '🚫' : '🔄';
@@ -191,8 +217,21 @@ function MemorialDetailModal({
           )}
 
           <div style={{ display: 'flex', gap: 8, marginTop: 16, justifyContent: 'flex-end' }}>
-            <button className="btn btn-g" onClick={() => onExport(t)} style={{ fontSize: 12, padding: '6px 16px' }}>
+            <button className="btn btn-secondary btn-sm" onClick={() => onExport(t)}>
               📋 复制奏折
+            </button>
+            <button className="btn btn-primary btn-sm" onClick={() => {
+              const md = buildMemorialMd(t);
+              const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `${t.id || 'memorial'}.md`;
+              a.click();
+              URL.revokeObjectURL(url);
+              useStore.getState().toast('📥 奏折已下载', 'ok');
+            }}>
+              📥 下载 Markdown
             </button>
           </div>
         </div>

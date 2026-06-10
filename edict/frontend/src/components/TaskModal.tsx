@@ -1,14 +1,13 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { useStore, getPipeStatus, deptColor, stateLabel, STATE_LABEL } from '../store';
-import { api } from '../api';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
-  Task,
-  TaskActivityData,
-  SchedulerStateData,
   ActivityEntry,
-  TodoItem,
-  PhaseDuration,
+  SchedulerStateData,
+  TaskActivityData,
+  TodoItem
 } from '../api';
+import { api } from '../api';
+import { deptColor, getPipeStatus, stateLabel, useStore } from '../store';
+import MarkdownRenderer from './MarkdownRenderer';
 
 const AGENT_LABELS: Record<string, string> = {
   main: '太子',
@@ -268,21 +267,21 @@ export default function TaskModal() {
           <div className="task-actions">
             {canStop && (
               <>
-                <button className="btn-action btn-stop" onClick={handleStop}>⏸ 叫停任务</button>
-                <button className="btn-action btn-cancel" onClick={handleCancel}>🚫 取消任务</button>
+                <button className="btn btn-danger btn-sm" onClick={handleStop}>⏸ 叫停任务</button>
+                <button className="btn btn-secondary btn-sm" onClick={handleCancel}>🚫 取消任务</button>
               </>
             )}
             {canResume && (
-              <button className="btn-action btn-resume" onClick={() => doTaskAction('resume', '恢复执行')}>▶️ 恢复执行</button>
+              <button className="btn btn-success btn-sm" onClick={() => doTaskAction('resume', '恢复执行')}>▶️ 恢复执行</button>
             )}
             {['Review', 'Menxia'].includes(task.state) && (
               <>
-                <button className="btn-action" style={{ background: '#2ecc8a22', color: '#2ecc8a', border: '1px solid #2ecc8a44' }} onClick={() => doReview('approve')}>✅ 准奏</button>
-                <button className="btn-action" style={{ background: '#ff527022', color: '#ff5270', border: '1px solid #ff527044' }} onClick={() => doReview('reject')}>🚫 封驳</button>
+                <button className="btn btn-success btn-sm" onClick={() => doReview('approve')}>✅ 准奏</button>
+                <button className="btn btn-danger btn-sm" onClick={() => doReview('reject')}>🚫 封驳</button>
               </>
             )}
             {['Pending', 'Taizi', 'Zhongshu', 'Menxia', 'Assigned', 'Doing', 'Review', 'Next'].includes(task.state) && (
-              <button className="btn-action" style={{ background: '#7c5cfc18', color: '#7c5cfc', border: '1px solid #7c5cfc44' }} onClick={doAdvance}>⏩ 推进到下一步</button>
+              <button className="btn btn-primary btn-sm" onClick={doAdvance}>⏩ 推进到下一步</button>
             )}
           </div>
 
@@ -344,7 +343,7 @@ export default function TaskModal() {
               {task.now && task.now !== '-' && (
                 <div className="m-row" style={{ gridColumn: '1/-1' }}>
                   <div className="mr-label">当前进展</div>
-                  <div className="mr-val" style={{ fontWeight: 400, fontSize: 12 }}>{task.now}</div>
+                  <div className="mr-val" style={{ fontWeight: 400, fontSize: 12 }}><MarkdownRenderer content={task.now} compact /></div>
                 </div>
               )}
               {task.ac && (
@@ -386,7 +385,7 @@ export default function TaskModal() {
           {task.output && task.output !== '-' && task.output !== '' && (
             <div className="m-section">
               <div className="m-sec-label">产出物</div>
-              <code>{task.output}</code>
+              <MarkdownRenderer content={task.output} compact />
             </div>
           )}
 

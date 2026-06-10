@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
 """
-同步 openclaw.json 中的 agent 配置 → data/agent_config.json
-支持自动发现 agent workspace 下的 Skills 目录
+file: sync_agent_config.py
+description: Agent 配置同步工具 · openclaw.json → data/agent_config.json
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: active
+tags: [sync],[agent],[config]
+
+brief: 同步 openclaw.json 中的 agent 配置，支持自动发现 Skills 目录
+
+dependencies: file_lock, utils
+exports: sync_scripts_to_workspaces
 """
 import json, os, pathlib, datetime, logging
 from file_lock import atomic_json_write

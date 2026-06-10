@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
 """
-三省六部 · 公共工具函数
-避免 read_json / now_iso 等基础函数在多个脚本中重复定义
+file: utils.py
+description: 公共工具函数 · 避免基础函数在多个脚本中重复定义
+author: YanYuCloudCube Team
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: active
+tags: [util],[helper],[shared]
+
+brief: 三省六部项目公共工具函数库
+
+dependencies: os, json, pathlib, datetime
+exports: read_json, get_openclaw_home, now_iso
 """
 import os
 import json, pathlib, datetime

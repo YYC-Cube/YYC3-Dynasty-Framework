@@ -1,3 +1,16 @@
+---
+file: code-review.md
+description: 代码安全审查案例 — FastAPI代码安全审计与修复建议
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-03-01
+updated: 2026-06-08
+status: stable
+tags: [example],[code-review],[security]
+category: general
+language: zh-CN
+---
+
 # 案例 2：代码安全审查
 
 > **旨意**：审查一段 FastAPI 代码的安全性，输出问题清单和修复建议

@@ -1,8 +1,19 @@
 #!/bin/bash
-# 三省六部 · 数据刷新循环
-# 用法: ./run_loop.sh [间隔秒数 [巡检间隔秒数]]
-#   间隔秒数：数据刷新频率，默认 15 秒
-#   巡检间隔秒数：自动重试卡住任务的频率，默认 120 秒
+# ══════════════════════════════════════════════════════════════
+# file: run_loop.sh
+# description: YYC³ Dynasty 数据刷新循环 · 定时刷新看板数据与巡检任务
+# author: YanYuCloudCube Team
+# version: v1.0.0
+# created: 2026-02-26
+# updated: 2026-06-08
+# status: active
+# tags: [script],[loop],[refresh]
+#
+# brief: 持续刷新看板数据，支持自定义刷新间隔和巡检间隔
+#
+# dependencies: python3, bash
+# notes: 用法 ./run_loop.sh [间隔秒数 [巡检间隔秒数]]
+# ══════════════════════════════════════════════════════════════
 
 set -euo pipefail
 

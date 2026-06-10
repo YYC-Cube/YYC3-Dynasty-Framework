@@ -1,7 +1,18 @@
 #!/bin/bash
 # ══════════════════════════════════════════════════════════════
-# 三省六部 · 统一服务管理脚本
-# 用法: ./edict.sh {start|stop|status|restart|logs}
+# file: edict.sh
+# description: YYC³ Dynasty 统一服务管理脚本 · start/stop/status/restart/logs
+# author: YanYuCloudCube Team
+# version: v1.0.0
+# created: 2026-02-26
+# updated: 2026-06-08
+# status: active
+# tags: [script],[service],[management]
+#
+# brief: 统一管理看板服务器、数据刷新、定时任务的启停
+#
+# dependencies: python3, bash
+# notes: 用法 ./edict.sh {start|stop|status|restart|logs}
 # ══════════════════════════════════════════════════════════════
 
 set -euo pipefail

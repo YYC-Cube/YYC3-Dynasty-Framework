@@ -1,3 +1,18 @@
+---
+file: agents/GLOBAL.md
+description: 全局指令 — 所有 Agent 共享的通用规则与约束
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [agent],[global],[rules]
+category: technical
+language: zh-CN
+audience: developers
+complexity: intermediate
+---
+
 # 全局指令 — 所有 Agent 共享
 
 > 本文件包含所有 Agent 必须遵守的通用规则。各 Agent 的 SOUL.md 可覆盖此处设定。

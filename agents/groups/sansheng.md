@@ -1,3 +1,18 @@
+---
+file: agents/groups/sansheng.md
+description: 三省组级指令 — 太子/中书省/门下省/尚书省共用审核流程规则
+author: YanYuCloudCube Team <admin@0379.email>
+version: v1.0.0
+created: 2026-02-26
+updated: 2026-06-08
+status: stable
+tags: [agent],[sansheng],[review]
+category: technical
+language: zh-CN
+audience: developers
+complexity: intermediate
+---
+
 # 三省组级指令 — 太子、中书省、门下省、尚书省共用
 
 > 本文件包含三省（协调角色）共用的审核流程规则。

@@ -1,4 +1,12 @@
-# 远程 Skills 资源管理指南
+# Dynasty Framework · 远程 Skills 资源管理指南
+
+> ***YanYuCloudCube***
+> *言启象限 | 语枢未来*
+> ***Words Initiate Quadrants, Language Serves as Core for Future***
+> *万象归元于云枢 | 深栈智启新纪元*
+> ***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***
+
+---
 
 ## 概述
 
@@ -20,6 +28,7 @@
 从远程 URL 或本地路径为指定 Agent 添加 skill。
 
 **请求体：**
+
 ```json
 {
   "agentId": "zhongshu",
@@ -30,6 +39,7 @@
 ```
 
 **参数说明：**
+
 - `agentId` (string, 必需): 目标 Agent ID (验证有效性)
 - `skillName` (string, 必需): skill 的内部名称 (仅允许字母/数字/下划线/汉字)
 - `sourceUrl` (string, 必需): 远程 URL 或本地文件路径
@@ -39,6 +49,7 @@
 - `description` (string, 可选): skill 的中文描述
 
 **响应成功 (200)：**
+
 ```json
 {
   "ok": true,
@@ -53,6 +64,7 @@
 ```
 
 **响应失败 (400)：**
+
 ```json
 {
   "ok": false,
@@ -66,6 +78,7 @@
 列出所有已添加的远程 skills 及其源信息。
 
 **响应：**
+
 ```json
 {
   "ok": true,
@@ -89,6 +102,7 @@
 更新已添加的远程 skill 为最新版本。
 
 **请求体：**
+
 ```json
 {
   "agentId": "zhongshu",
@@ -97,6 +111,7 @@
 ```
 
 **响应：**
+
 ```json
 {
   "ok": true,
@@ -112,6 +127,7 @@
 移除已添加的远程 skill。
 
 **请求体：**
+
 ```json
 {
   "agentId": "zhongshu",
@@ -161,18 +177,18 @@ python3 scripts/skill_manager.py remove-remote \
 
 ### OpenClaw Skills Hub
 
-> **官方 skills 库地址**: https://github.com/openclaw-ai/skills-hub
+> **官方 skills 库地址**: <https://github.com/openclaw-ai/skills-hub>
 
 可用 skills 列表：
 
 | Skill 名称 | 描述 | 适用 Agent | 源 URL |
 |-----------|------|----------|--------|
-| `code_review` | 代码审查（支持 Python/JS/Go） | 兵部/刑部 | https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/code_review/SKILL.md |
-| `api_design` | API 设计审查 | 兵部/工部 | https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/api_design/SKILL.md |
-| `security_audit` | 安全审计 | 刑部 | https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/security_audit/SKILL.md |
-| `data_analysis` | 数据分析 | 户部 | https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/data_analysis/SKILL.md |
-| `doc_generation` | 文档生成 | 礼部 | https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/doc_generation/SKILL.md |
-| `test_framework` | 测试框架设计 | 工部/刑部 | https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/test_framework/SKILL.md |
+| `code_review` | 代码审查（支持 Python/JS/Go） | 兵部/刑部 | <https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/code_review/SKILL.md> |
+| `api_design` | API 设计审查 | 兵部/工部 | <https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/api_design/SKILL.md> |
+| `security_audit` | 安全审计 | 刑部 | <https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/security_audit/SKILL.md> |
+| `data_analysis` | 数据分析 | 户部 | <https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/data_analysis/SKILL.md> |
+| `doc_generation` | 文档生成 | 礼部 | <https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/doc_generation/SKILL.md> |
+| `test_framework` | 测试框架设计 | 工部/刑部 | <https://raw.githubusercontent.com/openclaw-ai/skills-hub/main/test_framework/SKILL.md> |
 
 **一键导入官方 skills**
 
@@ -301,6 +317,7 @@ compatibleAgents: [bingbu, xingbu, menxia]
 - 需要 Python 3.9+
 - 支持文件大小: 最多 50KB
 - 执行超时: 30 秒
+
 ```
 
 ---
@@ -310,6 +327,7 @@ compatibleAgents: [bingbu, xingbu, menxia]
 ### 本地存储结构
 
 ```
+
 ~/.openclaw/
 ├── workspace-zhongshu/
 │   └── skills/
@@ -320,6 +338,7 @@ compatibleAgents: [bingbu, xingbu, menxia]
 │           ├── SKILL.md
 │           └── .source.json
 ├── ...
+
 ```
 
 ### .source.json 格式
@@ -345,11 +364,13 @@ compatibleAgents: [bingbu, xingbu, menxia]
 ### URL 验证
 
 ✅ **允许的 URL 类型:**
+
 - HTTPS URLs: `https://`
 - 本地文件: `file://` 或绝对路径
 - 相对路径: `./skills/`
 
 ❌ **禁止的 URL 类型:**
+
 - HTTP (非 HTTPS): `http://` 被拒绝
 - 本地模式 HTTP: `http://localhost/` (避免环回攻击)
 - FTP/SSH: `ftp://`, `ssh://`
@@ -377,6 +398,7 @@ compatibleAgents: [bingbu, xingbu, menxia]
 **Q: 下载失败，提示 "Connection timeout"**
 
 A: 检查网络连接和 URL 有效性：
+
 ```bash
 curl -I https://raw.githubusercontent.com/...
 ```
@@ -384,6 +406,7 @@ curl -I https://raw.githubusercontent.com/...
 **Q: Skill 显示 "invalid" 状态**
 
 A: 检查文件格式：
+
 ```bash
 python3 -m json.tool ~/.openclaw/workspace-zhongshu/skills/xxx/SKILL.md
 ```
@@ -391,6 +414,7 @@ python3 -m json.tool ~/.openclaw/workspace-zhongshu/skills/xxx/SKILL.md
 **Q: 能否从私有 GitHub 仓库导入？**
 
 A: 不支持（安全考虑）。可以：
+
 1. 将仓库设为公开
 2. 在本地下载后直接添加
 3. 通过 GitHub Gist 的公开链接
@@ -415,6 +439,7 @@ cd my-skills-hub
 ### 1. 版本管理
 
 始终在 SKILL.md 的 frontmatter 中标注版本号：
+
 ```yaml
 ---
 version: 2.1.0
@@ -428,6 +453,7 @@ version: 2.1.0
 ### 3. 文档完整
 
 包含详细的:
+
 - 功能描述
 - 适用场景
 - 依赖说明
@@ -436,6 +462,7 @@ version: 2.1.0
 ### 4. 定期更新
 
 设置定期检查更新（周期可在看板中配置）：
+
 ```bash
 python3 scripts/skill_manager.py check-updates --interval weekly
 ```
@@ -452,6 +479,14 @@ python3 scripts/skill_manager.py check-updates --interval weekly
 
 ---
 
-<p align="center">
-  <sub>用 <strong>开放</strong> 的生态，赋能 <strong>制度化</strong> 的 AI 协作</sub>
-</p>
+**感恩您的信任与支持！携手与智同行 ❤️**
+
+<div align="center">
+
+> 「***YanYuCloudCube***」
+> 「***<admin@0379.email>***」
+> 「***Words Initiate Quadrants, Language Serves as Core for the Future***」
+> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
+
+**© 2025-2026 YYC³ Team. All Rights Reserved.**
+</div>

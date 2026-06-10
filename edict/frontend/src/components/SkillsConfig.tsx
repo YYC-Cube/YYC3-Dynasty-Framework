@@ -346,7 +346,7 @@ export default function SkillsConfig() {
 
       {/* 已添加的远程技能列表 */}
       {remoteLoading ? (
-        <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--muted)', fontSize: 13 }}>⟳ 加载中…</div>
+        <div className="loading" style={{ padding: '40px 0' }}>⟳ 加载中…</div>
       ) : remoteSkills.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '40px', background: 'var(--panel)', borderRadius: 12, border: '1px dashed var(--line)' }}>
           <div style={{ fontSize: 32, marginBottom: 10 }}>🌐</div>

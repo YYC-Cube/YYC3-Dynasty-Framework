@@ -55,7 +55,7 @@ jobs:
           cp ../../public/YYC3-Family-001.png ../../_site/ 2>/dev/null || true
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 

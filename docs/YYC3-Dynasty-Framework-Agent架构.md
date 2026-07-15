@@ -16,6 +16,7 @@ complexity: advanced
 # YYC³ Dynasty Agent 架构重设计文档
 
 ## 1. 设计目标
+
 - **可观测性**：Dashboard 能实时显示每个 agent 的思考流（thoughts）和 todo 变更。
 - **可重放 & 审计**：所有事件和状态变更持久化，可回溯。
 - **可控流程**：保留三省六部逻辑，事件驱动，支持人工干预。
@@ -23,6 +24,7 @@ complexity: advanced
 - **结构化任务与可插拔 skill**：todo 与思考结构化，便于 UI 渲染和再利用。
 
 ## 2. 总体组件
+
 1. **API Gateway / Control Plane**（REST + WebSocket）
 2. **Orchestrator（调度核心）**
 3. **Event Bus / Stream Layer**（Redis Streams / NATS / Kafka）
@@ -33,9 +35,11 @@ complexity: advanced
 8. **Observability / Tracing**（Prometheus + Grafana + OpenTelemetry）
 
 ## 3. 通信模式
+
 - **Event-Driven**: 所有 agent 间通信通过 Event Bus
 - **主题示例**: `task.created`, `task.planning`, `task.review.request`, `task.review.result`, `task.dispatch`, `agent.thoughts`, `agent.todo.update`, `task.status`, `heartbeat`
 - **事件结构**:
+
 ```json
 {
   "event_id": "uuid",
@@ -50,7 +54,9 @@ complexity: advanced
 ```
 
 ## 4. Thoughts 与 Todo JSON Schema
+
 **Thought**:
+
 ```json
 {
   "thought_id": "uuid",
@@ -66,7 +72,9 @@ complexity: advanced
   "timestamp": "2026-03-01T12:00:01Z"
 }
 ```
+
 **Todo**:
+
 ```json
 {
   "todo_id": "uuid",
@@ -87,6 +95,7 @@ complexity: advanced
 ```
 
 ## 5. 时序图（Mermaid）
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -135,14 +144,18 @@ sequenceDiagram
 ```
 
 ## 6. WebSocket 订阅与消息示例
+
 **订阅消息**:
+
 ```json
 {
   "type": "subscribe",
   "channels": ["task:task-123", "agent:planning-agent", "global"]
 }
 ```
+
 **Thought 追加（partial）**:
+
 ```json
 {
   "event": "agent.thought.append",
@@ -156,7 +169,9 @@ sequenceDiagram
   }
 }
 ```
+
 **Todo 更新**:
+
 ```json
 {
   "event": "agent.todo.update",
@@ -169,6 +184,7 @@ sequenceDiagram
 ```
 
 ## 7. 人工干预示例
+
 ```json
 {
   "type": "command",
@@ -176,7 +192,9 @@ sequenceDiagram
   "trace_id": "task-123"
 }
 ```
+
 发布事件：
+
 ```json
 {
   "event": "task.status",
@@ -185,10 +203,12 @@ sequenceDiagram
 ```
 
 ## 8. Replay / 回放
+
 - 请求：`GET /tasks/task-123/events`
 - 返回事件数组，可在 Dashboard 时间轴逐条回放
 
 ## 9. 技术栈建议
+
 | 层 | 技术 |
 |----|------|
 | Event Bus | Redis Streams |
@@ -200,4 +220,3 @@ sequenceDiagram
 
 ---
 **备注**：此文档为可直接下载参考的架构设计，包含事件规范、WebSocket 协议、时序图和 JSON Schema，可用于实现实时 agent 可观测系统。
-
